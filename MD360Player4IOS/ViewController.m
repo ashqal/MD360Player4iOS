@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "VIMVideoPlayerView.h"
 #import "VIMVideoPlayer.h"
+#import "GLUtil.h"
+#import "MDAbsObject3D.h"
 
 @interface ViewController()<VIMVideoPlayerViewDelegate>{
 }
@@ -36,16 +38,17 @@
     NSLog(@"url:%@",url);
     [self.videoPlayerView.player setURL:[NSURL fileURLWithPath:url]];
     [self.videoPlayerView.player play];
-    //[self.videoPlayerView.player setURL:@""];
+    
+    MDAbsObject3D* obj3d = [[MDSphere3D alloc]init];
+    [obj3d loadObj];
+    
+    NSLog(@"result:%@",obj3d);
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)videoPlayerView:(VIMVideoPlayerView *)videoPlayerView timeDidChange:(CMTime)cmTime{
-    NSLog(@"timeDidChange" );
 }
 
 @end
