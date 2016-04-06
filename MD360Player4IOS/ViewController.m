@@ -11,6 +11,7 @@
 #import "VIMVideoPlayer.h"
 #import "GLUtil.h"
 #import "MDAbsObject3D.h"
+#import "MD360Program.h"
 
 @interface ViewController()<VIMVideoPlayerViewDelegate>{
 }
@@ -42,7 +43,14 @@
     MDAbsObject3D* obj3d = [[MDSphere3D alloc]init];
     [obj3d loadObj];
     
-    NSLog(@"result:%@",obj3d);
+    EAGLContext *theContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    [EAGLContext setCurrentContext:theContext];
+    
+    MD360Program* program = [[MD360Program alloc]init];
+    [program build];
+    [program use];
+    
+    
     
 }
 

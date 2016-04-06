@@ -11,13 +11,9 @@
 
 @implementation GLUtil
 + (void)loadObject3DWithPath:(NSString*)path output:(MDAbsObject3D*)output{
-
-    NSError* error = nil;
+    NSString* objData = [GLUtil readRawText:path];
+    assert(objData != nil);
     
-    NSString *objData = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
-    if (error) {
-        NSLog(@"ERROR while loading from file: %@", error);
-    }
     NSArray *lines = [objData componentsSeparatedByString:@"\n"];
     NSMutableArray *vertexs = [[NSMutableArray alloc] init];
     NSMutableArray *textures = [[NSMutableArray alloc] init];
@@ -69,4 +65,51 @@
     free(textureBuffer);
     free(indexBuffer);
 }
+
++ (NSString*)readRawText:(NSString*)path{
+    NSError* error = nil;
+    
+    NSString *objData = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+    if (error) {
+        NSLog(@"ERROR while loading from file: %@", error);
+    }
+    return objData;
+}
+
++ (BOOL)compileShader:(GLuint *)shader type:(GLenum)type source:(NSString *)source{
+    GLint status;
+    const GLchar* data = (GLchar*)[source UTF8String];
+    
+    *shader = glCreateShader(type);
+    glShaderSource(*shader, 1, &data, NULL);
+    glCompileShader(*shader);
+    
+    glGetShaderiv(*shader, GL_COMPILE_STATUS, &status);
+    return status == GL_TRUE;
+}
+
++ (GLuint)createAndLinkProgramWith:(GLuint)vsHandle fsHandle:(GLuint)fsHandle attrs:(NSArray*)attrs {
+    GLuint programHandle = glCreateProgram();
+    if (programHandle != 0) {
+        glAttachShader(programHandle, vsHandle);
+        glAttachShader(programHandle, fsHandle);
+        if (attrs != nil) {
+            for (int i = 0; i < attrs.count; i++) {
+                glBindAttribLocation(programHandle, i, [[attrs objectAtIndex:i] UTF8String]);
+            }
+        }
+        GLint status;
+        glLinkProgram(programHandle);
+        glValidateProgram(programHandle);
+        glGetProgramiv(programHandle, GL_LINK_STATUS, &status);
+        if (status == GL_FALSE){
+            if (vsHandle) glDeleteShader(vsHandle);
+            if (fsHandle) glDeleteShader(fsHandle);
+            programHandle = 0;
+        }
+    }
+    assert(programHandle != 0);
+    return programHandle;
+}
+
 @end
