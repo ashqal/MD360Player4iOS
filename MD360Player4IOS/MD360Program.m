@@ -9,7 +9,6 @@
 #import "MD360Program.h"
 #import "GLUtil.h"
 
-
 @implementation MD360Program
 - (void) build {
     NSString* vertexShader = [self getVertexShader];
@@ -32,6 +31,7 @@
     _mPositionHandle = glGetAttribLocation(self.mProgramHandle, "a_Position");
     _mTextureCoordinateHandle = glGetAttribLocation(self.mProgramHandle, "a_TexCoordinate");
 }
+
 
 - (void) use {
     glUseProgram(self.mPositionHandle);

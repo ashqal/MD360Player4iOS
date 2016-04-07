@@ -10,12 +10,15 @@
 #import "VIMVideoPlayerView.h"
 #import "VIMVideoPlayer.h"
 #import "GLUtil.h"
-#import "MDAbsObject3D.h"
 #import "MD360Program.h"
+#import "MDGLView.h"
+#import "MD360Renderer.h"
 
 @interface ViewController()<VIMVideoPlayerViewDelegate>{
 }
 @property (nonatomic, strong) VIMVideoPlayerView *videoPlayerView;
+@property (nonatomic, strong) MDGLView *mMDGLView;
+@property (nonatomic, strong) MD360Renderer* renderer;
 
 @end
 
@@ -28,7 +31,6 @@
     self.videoPlayerView = [[VIMVideoPlayerView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
     self.videoPlayerView.translatesAutoresizingMaskIntoConstraints = NO;
     self.videoPlayerView.delegate = self;
-    
     [self.videoPlayerView setVideoFillMode:AVLayerVideoGravityResizeAspect];
     [self.videoPlayerView.player enableTimeUpdates];
     [self.videoPlayerView.player enableAirplay];
@@ -36,21 +38,24 @@
     [self.view addSubview:self.videoPlayerView];
     
     NSString* url = [[NSBundle mainBundle] pathForResource:@"skyrim360" ofType:@"mp4"];
-    NSLog(@"url:%@",url);
     [self.videoPlayerView.player setURL:[NSURL fileURLWithPath:url]];
     [self.videoPlayerView.player play];
     
-    MDAbsObject3D* obj3d = [[MDSphere3D alloc]init];
-    [obj3d loadObj];
     
+    
+    /*
     EAGLContext *theContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     [EAGLContext setCurrentContext:theContext];
     
     MD360Program* program = [[MD360Program alloc]init];
     [program build];
     [program use];
-    
-    
+     */
+
+    self.renderer = [[MD360Renderer alloc]init];
+    self.mMDGLView = [[MDGLView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+    self.mMDGLView.controller = self.renderer;
+    [self.view addSubview:self.mMDGLView];
     
 }
 

@@ -9,6 +9,7 @@
 #import "MDAbsObject3D.h"
 #import "GLUtil.h"
 
+static int sPositionDataSize = 3;
 @implementation MDAbsObject3D
 
 - (void)dealloc{
@@ -29,7 +30,7 @@
 }
 
 - (void)setNumIndices:(int)value{
-    self->mNumIndices = value;
+    _mNumIndices = value;
 }
 
 - (void)loadObj{
@@ -41,17 +42,28 @@
     [GLUtil loadObject3DWithPath:obj3dPath output:self];
 }
 
+
+- (void)uploadDataToProgram:(MD360Program*)program{
+    int positionHandle = program.mPositionHandle;
+    glVertexAttribPointer(positionHandle, sPositionDataSize, GL_FLOAT, false, 0, mVertexBuffer);
+    glEnableVertexAttribArray(positionHandle);
+    
+    int textureCoordinateHandle = program.mTextureCoordinateHandle;
+    glVertexAttribPointer(textureCoordinateHandle, 2, GL_FLOAT, false, 0, mTextureBuffer);
+    glEnableVertexAttribArray(textureCoordinateHandle);
+}
+
 -(NSString *)description{
 
     NSMutableString* vertexSB = [[NSMutableString alloc]init];
-    for (int i = 0; i < mNumIndices * 3; i++) {
+    for (int i = 0; i < self.mNumIndices * 3; i++) {
         [vertexSB appendFormat:@"%f ",mVertexBuffer[i]];
     }
     NSMutableString* textureSB = [[NSMutableString alloc]init];
-    for (int i = 0; i < mNumIndices * 2; i++) {
+    for (int i = 0; i < self.mNumIndices * 2; i++) {
         [textureSB appendFormat:@"%f ",mTextureBuffer[i]];
     }
-    NSString* result = [NSString stringWithFormat:@"loadObject3D complete:\n %@\n\n %@\n\n %d\n\n",vertexSB,textureSB,mNumIndices];
+    NSString* result = [NSString stringWithFormat:@"loadObject3D complete:\n %@\n\n %@\n\n %d\n\n",vertexSB,textureSB,self.mNumIndices];
     return result;
 }
 @end
