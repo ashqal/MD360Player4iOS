@@ -41,7 +41,7 @@
 }
 
 - (void) rendererOnCreated:(EAGLContext*)context{
-
+    NSLog(@"rendererOnCreated");
     // init
     [self initProgram];
     [self initTexture];
@@ -49,6 +49,7 @@
 }
 
 - (void) rendererOnChanged:(EAGLContext*)context width:(int)width height:(int)height{
+    NSLog(@"rendererOnChanged");
     // Set the OpenGL viewport to the same size as the surface.
     glViewport(0, 0, width, height);
     
@@ -60,7 +61,7 @@
 }
 
 - (void) rendererOnDrawFrame:(EAGLContext*)context{
-    // NSLog(@"rendererOnDrawFrame");
+    //NSLog(@"rendererOnDrawFrame");
     
     // clear
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

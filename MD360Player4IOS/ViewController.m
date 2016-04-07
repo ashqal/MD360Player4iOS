@@ -57,6 +57,7 @@
     self.mMDGLView.controller = self.renderer;
     [self.view addSubview:self.mMDGLView];
     
+    
 }
 
 - (void)didReceiveMemoryWarning {

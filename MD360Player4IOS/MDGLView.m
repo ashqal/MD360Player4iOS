@@ -51,16 +51,20 @@
 #pragma mark setup
 - (void) setup {
     NSLog(@"setup");
-    self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    assert(self.context != nil);
-    if ([EAGLContext setCurrentContext:self.context]) {
-        if ([self.controller respondsToSelector:@selector(rendererOnCreated:)]) {
-            [self.controller rendererOnCreated:self.context];
-        }
-    }
+    
 }
 
 - (void)layoutSubviews {
+    if (self.context == nil) {
+        self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        assert(self.context != nil);
+        if ([EAGLContext setCurrentContext:self.context]) {
+            if ([self.controller respondsToSelector:@selector(rendererOnCreated:)]) {
+                [self.controller rendererOnCreated:self.context];
+            }
+        }
+    }
+    
     if ([EAGLContext setCurrentContext:self.context]) {
         if([self.controller respondsToSelector:@selector(rendererOnChanged:width:height:)]){
             int width = self.bounds.size.width;
