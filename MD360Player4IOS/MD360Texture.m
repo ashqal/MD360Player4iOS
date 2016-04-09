@@ -8,20 +8,27 @@
 
 #import "MD360Texture.h"
 #import "GLUtil.h"
+#import "MDVideoDataAdatperAVPlayerImpl.h"
+#import <CoreVideo/CVOpenGLESTextureCache.h>
 
 @interface MD360Texture(){
-    GLuint glSurfaceTexture;
+    GLuint glTextureId;
 }
 
 @end
 @implementation MD360Texture
 
-- (void) createTexture{
-    glSurfaceTexture = [self createTextureId];
-    [self textureInThread:glSurfaceTexture bitmap:nil];
+- (void) createTexture {
+    // check the createTextureId function
+    if (![self respondsToSelector:@selector(createTextureId)]) return;
+    
+    glTextureId = [self createTextureId];
+    if (glTextureId != 0 && [self respondsToSelector:@selector(onTextureCreated:)]) {
+        [self onTextureCreated:glTextureId];
+    }
 }
 
-- (void) releaseTexture{
+- (void) releaseTexture {
     
 }
 
@@ -30,33 +37,35 @@
     _mHeight = height;
 }
 
--(GLuint) createTextureId {
+- (void) updateTexture:(EAGLContext*)context{
+
+}
+
+@end
+
+#pragma mark MD360BitmapTexture
+@implementation MD360BitmapTexture
+
+- (GLuint) createTextureId {
     GLuint textureId;
     glActiveTexture(GL_TEXTURE0);
     glGenTextures(1, &textureId);
     return textureId;
 }
 
-- (void) textureInThread:(int)textureId  bitmap:(id)bitmap {
+- (void) onTextureCreated:(GLuint)textureId{
+    [self textureInThread:textureId];
+}
+
+- (void) textureInThread:(int)textureId {
     // Bind to the texture in OpenGL
     //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureId);
     
-    /*
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-     */
     
     // Set filtering
-    //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-    //GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     
     // for not mipmap
@@ -64,8 +73,76 @@
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
     NSString* path = [[NSBundle mainBundle]pathForResource:@"bitmap360" ofType:@"png"];
+    
     // Load the bitmap into the bound texture.
     [GLUtil texImage2D:path];
-    NSLog(@"textureInThread");
 }
+
+@end
+
+#pragma mark MD360VideoTexture
+@interface MD360VideoTexture(){
+    CVOpenGLESTextureCacheRef mTextureCache;
+}
+@property (nonatomic,strong) id<MDVideoDataAdapter> mDataAdatper;
+@end
+
+@implementation MD360VideoTexture
+//
+- (instancetype)initWithAdatper: (id<MDVideoDataAdapter>)adapter {
+    self = [super init];
+    if (self) {
+        self.mDataAdatper = adapter;
+    }
+    return self;
+}
+
+- (void)dealloc{
+    CFRelease(mTextureCache);
+}
+
++ (MD360Texture*) createWithAVPlayerItem:(AVPlayerItem*) playerItem{
+    MDVideoDataAdatperAVPlayerImpl* adapter = [[MDVideoDataAdatperAVPlayerImpl alloc]initWithPlayerItem:playerItem];
+    MD360Texture* texture = [[MD360VideoTexture alloc] initWithAdatper:adapter];
+    return texture;
+}
+
+- (CVOpenGLESTextureCacheRef)textureCache:(EAGLContext*)context{
+    if (mTextureCache == NULL){
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge CVEAGLContext _Nonnull)((__bridge void *)context), NULL, &mTextureCache);
+        if (err) NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreate");
+    }
+    return mTextureCache;
+}
+
+- (void) updateTexture:(EAGLContext*)context{
+    if ([self.mDataAdatper respondsToSelector:@selector(copyPixelBuffer)]) {
+        CVPixelBufferRef pixelBuffer = [self.mDataAdatper copyPixelBuffer];
+        if (pixelBuffer == NULL) return;
+        
+        int bufferHeight = (int) CVPixelBufferGetHeight(pixelBuffer);
+        int bufferWidth = (int) CVPixelBufferGetWidth(pixelBuffer);
+        CVOpenGLESTextureCacheRef textureCache = [self textureCache:context];
+        CVOpenGLESTextureRef texture = NULL;
+        
+        CVReturn err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, NULL, GL_TEXTURE_2D, GL_RGBA, bufferWidth, bufferHeight, GL_BGRA, GL_UNSIGNED_BYTE, 0, &texture);
+
+        if (texture == NULL || err){
+            NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreateTextureFromImage:%d",err);
+        }
+        
+        int outputTexture = CVOpenGLESTextureGetName(texture);
+        glBindTexture(GL_TEXTURE_2D, outputTexture);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        
+        // Do processing work on the texture data here
+        CVOpenGLESTextureCacheFlush(textureCache, 0);
+        CFRelease(pixelBuffer);
+        CFRelease(texture);
+    }
+}
+
 @end

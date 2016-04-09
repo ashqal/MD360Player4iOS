@@ -13,11 +13,14 @@
 #import "MD360Program.h"
 #import "MD360Renderer.h"
 #import "MDGLKViewController.h"
+#import "MDVideoDataAdatperAVPlayerImpl.h"
+#import "MD360Texture.h"
 
 @interface ViewController()<VIMVideoPlayerViewDelegate>{
 }
 @property (nonatomic, strong) VIMVideoPlayerView *videoPlayerView;
 @property (nonatomic, strong) MD360Renderer* renderer;
+
 
 @end
 
@@ -37,21 +40,15 @@
     //[self.view addSubview:self.videoPlayerView];
     
     NSString* url = [[NSBundle mainBundle] pathForResource:@"skyrim360" ofType:@"mp4"];
-    [self.videoPlayerView.player setURL:[NSURL fileURLWithPath:url]];
+    AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:url]];
+    [self.videoPlayerView.player setPlayerItem:playerItem];
     [self.videoPlayerView.player play];
     
-    
-    
-    /*
-    EAGLContext *theContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    [EAGLContext setCurrentContext:theContext];
-    
-    MD360Program* program = [[MD360Program alloc]init];
-    [program build];
-    [program use];
-     */
 
     self.renderer = [[MD360Renderer alloc]init];
+    
+    // create Texture
+    self.renderer.mTexture = [MD360VideoTexture createWithAVPlayerItem:playerItem];
     
     MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
     glkViewController.rendererDelegate = self.renderer;

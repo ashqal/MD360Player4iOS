@@ -72,14 +72,16 @@
 - (void)initCamera{
     [self updateViewMatrix];
 }
-static GLfloat  rot = 0.0f;
+// static GLfloat  rot = 0.0f;
 - (void) shot:(MD360Program*) program{
     
+    /*
     rot += 2.0f;
     if (rot > 360.f)
         rot -= 360.f;
     
     [self updateModelRotate:rot];
+     */
     
     
     //Matrix.setIdentityM(mModelMatrix, 0);
@@ -159,7 +161,7 @@ static GLfloat  rot = 0.0f;
     float lookY = 0.0f;
     float lookZ = -1.0f;
     float upX = 0.0f;
-    float upY = -1.0f;
+    float upY = 1.0f;
     float upZ = 0.0f;
     //mViewMatrix = GLKMatrix4Identity; // Matrix.setIdentityM(mViewMatrix, 0);
     

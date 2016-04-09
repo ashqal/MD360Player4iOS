@@ -9,14 +9,13 @@
 #import "MD360Renderer.h"
 #import "MDAbsObject3D.h"
 #import "MD360Program.h"
-#import "MD360Texture.h"
+
 #import "MD360Director.h"
 #import "GLUtil.h"
 
 @interface MD360Renderer()
 @property (nonatomic,retain) MDAbsObject3D* mObject3D;
 @property (nonatomic,retain) MD360Program* mProgram;
-@property (nonatomic,retain) MD360Texture* mSurface;
 @property (nonatomic,retain) MD360Director* mDirector;
 @end
 
@@ -35,7 +34,10 @@
     self.mDirector = [[MD360Director alloc]init];
     
     self.mProgram = [[MD360Program alloc]init];
-    self.mSurface = [[MD360Texture alloc]init];
+    
+    // TODO create by MDVRLibrary
+    self.mTexture = [[MD360BitmapTexture alloc]init];
+    
     self.mObject3D = [[MDSphere3D alloc]init];
     
 }
@@ -66,7 +68,7 @@
     glViewport(0, 0, width, height);
     
     // update surface
-    [self.mSurface resize:width height:height];
+    [self.mTexture resize:width height:height];
     
     // Update Projection
     [self.mDirector updateProjection:width height:height];
@@ -86,6 +88,9 @@
     [self.mProgram use];
     [GLUtil glCheck:@"mProgram use"];
     
+    // update texture
+    [self.mTexture updateTexture:context];
+    
     // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
     glUniform1i(self.mProgram.mTextureUniformHandle, 0);
     [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
@@ -104,7 +109,7 @@
 }
 
 - (void) initTexture {
-    [self.mSurface createTexture];
+    [self.mTexture createTexture];
 }
 
 - (void) initObject3D {
