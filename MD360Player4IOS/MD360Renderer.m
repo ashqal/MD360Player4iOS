@@ -9,14 +9,12 @@
 #import "MD360Renderer.h"
 #import "MDAbsObject3D.h"
 #import "MD360Program.h"
-
-#import "MD360Director.h"
 #import "GLUtil.h"
 
 @interface MD360Renderer()
 @property (nonatomic,retain) MDAbsObject3D* mObject3D;
 @property (nonatomic,retain) MD360Program* mProgram;
-@property (nonatomic,retain) MD360Director* mDirector;
+
 @end
 
 @implementation MD360Renderer

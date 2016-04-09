@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "MDGLRendererDelegate.h"
+#import "MD360Director.h"
 #import "MD360Texture.h"
 
 @interface MD360Renderer : NSObject <MDGLRendererDelegate>
 @property (nonatomic,retain) MD360Texture* mTexture;
+@property (nonatomic,retain) MD360Director* mDirector;
 @end

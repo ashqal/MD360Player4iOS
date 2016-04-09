@@ -30,6 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    // video player
     self.videoPlayerView = [[VIMVideoPlayerView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
     self.videoPlayerView.translatesAutoresizingMaskIntoConstraints = NO;
     self.videoPlayerView.delegate = self;
@@ -37,14 +38,13 @@
     [self.videoPlayerView.player enableTimeUpdates];
     [self.videoPlayerView.player enableAirplay];
     
-    //[self.view addSubview:self.videoPlayerView];
-    
     NSString* url = [[NSBundle mainBundle] pathForResource:@"skyrim360" ofType:@"mp4"];
     AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:url]];
     [self.videoPlayerView.player setPlayerItem:playerItem];
     [self.videoPlayerView.player play];
     
 
+    // renderer
     self.renderer = [[MD360Renderer alloc]init];
     
     // create Texture
@@ -52,6 +52,7 @@
     
     MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
     glkViewController.rendererDelegate = self.renderer;
+    glkViewController.touchDelegate = self.renderer.mDirector;
     [self.view addSubview:glkViewController.view];
     [self addChildViewController:glkViewController];
     [glkViewController didMoveToParentViewController:self];

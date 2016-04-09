@@ -36,7 +36,10 @@
     float mDeltaX;
     float mDeltaY;
 }
+@property (nonatomic,strong) NSMutableArray* currentTouches;
 @end
+
+static float sDamping = 0.2f;
 
 @implementation MD360Director
 
@@ -50,6 +53,7 @@
 }
 
 - (void) setup{
+    self.currentTouches = [[NSMutableArray alloc]init];
     mEyeZ = 0;
     mAngle = 0;
     mRatio = 1.5f;
@@ -167,6 +171,36 @@
     
     mViewMatrix = GLKMatrix4MakeLookAt(eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
     // Matrix.setLookAtM(mViewMatrix, 0, eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
+}
+
+
+#pragma mark - touches
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        [self.currentTouches addObject:touch];
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    float distX = [touch locationInView:touch.view].x - [touch previousLocationInView:touch.view].x;
+    float distY = [touch locationInView:touch.view].y - [touch previousLocationInView:touch.view].y;
+    distX *= sDamping;
+    distY *= sDamping;
+    mDeltaX += distX;
+    mDeltaY += distY;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        [self.currentTouches removeObject:touch];
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    for (UITouch *touch in touches) {
+        [self.currentTouches removeObject:touch];
+    }
 }
 
 
