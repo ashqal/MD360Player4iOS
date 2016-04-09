@@ -8,7 +8,6 @@
 
 #import "MD360Director.h"
 #import <GLKit/GLKit.h>
-#import "GLCommon.h"
 #import "GLUtil.h"
 
 @interface MD360Director(){
@@ -36,13 +35,6 @@
     
     float mDeltaX;
     float mDeltaY;
-    
-    
-    Matrix3D    rotationMatrix;
-    Matrix3D    translationMatrix;
-    Matrix3D    modelViewMatrix;
-    Matrix3D    projectionMatrix;
-    Matrix3D    matrix;
 }
 @end
 
