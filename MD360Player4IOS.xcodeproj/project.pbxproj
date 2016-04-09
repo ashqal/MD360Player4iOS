@@ -22,11 +22,12 @@
 		5EE78DD01CB5098900A7A67D /* per_pixel_fragment_shader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DCC1CB5098900A7A67D /* per_pixel_fragment_shader.glsl */; };
 		5EE78DD11CB5098900A7A67D /* per_pixel_vertex_shader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DCD1CB5098900A7A67D /* per_pixel_vertex_shader.glsl */; };
 		5EE78DD21CB5098900A7A67D /* dome.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DCE1CB5098900A7A67D /* dome.obj */; };
-		5EE78DD51CB6584700A7A67D /* MDGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DD41CB6584700A7A67D /* MDGLView.m */; };
 		5EE78DD81CB6743600A7A67D /* MD360Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DD71CB6743600A7A67D /* MD360Renderer.m */; };
-		5EE78DDB1CB67C4000A7A67D /* MD360Surface.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DDA1CB67C4000A7A67D /* MD360Surface.m */; };
+		5EE78DDB1CB67C4000A7A67D /* MD360Texture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DDA1CB67C4000A7A67D /* MD360Texture.m */; };
 		5EE78DDE1CB67E6800A7A67D /* MD360Director.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DDD1CB67E6800A7A67D /* MD360Director.m */; };
 		5EE78DE11CB6846A00A7A67D /* MDVRLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DE01CB6846A00A7A67D /* MDVRLibrary.m */; };
+		5EE78DE31CB6C89900A7A67D /* bitmap360.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DE21CB6C89900A7A67D /* bitmap360.png */; };
+		5EE78DE61CB743D000A7A67D /* MDGLKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DE51CB743D000A7A67D /* MDGLKViewController.m */; };
 		E4443E11A4503DC6F5BCD88E /* libPods-MD360Player4IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD55D4C31724984AD3661C31 /* libPods-MD360Player4IOS.a */; };
 /* End PBXBuildFile section */
 
@@ -53,16 +54,19 @@
 		5EE78DCC1CB5098900A7A67D /* per_pixel_fragment_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = per_pixel_fragment_shader.glsl; sourceTree = "<group>"; };
 		5EE78DCD1CB5098900A7A67D /* per_pixel_vertex_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = per_pixel_vertex_shader.glsl; sourceTree = "<group>"; };
 		5EE78DCE1CB5098900A7A67D /* dome.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dome.obj; sourceTree = "<group>"; };
-		5EE78DD31CB6584700A7A67D /* MDGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDGLView.h; sourceTree = "<group>"; };
-		5EE78DD41CB6584700A7A67D /* MDGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDGLView.m; sourceTree = "<group>"; };
 		5EE78DD61CB6743600A7A67D /* MD360Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Renderer.h; sourceTree = "<group>"; };
 		5EE78DD71CB6743600A7A67D /* MD360Renderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Renderer.m; sourceTree = "<group>"; };
-		5EE78DD91CB67C4000A7A67D /* MD360Surface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Surface.h; sourceTree = "<group>"; };
-		5EE78DDA1CB67C4000A7A67D /* MD360Surface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Surface.m; sourceTree = "<group>"; };
+		5EE78DD91CB67C4000A7A67D /* MD360Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Texture.h; sourceTree = "<group>"; };
+		5EE78DDA1CB67C4000A7A67D /* MD360Texture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Texture.m; sourceTree = "<group>"; };
 		5EE78DDC1CB67E6800A7A67D /* MD360Director.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Director.h; sourceTree = "<group>"; };
 		5EE78DDD1CB67E6800A7A67D /* MD360Director.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Director.m; sourceTree = "<group>"; };
 		5EE78DDF1CB6846A00A7A67D /* MDVRLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDVRLibrary.h; sourceTree = "<group>"; };
 		5EE78DE01CB6846A00A7A67D /* MDVRLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDVRLibrary.m; sourceTree = "<group>"; };
+		5EE78DE21CB6C89900A7A67D /* bitmap360.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bitmap360.png; sourceTree = "<group>"; };
+		5EE78DE41CB743D000A7A67D /* MDGLKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDGLKViewController.h; sourceTree = "<group>"; };
+		5EE78DE51CB743D000A7A67D /* MDGLKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDGLKViewController.m; sourceTree = "<group>"; };
+		5EE78DE71CB7914A00A7A67D /* GLCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLCommon.h; sourceTree = "<group>"; };
+		5EE78E441CB8EE6A00A7A67D /* MDGLRendererDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDGLRendererDelegate.h; sourceTree = "<group>"; };
 		AE00CDC48AFE2C62A5056CF1 /* Pods-MD360Player4IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MD360Player4IOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MD360Player4IOS/Pods-MD360Player4IOS.debug.xcconfig"; sourceTree = "<group>"; };
 		BD55D4C31724984AD3661C31 /* libPods-MD360Player4IOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MD360Player4IOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D96329166DC1E78C93C8DEB0 /* Pods-MD360Player4IOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MD360Player4IOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MD360Player4IOS/Pods-MD360Player4IOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 		5E0A0BB41CA8146E005F08CC /* MD360Player4IOS */ = {
 			isa = PBXGroup;
 			children = (
+				5EE78DE21CB6C89900A7A67D /* bitmap360.png */,
 				5EE78DC91CB503A000A7A67D /* vrlib */,
 				5EE78DB91CB4D6E000A7A67D /* skyrim360.mp4 */,
 				5E0A0BB81CA8146E005F08CC /* AppDelegate.h */,
@@ -127,6 +132,7 @@
 		5EE78DC91CB503A000A7A67D /* vrlib */ = {
 			isa = PBXGroup;
 			children = (
+				5EE78DE71CB7914A00A7A67D /* GLCommon.h */,
 				5EE78DCA1CB5095200A7A67D /* raw */,
 				5EE78DBD1CB4E04800A7A67D /* GLUtil.h */,
 				5EE78DBE1CB4E04800A7A67D /* GLUtil.m */,
@@ -134,16 +140,17 @@
 				5EE78DC11CB4F2D400A7A67D /* MDAbsObject3D.m */,
 				5EE78DC61CB5033200A7A67D /* MD360Program.h */,
 				5EE78DC71CB5033200A7A67D /* MD360Program.m */,
-				5EE78DD31CB6584700A7A67D /* MDGLView.h */,
-				5EE78DD41CB6584700A7A67D /* MDGLView.m */,
 				5EE78DD61CB6743600A7A67D /* MD360Renderer.h */,
 				5EE78DD71CB6743600A7A67D /* MD360Renderer.m */,
-				5EE78DD91CB67C4000A7A67D /* MD360Surface.h */,
-				5EE78DDA1CB67C4000A7A67D /* MD360Surface.m */,
+				5EE78DD91CB67C4000A7A67D /* MD360Texture.h */,
+				5EE78DDA1CB67C4000A7A67D /* MD360Texture.m */,
 				5EE78DDC1CB67E6800A7A67D /* MD360Director.h */,
 				5EE78DDD1CB67E6800A7A67D /* MD360Director.m */,
 				5EE78DDF1CB6846A00A7A67D /* MDVRLibrary.h */,
 				5EE78DE01CB6846A00A7A67D /* MDVRLibrary.m */,
+				5EE78DE41CB743D000A7A67D /* MDGLKViewController.h */,
+				5EE78DE51CB743D000A7A67D /* MDGLKViewController.m */,
+				5EE78E441CB8EE6A00A7A67D /* MDGLRendererDelegate.h */,
 			);
 			name = vrlib;
 			sourceTree = "<group>";
@@ -241,6 +248,7 @@
 				5EE78DBA1CB4D6E000A7A67D /* skyrim360.mp4 in Resources */,
 				5E0A0BC51CA8146E005F08CC /* LaunchScreen.storyboard in Resources */,
 				5E0A0BC21CA8146E005F08CC /* Assets.xcassets in Resources */,
+				5EE78DE31CB6C89900A7A67D /* bitmap360.png in Resources */,
 				5E0A0BC01CA8146E005F08CC /* Main.storyboard in Resources */,
 				5EE78DD01CB5098900A7A67D /* per_pixel_fragment_shader.glsl in Resources */,
 				5EE78DD21CB5098900A7A67D /* dome.obj in Resources */,
@@ -306,15 +314,15 @@
 			files = (
 				5EE78DBF1CB4E04800A7A67D /* GLUtil.m in Sources */,
 				5E0A0BBD1CA8146E005F08CC /* ViewController.m in Sources */,
+				5EE78DE61CB743D000A7A67D /* MDGLKViewController.m in Sources */,
 				5E0A0BBA1CA8146E005F08CC /* AppDelegate.m in Sources */,
 				5EE78DD81CB6743600A7A67D /* MD360Renderer.m in Sources */,
-				5EE78DD51CB6584700A7A67D /* MDGLView.m in Sources */,
 				5EE78DC21CB4F2D400A7A67D /* MDAbsObject3D.m in Sources */,
 				5E0A0BB71CA8146E005F08CC /* main.m in Sources */,
 				5EE78DC81CB5033200A7A67D /* MD360Program.m in Sources */,
 				5EE78DE11CB6846A00A7A67D /* MDVRLibrary.m in Sources */,
 				5EE78DDE1CB67E6800A7A67D /* MD360Director.m in Sources */,
-				5EE78DDB1CB67C4000A7A67D /* MD360Surface.m in Sources */,
+				5EE78DDB1CB67C4000A7A67D /* MD360Texture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

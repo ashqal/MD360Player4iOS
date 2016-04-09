@@ -40,16 +40,17 @@ static int sPositionDataSize = 3;
         return;
     }
     [GLUtil loadObject3DWithPath:obj3dPath output:self];
+    //[GLUtil loadObject3DMock:self];
 }
 
 
 - (void)uploadDataToProgram:(MD360Program*)program{
     int positionHandle = program.mPositionHandle;
-    glVertexAttribPointer(positionHandle, sPositionDataSize, GL_FLOAT, false, 0, mVertexBuffer);
+    glVertexAttribPointer(positionHandle, sPositionDataSize, GL_FLOAT, 0, 0, mVertexBuffer);
     glEnableVertexAttribArray(positionHandle);
     
     int textureCoordinateHandle = program.mTextureCoordinateHandle;
-    glVertexAttribPointer(textureCoordinateHandle, 2, GL_FLOAT, false, 0, mTextureBuffer);
+    glVertexAttribPointer(textureCoordinateHandle, 2, GL_FLOAT, 0, 0, mTextureBuffer);
     glEnableVertexAttribArray(textureCoordinateHandle);
 }
 

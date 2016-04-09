@@ -1,23 +1,20 @@
 //
-//  MDGLView.h
+//  MDGLRendererDelegate.h
 //  MD360Player4IOS
 //
-//  Created by ashqal on 16/4/7.
+//  Created by ashqal on 16/4/9.
 //  Copyright © 2016年 ashqal. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#ifndef MDGLRendererDelegate_h
+#define MDGLRendererDelegate_h
+#import <OpenGLES/EAGL.h>
 
-@protocol MDGLViewController <NSObject>
+@protocol MDGLRendererDelegate <NSObject>
 @required
 - (void) rendererOnCreated:(EAGLContext*)context;
 - (void) rendererOnChanged:(EAGLContext*)context width:(int)width height:(int)height;
 - (void) rendererOnDrawFrame:(EAGLContext*)context;
 @end
 
-@interface MDGLView : UIView
-@property (nonatomic,weak) id<MDGLViewController> controller;
-// - (void) setup;
-// - (void) tearDown;
-@end
+#endif /* MDGLRendererDelegate_h */

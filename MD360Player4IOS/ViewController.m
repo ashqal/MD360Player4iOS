@@ -11,13 +11,12 @@
 #import "VIMVideoPlayer.h"
 #import "GLUtil.h"
 #import "MD360Program.h"
-#import "MDGLView.h"
 #import "MD360Renderer.h"
+#import "MDGLKViewController.h"
 
 @interface ViewController()<VIMVideoPlayerViewDelegate>{
 }
 @property (nonatomic, strong) VIMVideoPlayerView *videoPlayerView;
-@property (nonatomic, strong) MDGLView *mMDGLView;
 @property (nonatomic, strong) MD360Renderer* renderer;
 
 @end
@@ -35,7 +34,7 @@
     [self.videoPlayerView.player enableTimeUpdates];
     [self.videoPlayerView.player enableAirplay];
     
-    [self.view addSubview:self.videoPlayerView];
+    //[self.view addSubview:self.videoPlayerView];
     
     NSString* url = [[NSBundle mainBundle] pathForResource:@"skyrim360" ofType:@"mp4"];
     [self.videoPlayerView.player setURL:[NSURL fileURLWithPath:url]];
@@ -53,9 +52,12 @@
      */
 
     self.renderer = [[MD360Renderer alloc]init];
-    self.mMDGLView = [[MDGLView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-    self.mMDGLView.controller = self.renderer;
-    [self.view addSubview:self.mMDGLView];
+    
+    MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
+    glkViewController.rendererDelegate = self.renderer;
+    [self.view addSubview:glkViewController.view];
+    [self addChildViewController:glkViewController];
+    [glkViewController didMoveToParentViewController:self];
     
     
 }

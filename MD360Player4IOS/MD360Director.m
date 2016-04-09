@@ -8,6 +8,8 @@
 
 #import "MD360Director.h"
 #import <GLKit/GLKit.h>
+#import "GLCommon.h"
+#import "GLUtil.h"
 
 @interface MD360Director(){
     GLKMatrix4 mModelMatrix;// = new float[16];
@@ -34,6 +36,13 @@
     
     float mDeltaX;
     float mDeltaY;
+    
+    
+    Matrix3D    rotationMatrix;
+    Matrix3D    translationMatrix;
+    Matrix3D    modelViewMatrix;
+    Matrix3D    projectionMatrix;
+    Matrix3D    matrix;
 }
 @end
 
@@ -71,8 +80,15 @@
 - (void)initCamera{
     [self updateViewMatrix];
 }
-
+static GLfloat  rot = 0.0f;
 - (void) shot:(MD360Program*) program{
+    
+    rot += 2.0f;
+    if (rot > 360.f)
+        rot -= 360.f;
+    
+    [self updateModelRotate:rot];
+    
     
     //Matrix.setIdentityM(mModelMatrix, 0);
     mModelMatrix = GLKMatrix4Identity;
@@ -81,13 +97,13 @@
     mCurrentRotation = GLKMatrix4Identity;
 
     //Matrix.rotateM(mCurrentRotation, 0, -mDeltaY, 1.0f, 0.0f, 0.0f);
-    mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, -mDeltaY, 1.0f, 0.0f, 0.0f);
+    mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, MD_DEGREES_TO_RADIANS(-mDeltaY), 1.0f, 0.0f, 0.0f);
     
     //Matrix.rotateM(mCurrentRotation, 0, -mDeltaX + mAngle, 0.0f, 1.0f, 0.0f);
-    mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, -mDeltaX + mAngle, 0.0f, 1.0f, 0.0f);
+    mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, MD_DEGREES_TO_RADIANS(-mDeltaX + mAngle), 0.0f, 1.0f, 0.0f);
     
     //Matrix.multiplyMM(mCurrentRotation, 0, mSensorMatrix, 0, mCurrentRotation, 0);
-    mCurrentRotation = GLKMatrix4Multiply(mCurrentRotation, mSensorMatrix);
+    mCurrentRotation = GLKMatrix4Multiply(mSensorMatrix, mCurrentRotation);
     
     // set the accumulated rotation to the result.
     //System.arraycopy(mCurrentRotation, 0, mAccumulatedRotation, 0, 16);
@@ -95,7 +111,7 @@
     
     // Rotate the cube taking the overall rotation into account.
     //Matrix.multiplyMM(mTemporaryMatrix, 0, mModelMatrix, 0, mAccumulatedRotation, 0);
-    mAccumulatedRotation = GLKMatrix4Multiply(mTemporaryMatrix, mModelMatrix);
+    mTemporaryMatrix = GLKMatrix4Multiply(mModelMatrix, mAccumulatedRotation);
     
     //System.arraycopy(mTemporaryMatrix, 0, mModelMatrix, 0, 16);
     mModelMatrix = mTemporaryMatrix;
@@ -103,20 +119,20 @@
     // This multiplies the view matrix by the model matrix, and stores the result in the MVP matrix
     // (which currently contains model * view).
     //Matrix.multiplyMM(mMVMatrix, 0, mViewMatrix, 0, mModelMatrix, 0);
-    mModelMatrix = GLKMatrix4Multiply(mMVMatrix, mViewMatrix);
+    mMVMatrix = GLKMatrix4Multiply(mViewMatrix, mModelMatrix);
     
     // This multiplies the model view matrix by the projection matrix, and stores the result in the MVP matrix
     // (which now contains model * view * projection).
     // Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mMVMatrix, 0);
-    mMVMatrix = GLKMatrix4Multiply(mMVPMatrix, mProjectionMatrix);
+    mMVPMatrix = GLKMatrix4Multiply(mProjectionMatrix, mMVMatrix);
     
     // Pass in the model view matrix
     //GLES20.glUniformMatrix4fv(program.getMVMatrixHandle(), 1, false, mMVMatrix, 0);
-    glUniformMatrix4fv(program.mMVMatrixHandle, 1, false, mMVMatrix.m);
+    glUniformMatrix4fv(program.mMVMatrixHandle, 1, GL_FALSE, mMVMatrix.m);
     
     // Pass in the combined matrix.
     //GLES20.glUniformMatrix4fv(program.getMVPMatrixHandle(), 1, false, mMVPMatrix, 0);
-    glUniformMatrix4fv(program.mMVPMatrixHandle, 1, false, mMVPMatrix.m);
+    glUniformMatrix4fv(program.mMVPMatrixHandle, 1, GL_FALSE, mMVPMatrix.m);
 }
 
 - (void) reset{
@@ -151,7 +167,7 @@
     float lookY = 0.0f;
     float lookZ = -1.0f;
     float upX = 0.0f;
-    float upY = 1.0f;
+    float upY = -1.0f;
     float upZ = 0.0f;
     //mViewMatrix = GLKMatrix4Identity; // Matrix.setIdentityM(mViewMatrix, 0);
     

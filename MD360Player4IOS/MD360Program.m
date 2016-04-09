@@ -13,7 +13,7 @@
 - (void) build {
     NSString* vertexShader = [self getVertexShader];
     NSString* fragmentShader = [self getFragmentShader];
-    NSLog(@"%@ %@",vertexShader,fragmentShader);
+    // NSLog(@"%@ %@",vertexShader,fragmentShader);
     GLuint vertexShaderHandle,fragmentShaderHandle;
     
     if (![GLUtil compileShader:&vertexShaderHandle type:GL_VERTEX_SHADER source:vertexShader])
@@ -24,17 +24,18 @@
     
     NSArray* attrs = [[NSArray alloc] initWithObjects:@"a_Position", @"a_TexCoordinate", nil];
     _mProgramHandle = [GLUtil createAndLinkProgramWith:vertexShaderHandle fsHandle:fragmentShaderHandle attrs:attrs];
-    
-    _mMVPMatrixHandle = glGetUniformLocation(self.mProgramHandle, "u_MVPMatrix");
+
     _mMVMatrixHandle = glGetUniformLocation(self.mProgramHandle, "u_MVMatrix");
+    _mMVPMatrixHandle = glGetUniformLocation(self.mProgramHandle, "u_MVPMatrix");
     _mTextureUniformHandle = glGetUniformLocation(self.mProgramHandle, "u_Texture");
+    
     _mPositionHandle = glGetAttribLocation(self.mProgramHandle, "a_Position");
     _mTextureCoordinateHandle = glGetAttribLocation(self.mProgramHandle, "a_TexCoordinate");
 }
 
 
 - (void) use {
-    glUseProgram(self.mPositionHandle);
+    glUseProgram(self.mProgramHandle);
 }
 
 - (NSString*) getVertexShader {

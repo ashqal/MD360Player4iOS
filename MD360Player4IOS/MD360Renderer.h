@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MDGLView.h"
+#import "MDGLRendererDelegate.h"
 
-@interface MD360Renderer : NSObject <MDGLViewController>
+@interface MD360Renderer : NSObject <MDGLRendererDelegate>
 
 @end

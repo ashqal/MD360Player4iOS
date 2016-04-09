@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MD360Surface : NSObject
+@interface MD360Texture : NSObject
 
 @property (nonatomic,readonly) int mWidth;
 @property (nonatomic,readonly) int mHeight;
 
-- (void) createSurface;
-- (void) releaseSurface;
+- (void) createTexture;
+- (void) releaseTexture;
 - (void) resize:(int)width height:(int)height;
 @end

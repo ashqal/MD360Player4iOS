@@ -9,14 +9,14 @@
 #import "MD360Renderer.h"
 #import "MDAbsObject3D.h"
 #import "MD360Program.h"
-#import "MD360Surface.h"
+#import "MD360Texture.h"
 #import "MD360Director.h"
 #import "GLUtil.h"
 
 @interface MD360Renderer()
 @property (nonatomic,retain) MDAbsObject3D* mObject3D;
 @property (nonatomic,retain) MD360Program* mProgram;
-@property (nonatomic,retain) MD360Surface* mSurface;
+@property (nonatomic,retain) MD360Texture* mSurface;
 @property (nonatomic,retain) MD360Director* mDirector;
 @end
 
@@ -35,17 +35,29 @@
     self.mDirector = [[MD360Director alloc]init];
     
     self.mProgram = [[MD360Program alloc]init];
-    self.mSurface = [[MD360Surface alloc]init];
+    self.mSurface = [[MD360Texture alloc]init];
     self.mObject3D = [[MDSphere3D alloc]init];
     
 }
 
 - (void) rendererOnCreated:(EAGLContext*)context{
     NSLog(@"rendererOnCreated");
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+
+    
     // init
     [self initProgram];
+    [GLUtil glCheck:@"initProgram"];
+    
     [self initTexture];
+    [GLUtil glCheck:@"initTexture"];
+    
     [self initObject3D];
+    [GLUtil glCheck:@"initObject3D"];
+    
 }
 
 - (void) rendererOnChanged:(EAGLContext*)context width:(int)width height:(int)height{
@@ -61,22 +73,30 @@
 }
 
 - (void) rendererOnDrawFrame:(EAGLContext*)context{
-    //NSLog(@"rendererOnDrawFrame");
+    // NSLog(@"rendererOnDrawFrame");
     
     // clear
+    // glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    // glClear(GL_COLOR_BUFFER_BIT);
+    [GLUtil glCheck:@"glClear"];
     
     // use
     [self.mProgram use];
+    [GLUtil glCheck:@"mProgram use"];
     
     // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
     glUniform1i(self.mProgram.mTextureUniformHandle, 0);
+    [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
     
     // Pass in the combined matrix.
     [self.mDirector shot:self.mProgram];
+    [GLUtil glCheck:@"shot"];
     
     // Draw
     glDrawArrays(GL_TRIANGLES, 0, self.mObject3D.mNumIndices);
+    [GLUtil glCheck:@"glDrawArrays"];
 }
 
 - (void) initProgram {
@@ -84,7 +104,7 @@
 }
 
 - (void) initTexture {
-    [self.mSurface createSurface];
+    [self.mSurface createTexture];
 }
 
 - (void) initObject3D {
