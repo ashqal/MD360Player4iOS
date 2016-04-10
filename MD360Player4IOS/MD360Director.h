@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MD360Program.h"
 #import <UIKit/UIKit.h>
+#import <GLKit/GLKit.h>
 
 @protocol MDTouchDelegate <NSObject>
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
@@ -22,6 +23,6 @@
 - (void) shot:(MD360Program*) program;
 - (void) reset;
 - (void) updateProjection:(int)width height:(int)height;
-//- (void) updateSensorMatrix;
+- (void) updateSensorMatrix:(GLKMatrix4)sensor;
 @end
 

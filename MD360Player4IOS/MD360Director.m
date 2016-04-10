@@ -7,8 +7,9 @@
 //
 
 #import "MD360Director.h"
-#import <GLKit/GLKit.h>
 #import "GLUtil.h"
+#import <CoreMotion/CoreMotion.h>
+#import <math.h>
 
 @interface MD360Director(){
     GLKMatrix4 mModelMatrix;// = new float[16];
@@ -37,6 +38,8 @@
     float mDeltaY;
 }
 @property (nonatomic,strong) NSMutableArray* currentTouches;
+@property (nonatomic,strong) CMMotionManager* motionManager;
+@property (nonatomic,strong) CMAttitude* prevMotionAttitude;
 @end
 
 static float sDamping = 0.2f;
@@ -65,6 +68,8 @@ static float sDamping = 0.2f;
     
     [self initCamera];
     [self initModel];
+    
+    [self startDeviceMotion];
 }
 
 - (void)initModel{
@@ -88,48 +93,36 @@ static float sDamping = 0.2f;
      */
     
     
-    //Matrix.setIdentityM(mModelMatrix, 0);
     mModelMatrix = GLKMatrix4Identity;
     
-    //Matrix.setIdentityM(mCurrentRotation, 0);
     mCurrentRotation = GLKMatrix4Identity;
 
-    //Matrix.rotateM(mCurrentRotation, 0, -mDeltaY, 1.0f, 0.0f, 0.0f);
     mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, MD_DEGREES_TO_RADIANS(-mDeltaY), 1.0f, 0.0f, 0.0f);
     
-    //Matrix.rotateM(mCurrentRotation, 0, -mDeltaX + mAngle, 0.0f, 1.0f, 0.0f);
     mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, MD_DEGREES_TO_RADIANS(-mDeltaX + mAngle), 0.0f, 1.0f, 0.0f);
     
-    //Matrix.multiplyMM(mCurrentRotation, 0, mSensorMatrix, 0, mCurrentRotation, 0);
     mCurrentRotation = GLKMatrix4Multiply(mSensorMatrix, mCurrentRotation);
     
     // set the accumulated rotation to the result.
-    //System.arraycopy(mCurrentRotation, 0, mAccumulatedRotation, 0, 16);
     mAccumulatedRotation = mCurrentRotation;
     
     // Rotate the cube taking the overall rotation into account.
-    //Matrix.multiplyMM(mTemporaryMatrix, 0, mModelMatrix, 0, mAccumulatedRotation, 0);
     mTemporaryMatrix = GLKMatrix4Multiply(mModelMatrix, mAccumulatedRotation);
     
-    //System.arraycopy(mTemporaryMatrix, 0, mModelMatrix, 0, 16);
     mModelMatrix = mTemporaryMatrix;
     
     // This multiplies the view matrix by the model matrix, and stores the result in the MVP matrix
     // (which currently contains model * view).
-    //Matrix.multiplyMM(mMVMatrix, 0, mViewMatrix, 0, mModelMatrix, 0);
     mMVMatrix = GLKMatrix4Multiply(mViewMatrix, mModelMatrix);
     
     // This multiplies the model view matrix by the projection matrix, and stores the result in the MVP matrix
     // (which now contains model * view * projection).
-    // Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mMVMatrix, 0);
     mMVPMatrix = GLKMatrix4Multiply(mProjectionMatrix, mMVMatrix);
     
     // Pass in the model view matrix
-    //GLES20.glUniformMatrix4fv(program.getMVMatrixHandle(), 1, false, mMVMatrix, 0);
     glUniformMatrix4fv(program.mMVMatrixHandle, 1, GL_FALSE, mMVMatrix.m);
     
     // Pass in the combined matrix.
-    //GLES20.glUniformMatrix4fv(program.getMVPMatrixHandle(), 1, false, mMVPMatrix, 0);
     glUniformMatrix4fv(program.mMVPMatrixHandle, 1, GL_FALSE, mMVPMatrix.m);
 }
 
@@ -167,14 +160,15 @@ static float sDamping = 0.2f;
     float upX = 0.0f;
     float upY = 1.0f;
     float upZ = 0.0f;
-    //mViewMatrix = GLKMatrix4Identity; // Matrix.setIdentityM(mViewMatrix, 0);
     
     mViewMatrix = GLKMatrix4MakeLookAt(eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
-    // Matrix.setLookAtM(mViewMatrix, 0, eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
 }
 
+- (void) updateSensorMatrix:(GLKMatrix4)sensor{
+    mSensorMatrix = sensor;
+}
 
-#pragma mark - touches
+#pragma mark touches
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
         [self.currentTouches addObject:touch];
@@ -201,6 +195,51 @@ static float sDamping = 0.2f;
     for (UITouch *touch in touches) {
         [self.currentTouches removeObject:touch];
     }
+}
+
+#pragma mark motion
+
+- (void)startDeviceMotion {
+    self.prevMotionAttitude = nil;
+    self.motionManager = [[CMMotionManager alloc] init];
+    self.motionManager.deviceMotionUpdateInterval = 1.0 / 30.0;
+    self.motionManager.gyroUpdateInterval = 1.0f / 30;
+    self.motionManager.showsDeviceMovementDisplay = YES;
+    NSOperationQueue* motionQueue = [[NSOperationQueue alloc] init];
+    [self.motionManager setDeviceMotionUpdateInterval:1.0f / 30];
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    [self.motionManager startDeviceMotionUpdatesToQueue:motionQueue withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
+
+        CMAttitude* attitude = motion.attitude;
+        if (attitude == nil) return;
+        
+        GLKMatrix4 sensor = GLKMatrix4Identity;
+        CMQuaternion quaternion = attitude.quaternion;
+        sensor = [GLUtil getRotationMatrixFromQuaternion:&quaternion];
+        switch (orientation) {
+            case UIDeviceOrientationLandscapeRight:
+                sensor = [GLUtil remapCoordinateSystem:sensor.m X:AXIS_MINUS_Y Y:AXIS_X];
+                break;
+            case UIDeviceOrientationLandscapeLeft:
+                sensor = [GLUtil remapCoordinateSystem:sensor.m X:AXIS_Y Y:AXIS_MINUS_X];
+                break;
+            case UIDeviceOrientationUnknown:
+            case UIDeviceOrientationPortrait:
+            case UIDeviceOrientationPortraitUpsideDown://not support now
+            default:
+                break;
+        }
+        sensor = GLKMatrix4RotateX(sensor, M_PI_2);
+        
+        [self updateSensorMatrix:sensor];
+
+    }];    
+}
+
+- (void)stopDeviceMotion {
+    
+    [self.motionManager stopDeviceMotionUpdates];
+    self.motionManager = nil;
 }
 
 
