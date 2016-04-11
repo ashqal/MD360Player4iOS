@@ -43,11 +43,21 @@
     MDVRConfiguration* config = [MDVRLibrary createConfig];
     
     [config asVideo:playerItem];
-    [config setFramesInViewController:self frames:[NSArray arrayWithObjects:[NSValue valueWithCGRect:CGRectMake(0, 0, 300, 300)],nil]];
+    [config setFrames:[self twoFrames] vc:self];
     
     self.vrLibrary = [config build];
     /////////////////////////////////////////////////////// MDVRLibrary
     
+}
+
+- (NSArray*) twoFrames{
+    float width = [[UIScreen mainScreen] bounds].size.width;
+    float height = [[UIScreen mainScreen] bounds].size.height;
+    int size = 2;
+    float perWidth = width * 1.0f / size;
+    CGRect frame1 = CGRectMake(0, 0, perWidth, height);
+    CGRect frame2 = CGRectMake(perWidth, 0, perWidth, height);
+    return [NSArray arrayWithObjects:[NSValue valueWithCGRect:frame1],[NSValue valueWithCGRect:frame2], nil];
 }
 
 - (void)didReceiveMemoryWarning {

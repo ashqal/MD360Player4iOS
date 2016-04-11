@@ -12,12 +12,17 @@
 #import "GLUtil.h"
 
 @interface MD360Renderer()
-@property (nonatomic,retain) MDAbsObject3D* mObject3D;
-@property (nonatomic,retain) MD360Program* mProgram;
-
+@property (nonatomic,strong) MDAbsObject3D* mObject3D;
+@property (nonatomic,strong) MD360Program* mProgram;
+@property (nonatomic,strong) MD360Texture* mTexture;
+@property (nonatomic,strong) MD360Director* mDirector;
 @end
 
 @implementation MD360Renderer
+
++ (MD360RendererBuilder*) builder{
+    return [[MD360RendererBuilder alloc]init];
+}
 
 - (instancetype)init {
     self = [super init];
@@ -28,14 +33,8 @@
 }
 
 - (void) setup{
-    // TODO
-    self.mDirector = [[MD360Director alloc]init];
     
     self.mProgram = [[MD360Program alloc]init];
-    
-    // TODO create by MDVRLibrary
-    self.mTexture = [[MD360BitmapTexture alloc]init];
-    
     self.mObject3D = [[MDSphere3D alloc]init];
     
 }
@@ -116,6 +115,30 @@
     
     // upload
     [self.mObject3D uploadDataToProgram:self.mProgram];
+}
+
+@end
+
+@interface MD360RendererBuilder()
+@property (nonatomic,readonly) MD360Director* director;
+@property (nonatomic,readonly) MD360Texture* texture;
+@end
+
+@implementation MD360RendererBuilder
+
+- (void) setDirector:(MD360Director*) director{
+    _director = director;
+}
+
+- (void) setTexture:(MD360Texture*) texture{
+    _texture = texture;
+}
+
+- (MD360Renderer*) build{
+    MD360Renderer* renderer = [[MD360Renderer alloc]init];
+    renderer.mDirector = self.director;
+    renderer.mTexture = self.texture;
+    return renderer;
 }
 
 @end

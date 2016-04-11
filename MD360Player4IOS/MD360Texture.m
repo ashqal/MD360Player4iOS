@@ -82,8 +82,8 @@
 
 #pragma mark MD360VideoTexture
 @interface MD360VideoTexture(){
-    CVOpenGLESTextureCacheRef mTextureCache;
 }
+@property (nonatomic,strong) NSMutableDictionary* mContextTextureMap;
 @property (nonatomic,strong) id<MDVideoDataAdapter> mDataAdatper;
 @end
 
@@ -93,12 +93,18 @@
     self = [super init];
     if (self) {
         self.mDataAdatper = adapter;
+        self.mContextTextureMap = [[NSMutableDictionary alloc]init];
     }
     return self;
 }
 
 - (void)dealloc{
-    if(mTextureCache != NULL) CFRelease(mTextureCache);
+    //if(mTextureCache) CFRelease(mTextureCache);
+    for (NSValue* value in self.mContextTextureMap) {
+        CVOpenGLESTextureCacheRef ref = [value pointerValue];
+        if(ref != NULL) CFRelease(ref);
+    }
+    self.mContextTextureMap = nil;
 }
 
 + (MD360Texture*) createWithAVPlayerItem:(AVPlayerItem*) playerItem{
@@ -108,11 +114,14 @@
 }
 
 - (CVOpenGLESTextureCacheRef)textureCache:(EAGLContext*)context{
-    if (mTextureCache == NULL){
-        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge CVEAGLContext _Nonnull)((__bridge void *)context), NULL, &mTextureCache);
+    NSValue* value = [self.mContextTextureMap objectForKey:context.description];
+    CVOpenGLESTextureCacheRef texture = [value pointerValue];
+    if (texture == NULL){
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge CVEAGLContext _Nonnull)((__bridge void *)context), NULL, &texture);
         if (err) NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreate");
+        [self.mContextTextureMap setObject:[NSValue valueWithPointer:texture] forKey:context.description];
     }
-    return mTextureCache;
+    return texture;
 }
 
 - (void) updateTexture:(EAGLContext*)context{

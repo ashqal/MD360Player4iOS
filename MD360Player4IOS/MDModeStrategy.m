@@ -33,6 +33,7 @@
         [self.mStrategy off];
     }
     self.mStrategy = [self createStrategy:self.mMode];
+    [self on];
 }
 
 -(void) on{

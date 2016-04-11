@@ -11,8 +11,8 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, MDModeInteractive) {
-    MDModeInteractiveMotion,
     MDModeInteractiveTouch,
+    MDModeInteractiveMotion,
 };
 
 typedef NS_ENUM(NSInteger, MDModeDisplay) {
@@ -26,7 +26,8 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 - (void) asVideo:(AVPlayerItem*)playerItem;
 - (void) asImage:(id)data;
 - (void) interactiveMode:(MDModeInteractive)interactiveMode;
-- (void) setFramesInViewController:(UIViewController*)viewController frames:(NSArray*)frames;
+- (void) setFrames:(NSArray*)frames vc:(UIViewController*)vc;
+- (void) setFrames:(NSArray*)frames vc:(UIViewController*)vc  view:(UIView*)view;
 - (MDVRLibrary*) build;
 @end
 

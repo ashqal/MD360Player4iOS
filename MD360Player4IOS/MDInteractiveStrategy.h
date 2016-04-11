@@ -10,5 +10,5 @@
 #import "MDModeStrategy.h"
 
 @interface MDInteractiveStrategyManager : MDModeManager
-- (instancetype)initWithDirectorList:(NSArray*) dirctors;
+@property(nonatomic,weak) NSArray* dirctors;
 @end

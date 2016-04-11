@@ -14,8 +14,10 @@
 
 @interface MDVRLibrary()
 @property (nonatomic,strong) MD360Texture* texture;
-@property (nonatomic,strong) MD360Renderer* renderer;
+//@property (nonatomic,strong) MD360Renderer* renderer;
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
+@property (nonatomic,strong) NSMutableArray* renderers;
+@property (nonatomic,strong) NSMutableArray* directors;
 
 @end
 
@@ -25,19 +27,45 @@
     return [[MDVRConfiguration alloc]init];
 }
 
-- (void) setup {
-    [self.interactiveStrategyManager prepare];
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.renderers = [[NSMutableArray alloc]init];
+        self.directors = [[NSMutableArray alloc]init];
+    }
+    return self;
 }
 
-- (void) addDisplay:(UIViewController*)parent frame:(CGRect)frame{
+- (void) setup {
+    self.interactiveStrategyManager.dirctors = self.directors;
+    [self.interactiveStrategyManager prepare];
+
+}
+
+- (void) addDisplay:(CGRect)frame viewController:(UIViewController*)viewController view:(UIView*)parentView{
     MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
-    glkViewController.rendererDelegate = self.renderer;
-    glkViewController.touchDelegate = self.renderer.mDirector;
-    UIView* parentView = parent.view;
-    glkViewController.view.bounds = frame;
+    
+    // director
+    int index = (int)[self.directors count];
+    MD360Director* director = [MD360DirectorFactory create:index];
+    [self.directors addObject:director];
+    
+    // renderer
+    MD360RendererBuilder* builder = [MD360Renderer builder];
+    [builder setTexture:self.texture];
+    [builder setDirector:director];
+    MD360Renderer* renderer = [builder build];
+    [self.renderers addObject:renderer];
+  
+    glkViewController.rendererDelegate = renderer;
+    glkViewController.touchDelegate = director;
+    [glkViewController.view setFrame:frame];
     [parentView addSubview:glkViewController.view];
-    [parent addChildViewController:glkViewController];
-    [glkViewController didMoveToParentViewController:parent];
+    if (viewController != nil) {
+        [viewController addChildViewController:glkViewController];
+        [glkViewController didMoveToParentViewController:viewController];
+    }
+    
 }
 
 #pragma mark InteractiveMode
@@ -61,12 +89,20 @@
 @property (nonatomic,readonly) NSArray* vrFrames;
 @property (nonatomic,readonly) MD360Texture* texture;
 @property (nonatomic,readonly) UIViewController* viewController;
+@property (nonatomic,readonly) UIView* view;
 @property (nonatomic,readonly) MDModeInteractive interactiveMode;
 
 @end
 
 @implementation MDVRConfiguration
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _interactiveMode = MDModeInteractiveTouch;
+    }
+    return self;
+}
 - (void) asVideo:(AVPlayerItem*)playerItem{
     _texture = [MD360VideoTexture createWithAVPlayerItem:playerItem];
 }
@@ -79,22 +115,26 @@
     _interactiveMode = interactiveMode;
 }
 
-- (void) setFramesInViewController:(UIViewController*)viewController frames:(NSArray*)frames{
-    _viewController = viewController;
+- (void) setFrames:(NSArray*)frames vc:(UIViewController*)vc {
+    [self setFrames:frames vc:vc view:vc.view];
+}
+
+- (void) setFrames:(NSArray*)frames vc:(UIViewController*)vc  view:(UIView*)view{
     _vrFrames = frames;
+    _viewController = vc;
+    _view = view;
 }
 
 - (MDVRLibrary*) build{
     MDVRLibrary* library = [[MDVRLibrary alloc]init];
     library.texture = self.texture;
-    library.renderer = [[MD360Renderer alloc]init];
-    library.renderer.mTexture = self.texture;
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
     
-    [library setup];
     for (NSValue* value in self.vrFrames) {
-        [library addDisplay:self.viewController frame:[value CGRectValue] ];
+        [library addDisplay:[value CGRectValue] viewController:self.viewController view:self.view];
     }
+    
+    [library setup];
     return library;
 }
 

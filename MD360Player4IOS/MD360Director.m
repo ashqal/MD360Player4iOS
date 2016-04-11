@@ -39,17 +39,15 @@
 
 @implementation MD360Director
 
-- (instancetype)init
-{
+- (instancetype)init{
     self = [super init];
     if (self) {
-        [self setup];
+        [self initValue];
     }
     return self;
 }
 
-- (void) setup{
-    
+- (void) initValue{
     mEyeZ = 0;
     mAngle = 0;
     mRatio = 1.5f;
@@ -58,6 +56,9 @@
     mLookX = 0;
     mModelMatrix = mViewMatrix = mProjectionMatrix = mMVMatrix = mMVPMatrix = GLKMatrix4Identity;
     mCurrentRotation = mAccumulatedRotation = mTemporaryMatrix = mSensorMatrix = GLKMatrix4Identity;
+}
+
+- (void) setup{
     
     [self initCamera];
     [self initModel];
@@ -164,6 +165,14 @@
     mDeltaY += distY;
 }
 
+- (void) setLookX:(float)lookX{
+    mLookX = lookX;
+}
+
+- (void) setEyeX:(float)eyeX{
+    mEyeX  = eyeX;
+}
+
 #pragma mark - touches
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if([self.touchDelegate respondsToSelector:@selector(touchesBegan:withEvent:)]){
@@ -189,4 +198,21 @@
     }
 }
 
+@end
+
+#pragma mark 
+@implementation MD360DirectorFactory
++ (MD360Director*) create:(int) index{
+    MD360Director* director = [[MD360Director alloc]init];
+    switch (index) {
+        case 1:
+            [director setEyeX:-2.0f];
+            [director setLookX:-2.0f];
+            break;
+        default:
+            break;
+    }
+    [director setup];
+    return director;
+}
 @end

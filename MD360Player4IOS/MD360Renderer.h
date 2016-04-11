@@ -11,7 +11,15 @@
 #import "MD360Director.h"
 #import "MD360Texture.h"
 
-@interface MD360Renderer : NSObject <MDGLRendererDelegate>
-@property (nonatomic,retain) MD360Texture* mTexture;
-@property (nonatomic,retain) MD360Director* mDirector;
+@class MD360Renderer;
+@interface MD360RendererBuilder : NSObject
+- (void) setDirector:(MD360Director*) director;
+- (void) setTexture:(MD360Texture*) texture;
+- (MD360Renderer*) build;
 @end
+
+@interface MD360Renderer : NSObject <MDGLRendererDelegate>
++ (MD360RendererBuilder*) builder;
+@end
+
+

@@ -104,7 +104,6 @@ static float sMDDamping = 0.2f;
 #pragma mark MDMotionStrategy
 @interface MDMotionStrategy:MDInteractiveStrategy
 @property (nonatomic,strong) CMMotionManager* motionManager;
-@property (nonatomic,strong) CMAttitude* prevMotionAttitude;
 @end
 
 @implementation MDMotionStrategy
@@ -120,7 +119,6 @@ static float sMDDamping = 0.2f;
 #pragma mark motion
 
 - (void)startDeviceMotion {
-    self.prevMotionAttitude = nil;
     self.motionManager = [[CMMotionManager alloc] init];
     self.motionManager.deviceMotionUpdateInterval = 1.0 / 30.0;
     self.motionManager.gyroUpdateInterval = 1.0f / 30;
@@ -153,21 +151,23 @@ static float sMDDamping = 0.2f;
 
 #pragma mark MDInteractiveStrategyManager
 @interface MDInteractiveStrategyManager()
-@property(nonatomic,strong) NSArray* dirctors;
+
 @end
 @implementation MDInteractiveStrategyManager
-
-- (instancetype)initWithDirectorList:(NSArray*) dirctors{
-    self = [super init];
-    if (self) {
-        self.dirctors = dirctors;
-    }
-    return self;
-}
 
 - (void) switchMode{
     int newMode = self.mMode == MDModeInteractiveMotion ? MDModeInteractiveTouch : MDModeInteractiveMotion;
     [self switchMode:newMode];
+}
+
+- (void) switchMode:(int)mode{
+    int prev = self.mMode;
+    [super switchMode:mode];
+    if (prev != mode) {
+        for (MD360Director* dirctor in self.dirctors) {
+            [dirctor reset];
+        }
+    }
 }
 
 - (id<IMDModeStrategy>) createStrategy:(int)mode{
