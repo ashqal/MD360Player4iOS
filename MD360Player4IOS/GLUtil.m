@@ -321,6 +321,23 @@ typedef struct
     }
 }
 
++ (GLKMatrix4) calculateMatrixFromQuaternion:(CMQuaternion*)quaternion orientation:(UIInterfaceOrientation) orientation{
+    GLKMatrix4 sensor = [GLUtil getRotationMatrixFromQuaternion:quaternion];
+    switch (orientation) {
+        case UIDeviceOrientationLandscapeRight:
+            sensor = [GLUtil remapCoordinateSystem:sensor.m X:AXIS_MINUS_Y Y:AXIS_X];
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            sensor = [GLUtil remapCoordinateSystem:sensor.m X:AXIS_Y Y:AXIS_MINUS_X];
+            break;
+        case UIDeviceOrientationUnknown:
+        case UIDeviceOrientationPortrait:
+        case UIDeviceOrientationPortraitUpsideDown://not support now
+        default:
+            break;
+    }
+    return sensor;
+}
 /** Helper function to convert a rotation vector to a rotation matrix.
  *  Given a rotation vector (presumably from a ROTATION_VECTOR sensor), returns a
  *  9  or 16 element rotation matrix in the array R.  R must have length 9 or 16.
@@ -340,7 +357,7 @@ typedef struct
  *  @param rotationVector the rotation vector to convert
  *  @param R an array of floats in which to store the rotation matrix
 */
-+ (GLKMatrix4) getRotationMatrixFromQuaternion:(CMQuaternion*)quaternion {
++ (GLKMatrix4) getRotationMatrixFromQuaternion:(CMQuaternion*)quaternion{
     
     float q0 = quaternion->w;
     float q1 = quaternion->x;

@@ -98,7 +98,7 @@
 }
 
 - (void)dealloc{
-    CFRelease(mTextureCache);
+    if(mTextureCache != NULL) CFRelease(mTextureCache);
 }
 
 + (MD360Texture*) createWithAVPlayerItem:(AVPlayerItem*) playerItem{

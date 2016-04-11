@@ -8,8 +8,6 @@
 
 #import "MD360Director.h"
 #import "GLUtil.h"
-#import <CoreMotion/CoreMotion.h>
-#import <math.h>
 
 @interface MD360Director(){
     GLKMatrix4 mModelMatrix;// = new float[16];
@@ -37,12 +35,7 @@
     float mDeltaX;
     float mDeltaY;
 }
-@property (nonatomic,strong) NSMutableArray* currentTouches;
-@property (nonatomic,strong) CMMotionManager* motionManager;
-@property (nonatomic,strong) CMAttitude* prevMotionAttitude;
 @end
-
-static float sDamping = 0.2f;
 
 @implementation MD360Director
 
@@ -56,7 +49,7 @@ static float sDamping = 0.2f;
 }
 
 - (void) setup{
-    self.currentTouches = [[NSMutableArray alloc]init];
+    
     mEyeZ = 0;
     mAngle = 0;
     mRatio = 1.5f;
@@ -68,8 +61,6 @@ static float sDamping = 0.2f;
     
     [self initCamera];
     [self initModel];
-    
-    [self startDeviceMotion];
 }
 
 - (void)initModel{
@@ -168,79 +159,34 @@ static float sDamping = 0.2f;
     mSensorMatrix = sensor;
 }
 
-#pragma mark touches
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches) {
-        [self.currentTouches addObject:touch];
-    }
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    float distX = [touch locationInView:touch.view].x - [touch previousLocationInView:touch.view].x;
-    float distY = [touch locationInView:touch.view].y - [touch previousLocationInView:touch.view].y;
-    distX *= sDamping;
-    distY *= sDamping;
+- (void) updateTouch:(float)distX distY:(int)distY{
     mDeltaX += distX;
     mDeltaY += distY;
 }
 
+#pragma mark - touches
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if([self.touchDelegate respondsToSelector:@selector(touchesBegan:withEvent:)]){
+        [self.touchDelegate touchesBegan:touches withEvent:event];
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    if([self.touchDelegate respondsToSelector:@selector(touchesMoved:withEvent:)]){
+        [self.touchDelegate touchesMoved:touches withEvent:event];
+    }
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches) {
-        [self.currentTouches removeObject:touch];
+    if([self.touchDelegate respondsToSelector:@selector(touchesEnded:withEvent:)]){
+        [self.touchDelegate touchesEnded:touches withEvent:event];
     }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches) {
-        [self.currentTouches removeObject:touch];
+    if([self.touchDelegate respondsToSelector:@selector(touchesCancelled:withEvent:)]){
+        [self.touchDelegate touchesCancelled:touches withEvent:event];
     }
 }
-
-#pragma mark motion
-
-- (void)startDeviceMotion {
-    self.prevMotionAttitude = nil;
-    self.motionManager = [[CMMotionManager alloc] init];
-    self.motionManager.deviceMotionUpdateInterval = 1.0 / 30.0;
-    self.motionManager.gyroUpdateInterval = 1.0f / 30;
-    self.motionManager.showsDeviceMovementDisplay = YES;
-    NSOperationQueue* motionQueue = [[NSOperationQueue alloc] init];
-    [self.motionManager setDeviceMotionUpdateInterval:1.0f / 30];
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    [self.motionManager startDeviceMotionUpdatesToQueue:motionQueue withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
-
-        CMAttitude* attitude = motion.attitude;
-        if (attitude == nil) return;
-        
-        GLKMatrix4 sensor = GLKMatrix4Identity;
-        CMQuaternion quaternion = attitude.quaternion;
-        sensor = [GLUtil getRotationMatrixFromQuaternion:&quaternion];
-        switch (orientation) {
-            case UIDeviceOrientationLandscapeRight:
-                sensor = [GLUtil remapCoordinateSystem:sensor.m X:AXIS_MINUS_Y Y:AXIS_X];
-                break;
-            case UIDeviceOrientationLandscapeLeft:
-                sensor = [GLUtil remapCoordinateSystem:sensor.m X:AXIS_Y Y:AXIS_MINUS_X];
-                break;
-            case UIDeviceOrientationUnknown:
-            case UIDeviceOrientationPortrait:
-            case UIDeviceOrientationPortraitUpsideDown://not support now
-            default:
-                break;
-        }
-        sensor = GLKMatrix4RotateX(sensor, M_PI_2);
-        
-        [self updateSensorMatrix:sensor];
-
-    }];    
-}
-
-- (void)stopDeviceMotion {
-    
-    [self.motionManager stopDeviceMotionUpdates];
-    self.motionManager = nil;
-}
-
 
 @end

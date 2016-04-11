@@ -7,7 +7,33 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, MDModeInteractive) {
+    MDModeInteractiveMotion,
+    MDModeInteractiveTouch,
+};
+
+typedef NS_ENUM(NSInteger, MDModeDisplay) {
+    MDModeDisplayNormal,
+    MDModeDisplayGlass,
+};
+
+@class MDVRLibrary;
+#pragma mark MDVRConfiguration
+@interface MDVRConfiguration : NSObject
+- (void) asVideo:(AVPlayerItem*)playerItem;
+- (void) asImage:(id)data;
+- (void) interactiveMode:(MDModeInteractive)interactiveMode;
+- (void) setFramesInViewController:(UIViewController*)viewController frames:(NSArray*)frames;
+- (MDVRLibrary*) build;
+@end
+
+#pragma mark MDVRLibrary
 @interface MDVRLibrary : NSObject
-
++ (MDVRConfiguration*) createConfig;
+- (void) switchInteractiveMode;
+// - (void) switchInteractiveMode:(MDModeInteractive)interactiveMode;
+- (MDModeInteractive) getInteractiveMdoe;
 @end

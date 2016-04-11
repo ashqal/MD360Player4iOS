@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E0386A01CBB7CB00087D7AC /* MDModeStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E03869F1CBB7CB00087D7AC /* MDModeStrategy.m */; };
+		5E0386A31CBB82020087D7AC /* MDInteractiveStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */; };
 		5E0A0BB71CA8146E005F08CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BB61CA8146E005F08CC /* main.m */; };
 		5E0A0BBA1CA8146E005F08CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BB91CA8146E005F08CC /* AppDelegate.m */; };
 		5E0A0BBD1CA8146E005F08CC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BBC1CA8146E005F08CC /* ViewController.m */; };
@@ -33,6 +35,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E03869E1CBB7CB00087D7AC /* MDModeStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDModeStrategy.h; sourceTree = "<group>"; };
+		5E03869F1CBB7CB00087D7AC /* MDModeStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDModeStrategy.m; sourceTree = "<group>"; };
+		5E0386A11CBB82020087D7AC /* MDInteractiveStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDInteractiveStrategy.h; sourceTree = "<group>"; };
+		5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDInteractiveStrategy.m; sourceTree = "<group>"; };
 		5E0A0BB21CA8146E005F08CC /* MD360Player4IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MD360Player4IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E0A0BB61CA8146E005F08CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5E0A0BB81CA8146E005F08CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -87,6 +93,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E0386A41CBB82160087D7AC /* strategy */ = {
+			isa = PBXGroup;
+			children = (
+				5E03869E1CBB7CB00087D7AC /* MDModeStrategy.h */,
+				5E03869F1CBB7CB00087D7AC /* MDModeStrategy.m */,
+				5E0386A11CBB82020087D7AC /* MDInteractiveStrategy.h */,
+				5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */,
+			);
+			name = strategy;
+			sourceTree = "<group>";
+		};
 		5E0A0BA91CA8146E005F08CC = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +152,7 @@
 		5EE78DC91CB503A000A7A67D /* vrlib */ = {
 			isa = PBXGroup;
 			children = (
+				5E0386A41CBB82160087D7AC /* strategy */,
 				5EE78DCA1CB5095200A7A67D /* raw */,
 				5EE78DBD1CB4E04800A7A67D /* GLUtil.h */,
 				5EE78DBE1CB4E04800A7A67D /* GLUtil.m */,
@@ -317,11 +335,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E0386A31CBB82020087D7AC /* MDInteractiveStrategy.m in Sources */,
 				5EE78DBF1CB4E04800A7A67D /* GLUtil.m in Sources */,
 				5E0A0BBD1CA8146E005F08CC /* ViewController.m in Sources */,
 				5EE78DE61CB743D000A7A67D /* MDGLKViewController.m in Sources */,
 				5E0A0BBA1CA8146E005F08CC /* AppDelegate.m in Sources */,
 				5EE78DD81CB6743600A7A67D /* MD360Renderer.m in Sources */,
+				5E0386A01CBB7CB00087D7AC /* MDModeStrategy.m in Sources */,
 				5EE78DC21CB4F2D400A7A67D /* MDAbsObject3D.m in Sources */,
 				5E0A0BB71CA8146E005F08CC /* main.m in Sources */,
 				5EE78E4A1CB93DE100A7A67D /* MDVideoDataAdatperAVPlayerImpl.m in Sources */,

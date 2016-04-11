@@ -9,19 +9,13 @@
 #import "ViewController.h"
 #import "VIMVideoPlayerView.h"
 #import "VIMVideoPlayer.h"
-#import "GLUtil.h"
-#import "MD360Program.h"
-#import "MD360Renderer.h"
-#import "MDGLKViewController.h"
-#import "MDVideoDataAdatperAVPlayerImpl.h"
-#import "MD360Texture.h"
+#import "MDVRLibrary.h"
+
 
 @interface ViewController()<VIMVideoPlayerViewDelegate>{
 }
 @property (nonatomic, strong) VIMVideoPlayerView *videoPlayerView;
-@property (nonatomic, strong) MD360Renderer* renderer;
-
-
+@property (nonatomic, strong) MDVRLibrary* vrLibrary;
 @end
 
 @implementation ViewController
@@ -43,20 +37,16 @@
     [self.videoPlayerView.player setPlayerItem:playerItem];
     [self.videoPlayerView.player play];
     
-
-    // renderer
-    self.renderer = [[MD360Renderer alloc]init];
     
-    // create Texture
-    self.renderer.mTexture = [MD360VideoTexture createWithAVPlayerItem:playerItem];
     
-    MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
-    glkViewController.rendererDelegate = self.renderer;
-    glkViewController.touchDelegate = self.renderer.mDirector;
-    [self.view addSubview:glkViewController.view];
-    [self addChildViewController:glkViewController];
-    [glkViewController didMoveToParentViewController:self];
+    /////////////////////////////////////////////////////// MDVRLibrary
+    MDVRConfiguration* config = [MDVRLibrary createConfig];
     
+    [config asVideo:playerItem];
+    [config setFramesInViewController:self frames:[NSArray arrayWithObjects:[NSValue valueWithCGRect:CGRectMake(0, 0, 300, 300)],nil]];
+    
+    self.vrLibrary = [config build];
+    /////////////////////////////////////////////////////// MDVRLibrary
     
 }
 

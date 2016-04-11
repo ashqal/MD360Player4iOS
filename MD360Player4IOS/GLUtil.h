@@ -42,6 +42,7 @@ static const int AXIS_MINUS_Z = AXIS_Z | 0x80;
 + (GLuint)createAndLinkProgramWith:(GLuint)vsHandle fsHandle:(GLuint)fsHandle attrs:(NSArray*)attrs;
 + (void)texImage2D:(NSString*)path;
 + (void) glCheck:(NSString*) msg;
-+ (GLKMatrix4) getRotationMatrixFromQuaternion:(CMQuaternion*)quaternion;
-+ (GLKMatrix4) remapCoordinateSystem:(float*)inR X:(int)X Y:(int)Y;
++ (GLKMatrix4) calculateMatrixFromQuaternion:(CMQuaternion*)quaternion orientation:(UIInterfaceOrientation) orientation;
+// + (GLKMatrix4) getRotationMatrixFromQuaternion:(CMQuaternion*)quaternion;
+// + (GLKMatrix4) remapCoordinateSystem:(float*)inR X:(int)X Y:(int)Y;
 @end

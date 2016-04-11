@@ -20,9 +20,11 @@
 
 
 @interface MD360Director : NSObject<MDTouchDelegate>
+@property (nonatomic,weak) id<MDTouchDelegate> touchDelegate;
 - (void) shot:(MD360Program*) program;
 - (void) reset;
 - (void) updateProjection:(int)width height:(int)height;
 - (void) updateSensorMatrix:(GLKMatrix4)sensor;
+- (void) updateTouch:(float)distX distY:(int)distY;
 @end
 
