@@ -11,6 +11,7 @@
 		5E0386A31CBB82020087D7AC /* MDInteractiveStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */; };
 		5E0386A61CBBF9CA0087D7AC /* Player.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E0386A51CBBF9CA0087D7AC /* Player.storyboard */; };
 		5E0386A91CBBFA1C0087D7AC /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0386A81CBBFA1C0087D7AC /* PlayerViewController.m */; };
+		5E0386AC1CBD2B9B0087D7AC /* MDDisplayStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0386AB1CBD2B9B0087D7AC /* MDDisplayStrategy.m */; };
 		5E0A0BB71CA8146E005F08CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BB61CA8146E005F08CC /* main.m */; };
 		5E0A0BBA1CA8146E005F08CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BB91CA8146E005F08CC /* AppDelegate.m */; };
 		5E0A0BBD1CA8146E005F08CC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BBC1CA8146E005F08CC /* ViewController.m */; };
@@ -44,6 +45,8 @@
 		5E0386A51CBBF9CA0087D7AC /* Player.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Player.storyboard; sourceTree = "<group>"; };
 		5E0386A71CBBFA1C0087D7AC /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		5E0386A81CBBFA1C0087D7AC /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
+		5E0386AA1CBD2B9B0087D7AC /* MDDisplayStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDisplayStrategy.h; sourceTree = "<group>"; };
+		5E0386AB1CBD2B9B0087D7AC /* MDDisplayStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDisplayStrategy.m; sourceTree = "<group>"; };
 		5E0A0BB21CA8146E005F08CC /* MD360Player4IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MD360Player4IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E0A0BB61CA8146E005F08CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5E0A0BB81CA8146E005F08CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				5E03869F1CBB7CB00087D7AC /* MDModeStrategy.m */,
 				5E0386A11CBB82020087D7AC /* MDInteractiveStrategy.h */,
 				5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */,
+				5E0386AA1CBD2B9B0087D7AC /* MDDisplayStrategy.h */,
+				5E0386AB1CBD2B9B0087D7AC /* MDDisplayStrategy.m */,
 			);
 			name = strategy;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 				TargetAttributes = {
 					5E0A0BB11CA8146E005F08CC = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 2QC4N95ACW;
 					};
 				};
 			};
@@ -352,6 +358,7 @@
 				5EE78DD81CB6743600A7A67D /* MD360Renderer.m in Sources */,
 				5E0386A01CBB7CB00087D7AC /* MDModeStrategy.m in Sources */,
 				5EE78DC21CB4F2D400A7A67D /* MDAbsObject3D.m in Sources */,
+				5E0386AC1CBD2B9B0087D7AC /* MDDisplayStrategy.m in Sources */,
 				5E0A0BB71CA8146E005F08CC /* main.m in Sources */,
 				5EE78E4A1CB93DE100A7A67D /* MDVideoDataAdatperAVPlayerImpl.m in Sources */,
 				5EE78DC81CB5033200A7A67D /* MD360Program.m in Sources */,
@@ -469,10 +476,13 @@
 			baseConfigurationReference = AE00CDC48AFE2C62A5056CF1 /* Pods-MD360Player4IOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MD360Player4IOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = moredoo.MD360Player4IOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -481,10 +491,13 @@
 			baseConfigurationReference = D96329166DC1E78C93C8DEB0 /* Pods-MD360Player4IOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MD360Player4IOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = moredoo.MD360Player4IOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

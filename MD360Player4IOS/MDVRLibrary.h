@@ -26,17 +26,23 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 - (void) asVideo:(AVPlayerItem*)playerItem;
 - (void) asImage:(id)data;
 - (void) interactiveMode:(MDModeInteractive)interactiveMode;
-- (void) setFrames:(NSArray*)frames vc:(UIViewController*)vc;
-- (void) setFrames:(NSArray*)frames vc:(UIViewController*)vc  view:(UIView*)view;
+- (void) displayMode:(MDModeDisplay)displayMode;
+- (void) setContainer:(UIViewController*)vc;
+- (void) setContainer:(UIViewController*)vc view:(UIView*)view;
 - (MDVRLibrary*) build;
 @end
 
 #pragma mark MDVRLibrary
 @interface MDVRLibrary : NSObject
 + (MDVRConfiguration*) createConfig;
+
 - (void) switchInteractiveMode;
 // - (void) switchInteractiveMode:(MDModeInteractive)interactiveMode;
 - (MDModeInteractive) getInteractiveMdoe;
+
+- (void) switchDisplayMode:(MDModeDisplay)displayMode;
+- (void) switchDisplayMode;
+- (MDModeDisplay) getDisplayMdoe;
 @end
 
 @protocol IMDDestroyable <NSObject>

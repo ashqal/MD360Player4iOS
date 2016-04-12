@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaw-9T-25d">
-                                <rect key="frame" x="493" y="0.0" width="107" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaw-9T-25d">
+                                <rect key="frame" x="453" y="20" width="107" height="48"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="E3c-3o-Sl1"/>
@@ -32,8 +32,8 @@
                                     <action selector="onCloseBtnClicked:" destination="him-Mf-4X0" eventType="touchUpInside" id="e0b-E6-NXH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="062-pd-nf8">
-                                <rect key="frame" x="0.0" y="0.0" width="107" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="062-pd-nf8">
+                                <rect key="frame" x="40" y="20" width="107" height="48"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="MzB-a6-gkm"/>
@@ -44,6 +44,20 @@
                                 </state>
                                 <connections>
                                     <action selector="onInteractiveModeBtnClicked:" destination="him-Mf-4X0" eventType="touchUpInside" id="W3p-Hx-EcO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQK-qX-kVx">
+                                <rect key="frame" x="163" y="20" width="107" height="48"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="107" id="BsM-0S-p85"/>
+                                    <constraint firstAttribute="height" constant="48" id="XvF-Pz-tFq"/>
+                                </constraints>
+                                <state key="normal" title="NORMAL">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onDisplayModeBtnClicked:" destination="him-Mf-4X0" eventType="touchUpInside" id="uBd-jT-5db"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -58,7 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zt0-5f-7o0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="69" y="397"/>
+            <point key="canvasLocation" x="35" y="395"/>
         </scene>
     </scenes>
 </document>

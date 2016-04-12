@@ -11,13 +11,16 @@
 #import "MD360Renderer.h"
 #import "MD360Texture.h"
 #import "MDInteractiveStrategy.h"
+#import "MDDisplayStrategy.h"
 
 @interface MDVRLibrary()
 @property (nonatomic,strong) MD360Texture* texture;
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
+@property (nonatomic,strong) MDDisplayStrategyManager* displayStrategyManager;
 @property (nonatomic,strong) NSMutableArray* renderers;
 @property (nonatomic,strong) NSMutableArray* directors;
-
+@property (nonatomic,strong) NSMutableArray* glViews;
+@property (nonatomic,weak) UIView* parentView;
 @end
 
 #pragma mark MDVRLibrary
@@ -31,6 +34,7 @@
     if (self) {
         self.renderers = [[NSMutableArray alloc]init];
         self.directors = [[NSMutableArray alloc]init];
+        self.glViews = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -38,9 +42,14 @@
 - (void) setup {
     self.interactiveStrategyManager.dirctors = self.directors;
     [self.interactiveStrategyManager prepare];
+    
+    self.displayStrategyManager.bounds = self.parentView.bounds;
+    self.displayStrategyManager.glViews = self.glViews;
+    [self.displayStrategyManager prepare];
+    
 }
 
-- (void) addDisplay:(CGRect)frame viewController:(UIViewController*)viewController view:(UIView*)parentView{
+- (void) addDisplay:(UIViewController*)viewController view:(UIView*)parentView{
     MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
     
     // director
@@ -57,12 +66,14 @@
   
     glkViewController.rendererDelegate = renderer;
     glkViewController.touchDelegate = director;
-    [glkViewController.view setFrame:frame];
+    glkViewController.view.hidden = YES;
     [parentView insertSubview:glkViewController.view atIndex:0];
     if (viewController != nil) {
         [viewController addChildViewController:glkViewController];
         [glkViewController didMoveToParentViewController:viewController];
     }
+    
+    [self.glViews addObject:glkViewController.view];
     
 }
 
@@ -79,16 +90,29 @@
     return self.interactiveStrategyManager.mMode;
 }
 
+#pragma mark DisplayMode
+- (void) switchDisplayMode:(MDModeDisplay)displayMode{
+    [self.displayStrategyManager switchMode:displayMode];
+}
+
+- (void) switchDisplayMode{
+    [self.displayStrategyManager switchMode];
+}
+
+- (MDModeDisplay) getDisplayMdoe{
+    return self.displayStrategyManager.mMode;
+}
+
 @end
 
 #pragma mark MDVRConfiguration
 @interface MDVRConfiguration()
 
-@property (nonatomic,readonly) NSArray* vrFrames;
 @property (nonatomic,readonly) MD360Texture* texture;
 @property (nonatomic,readonly) UIViewController* viewController;
 @property (nonatomic,readonly) UIView* view;
 @property (nonatomic,readonly) MDModeInteractive interactiveMode;
+@property (nonatomic,readonly) MDModeDisplay displayMode;
 
 @end
 
@@ -98,6 +122,7 @@
     self = [super init];
     if (self) {
         _interactiveMode = MDModeInteractiveTouch;
+        _displayMode = MDModeDisplayNormal;
     }
     return self;
 }
@@ -113,12 +138,15 @@
     _interactiveMode = interactiveMode;
 }
 
-- (void) setFrames:(NSArray*)frames vc:(UIViewController*)vc {
-    [self setFrames:frames vc:vc view:vc.view];
+- (void) displayMode:(MDModeDisplay)displayMode{
+    _displayMode = displayMode;
 }
 
-- (void) setFrames:(NSArray*)frames vc:(UIViewController*)vc  view:(UIView*)view{
-    _vrFrames = frames;
+- (void) setContainer:(UIViewController*)vc{
+    [self setContainer:vc view:vc.view];
+}
+
+- (void) setContainer:(UIViewController*)vc view:(UIView*)view{
     _viewController = vc;
     _view = view;
 }
@@ -126,12 +154,12 @@
 - (MDVRLibrary*) build{
     MDVRLibrary* library = [[MDVRLibrary alloc]init];
     library.texture = self.texture;
+    library.parentView = self.view;
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
-    
-    for (NSValue* value in self.vrFrames) {
-        [library addDisplay:[value CGRectValue] viewController:self.viewController view:self.view];
+    library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];
+    for (int i = 0; i < 2; i++) {
+        [library addDisplay:self.viewController view:self.view];
     }
-    
     [library setup];
     return library;
 }

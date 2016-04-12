@@ -49,7 +49,7 @@
     MDVRConfiguration* config = [MDVRLibrary createConfig];
     
     [config asVideo:playerItem];
-    [config setFrames:[self twoFrames] vc:self];
+    [config setContainer:self];
     
     self.vrLibrary = [config build];
     /////////////////////////////////////////////////////// MDVRLibrary
@@ -58,6 +58,19 @@
 - (IBAction)onCloseBtnClicked:(id)sender {
     [self.videoPlayerView.player reset];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)onDisplayModeBtnClicked:(id)sender {
+    UIButton* button = sender;
+    [self.vrLibrary switchDisplayMode];
+    int mode = [self.vrLibrary getDisplayMdoe];
+    NSString* label;
+    if (mode == MDModeDisplayNormal) {
+        label = @"NORMAL";
+    } else {
+        label = @"GLASS";
+    }
+    [button setTitle:label forState:UIControlStateNormal];
 }
 
 - (IBAction)onInteractiveModeBtnClicked:(id)sender {
@@ -71,16 +84,6 @@
         label = @"MOTION";
     }
     [button setTitle:label forState:UIControlStateNormal];
-}
-
-- (NSArray*) twoFrames{
-    float width = [[UIScreen mainScreen] bounds].size.width;
-    float height = [[UIScreen mainScreen] bounds].size.height;
-    int size = 2;
-    float perWidth = width * 1.0f / size;
-    CGRect frame1 = CGRectMake(0, 0, perWidth, height);
-    CGRect frame2 = CGRectMake(perWidth, 0, perWidth, height);
-    return [NSArray arrayWithObjects:[NSValue valueWithCGRect:frame1],[NSValue valueWithCGRect:frame2], nil];
 }
 
 - (void)didReceiveMemoryWarning {

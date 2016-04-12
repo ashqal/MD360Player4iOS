@@ -34,7 +34,6 @@
         GLKView *view = (GLKView *)self.view;
         view.context = self.context;
         view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-        
         if ([self.rendererDelegate respondsToSelector:@selector(rendererOnCreated:)]) {
             [self.rendererDelegate rendererOnCreated:self.context];
             [GLUtil glCheck:@"rendererOnCreated"];
@@ -55,6 +54,7 @@
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
+    if (self.view.hidden) return;
     if (self.context == nil) return;
     if ([EAGLContext setCurrentContext:self.context]) {
         if ([self.rendererDelegate respondsToSelector:@selector(rendererOnDrawFrame:)]) {
