@@ -33,10 +33,8 @@
 }
 
 - (void) setup{
-    
     self.mProgram = [[MD360Program alloc]init];
     self.mObject3D = [[MDSphere3D alloc]init];
-    
 }
 
 - (void) rendererOnCreated:(EAGLContext*)context{
@@ -60,7 +58,6 @@
 }
 
 - (void) rendererOnChanged:(EAGLContext*)context width:(int)width height:(int)height{
-    NSLog(@"rendererOnChanged");
     // Set the OpenGL viewport to the same size as the surface.
     glViewport(0, 0, width, height);
     
@@ -72,8 +69,6 @@
 }
 
 - (void) rendererOnDrawFrame:(EAGLContext*)context{
-    // NSLog(@"rendererOnDrawFrame");
-    
     // clear
     // glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

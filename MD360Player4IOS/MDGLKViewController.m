@@ -10,10 +10,16 @@
 #import "GLUtil.h"
 
 @interface MDGLKViewController()
-@property (nonatomic, retain) EAGLContext* context;
+@property (nonatomic, strong) EAGLContext* context;
 @end
 
 @implementation MDGLKViewController
+
+- (void)dealloc{
+    if ([EAGLContext currentContext] == self.context) {
+        [EAGLContext setCurrentContext:nil];
+    }
+}
 
 - (void)viewDidLoad{
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -35,6 +41,7 @@
 }
 
 - (void)viewDidLayoutSubviews{
+    if (self.context == nil) return;
     if ([EAGLContext setCurrentContext:self.context]) {
         if([self.rendererDelegate respondsToSelector:@selector(rendererOnChanged:width:height:)]){
             int width = self.view.bounds.size.width;
@@ -46,6 +53,7 @@
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
+    if (self.context == nil) return;
     if ([EAGLContext setCurrentContext:self.context]) {
         if ([self.rendererDelegate respondsToSelector:@selector(rendererOnDrawFrame:)]) {
             [self.rendererDelegate rendererOnDrawFrame:self.context];

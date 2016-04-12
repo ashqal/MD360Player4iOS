@@ -1,25 +1,115 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="XK7-hN-kze">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="P5t-v9-hRK">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="XK7-hN-kze" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="V0u-24-VB4"/>
+                        <viewControllerLayoutGuide type="bottom" id="xkF-pB-pWU"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="aFO-5K-MLO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YaP-TC-JAx">
+                                <rect key="frame" x="20" y="64" width="428" height="87"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="http://7575.hlsplay.aodianyun.com/vrlivedemo4/vrstream.m3u8">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <string key="NSLink">http://7575.hlsplay.aodianyun.com/vrlivedemo4/vrstream.m3u8</string>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="light"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pnr-Tb-D69">
+                                <rect key="frame" x="20" y="204" width="560" height="87"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="本地播放"/>
+                                <connections>
+                                    <action selector="onLocalButton:" destination="XK7-hN-kze" eventType="touchUpInside" id="OUu-VY-d4D"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="本地播放" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlC-hE-FLF">
+                                <rect key="frame" x="20" y="175" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网络播放" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4WL-BZ-0pv">
+                                <rect key="frame" x="20" y="35" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLz-6M-9AQ">
+                                <rect key="frame" x="464" y="64" width="116" height="87"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="116" id="W1u-WX-9y9"/>
+                                    <constraint firstAttribute="height" constant="87" id="aLP-9G-ONi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="网络播放"/>
+                                <connections>
+                                    <action selector="onNetworkButton:" destination="XK7-hN-kze" eventType="touchUpInside" id="RnJ-ap-ZrV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KXL-NJ-iKl">
+                                <rect key="frame" x="107" y="31" width="30" height="30"/>
+                                <state key="normal" title="刷新"/>
+                                <connections>
+                                    <action selector="onRequestBtnClicked:" destination="XK7-hN-kze" eventType="touchUpInside" id="6xS-fj-3Of"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gLz-6M-9AQ" firstAttribute="trailing" secondItem="aFO-5K-MLO" secondAttribute="trailingMargin" id="48J-rs-yl0"/>
+                            <constraint firstItem="KXL-NJ-iKl" firstAttribute="leading" secondItem="4WL-BZ-0pv" secondAttribute="trailing" constant="19" id="8nt-Xj-43i"/>
+                            <constraint firstItem="YaP-TC-JAx" firstAttribute="top" secondItem="KXL-NJ-iKl" secondAttribute="bottom" constant="3" id="Al1-v9-UZM"/>
+                            <constraint firstItem="gLz-6M-9AQ" firstAttribute="bottom" secondItem="YaP-TC-JAx" secondAttribute="bottom" id="DmQ-D4-0dd"/>
+                            <constraint firstItem="gLz-6M-9AQ" firstAttribute="top" secondItem="V0u-24-VB4" secondAttribute="bottom" constant="44" id="E90-Kk-YJH"/>
+                            <constraint firstItem="YaP-TC-JAx" firstAttribute="top" secondItem="4WL-BZ-0pv" secondAttribute="bottom" constant="8" symbolic="YES" id="Ghp-Vq-CrT"/>
+                            <constraint firstItem="gLz-6M-9AQ" firstAttribute="top" secondItem="YaP-TC-JAx" secondAttribute="top" id="JCX-Yg-ZWV"/>
+                            <constraint firstItem="YaP-TC-JAx" firstAttribute="leading" secondItem="pnr-Tb-D69" secondAttribute="leading" id="L8t-Nx-Frz"/>
+                            <constraint firstItem="YaP-TC-JAx" firstAttribute="leading" secondItem="4WL-BZ-0pv" secondAttribute="leading" id="Ls3-GW-Kft"/>
+                            <constraint firstItem="gLz-6M-9AQ" firstAttribute="leading" secondItem="YaP-TC-JAx" secondAttribute="trailing" constant="16" id="Nbz-ej-g9K"/>
+                            <constraint firstItem="pnr-Tb-D69" firstAttribute="leading" secondItem="aFO-5K-MLO" secondAttribute="leadingMargin" id="ave-Z1-FWO"/>
+                            <constraint firstItem="pnr-Tb-D69" firstAttribute="trailing" secondItem="aFO-5K-MLO" secondAttribute="trailingMargin" id="ayl-DM-8lU"/>
+                            <constraint firstItem="gLz-6M-9AQ" firstAttribute="leading" secondItem="YaP-TC-JAx" secondAttribute="trailing" constant="16" id="mDh-aj-oi5"/>
+                            <constraint firstItem="pnr-Tb-D69" firstAttribute="top" secondItem="gLz-6M-9AQ" secondAttribute="bottom" constant="53" id="qdp-JO-0Xe"/>
+                            <constraint firstItem="gLz-6M-9AQ" firstAttribute="leading" secondItem="YaP-TC-JAx" secondAttribute="trailing" constant="13" id="tzP-Gs-o1c"/>
+                            <constraint firstItem="YaP-TC-JAx" firstAttribute="leading" secondItem="tlC-hE-FLF" secondAttribute="leading" id="ubq-gF-UsE"/>
+                            <constraint firstItem="tlC-hE-FLF" firstAttribute="top" secondItem="YaP-TC-JAx" secondAttribute="bottom" constant="24" id="up3-mM-PyF"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="mDh-aj-oi5"/>
+                                <exclude reference="tzP-Gs-o1c"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="JAW-vX-cyp"/>
+                    <connections>
+                        <outlet property="mRefreshBtn" destination="KXL-NJ-iKl" id="TAb-ex-u0d"/>
+                        <outlet property="mUrlTextView" destination="YaP-TC-JAx" id="YBi-V2-lkr"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3A8-kI-1cX" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="466" y="959"/>
         </scene>
     </scenes>
 </document>

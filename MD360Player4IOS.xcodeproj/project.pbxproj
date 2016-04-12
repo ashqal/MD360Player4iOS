@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5E0386A01CBB7CB00087D7AC /* MDModeStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E03869F1CBB7CB00087D7AC /* MDModeStrategy.m */; };
 		5E0386A31CBB82020087D7AC /* MDInteractiveStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */; };
+		5E0386A61CBBF9CA0087D7AC /* Player.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E0386A51CBBF9CA0087D7AC /* Player.storyboard */; };
+		5E0386A91CBBFA1C0087D7AC /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0386A81CBBFA1C0087D7AC /* PlayerViewController.m */; };
 		5E0A0BB71CA8146E005F08CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BB61CA8146E005F08CC /* main.m */; };
 		5E0A0BBA1CA8146E005F08CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BB91CA8146E005F08CC /* AppDelegate.m */; };
 		5E0A0BBD1CA8146E005F08CC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BBC1CA8146E005F08CC /* ViewController.m */; };
@@ -39,6 +41,9 @@
 		5E03869F1CBB7CB00087D7AC /* MDModeStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDModeStrategy.m; sourceTree = "<group>"; };
 		5E0386A11CBB82020087D7AC /* MDInteractiveStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDInteractiveStrategy.h; sourceTree = "<group>"; };
 		5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDInteractiveStrategy.m; sourceTree = "<group>"; };
+		5E0386A51CBBF9CA0087D7AC /* Player.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Player.storyboard; sourceTree = "<group>"; };
+		5E0386A71CBBFA1C0087D7AC /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
+		5E0386A81CBBFA1C0087D7AC /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
 		5E0A0BB21CA8146E005F08CC /* MD360Player4IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MD360Player4IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E0A0BB61CA8146E005F08CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5E0A0BB81CA8146E005F08CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -137,6 +142,9 @@
 				5E0A0BC31CA8146E005F08CC /* LaunchScreen.storyboard */,
 				5E0A0BC61CA8146E005F08CC /* Info.plist */,
 				5E0A0BB51CA8146E005F08CC /* Supporting Files */,
+				5E0386A51CBBF9CA0087D7AC /* Player.storyboard */,
+				5E0386A71CBBFA1C0087D7AC /* PlayerViewController.h */,
+				5E0386A81CBBFA1C0087D7AC /* PlayerViewController.m */,
 			);
 			path = MD360Player4IOS;
 			sourceTree = "<group>";
@@ -274,6 +282,7 @@
 				5EE78DE31CB6C89900A7A67D /* bitmap360.png in Resources */,
 				5E0A0BC01CA8146E005F08CC /* Main.storyboard in Resources */,
 				5EE78DD01CB5098900A7A67D /* per_pixel_fragment_shader.glsl in Resources */,
+				5E0386A61CBBF9CA0087D7AC /* Player.storyboard in Resources */,
 				5EE78DD21CB5098900A7A67D /* dome.obj in Resources */,
 				5EE78DBC1CB4DCCC00A7A67D /* sphere.obj in Resources */,
 				5EE78DD11CB5098900A7A67D /* per_pixel_vertex_shader.glsl in Resources */,
@@ -349,6 +358,7 @@
 				5EE78DE11CB6846A00A7A67D /* MDVRLibrary.m in Sources */,
 				5EE78DDE1CB67E6800A7A67D /* MD360Director.m in Sources */,
 				5EE78DDB1CB67C4000A7A67D /* MD360Texture.m in Sources */,
+				5E0386A91CBBFA1C0087D7AC /* PlayerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

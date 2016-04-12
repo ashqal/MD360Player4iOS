@@ -99,10 +99,11 @@
 }
 
 - (void)dealloc{
-    //if(mTextureCache) CFRelease(mTextureCache);
-    for (NSValue* value in self.mContextTextureMap) {
+    if (self.mContextTextureMap == nil) return;
+    for (NSString* key in self.mContextTextureMap) {
+        NSValue* value = [self.mContextTextureMap objectForKey:key];
         CVOpenGLESTextureCacheRef ref = [value pointerValue];
-        if(ref != NULL) CFRelease(ref);
+        CFRelease(ref);
     }
     self.mContextTextureMap = nil;
 }

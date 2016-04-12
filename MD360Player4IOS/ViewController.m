@@ -7,58 +7,75 @@
 //
 
 #import "ViewController.h"
-#import "VIMVideoPlayerView.h"
-#import "VIMVideoPlayer.h"
-#import "MDVRLibrary.h"
+#import "PlayerViewController.h"
+#import <AFNetworking.h>
+#import <AFNetworking/AFNetworking.h>
 
 
-@interface ViewController()<VIMVideoPlayerViewDelegate>{
+@interface ViewController(){
 }
-@property (nonatomic, strong) VIMVideoPlayerView *videoPlayerView;
-@property (nonatomic, strong) MDVRLibrary* vrLibrary;
+@property (nonatomic,strong) AFHTTPSessionManager* manager;
+@property (weak, nonatomic) IBOutlet UIButton *mRefreshBtn;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.manager = [AFHTTPSessionManager manager];
+    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    // video player
-    self.videoPlayerView = [[VIMVideoPlayerView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-    self.videoPlayerView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.videoPlayerView.delegate = self;
-    [self.videoPlayerView setVideoFillMode:AVLayerVideoGravityResizeAspect];
-    [self.videoPlayerView.player enableTimeUpdates];
-    [self.videoPlayerView.player enableAirplay];
-    
-    NSString* url = [[NSBundle mainBundle] pathForResource:@"skyrim360" ofType:@"mp4"];
-    AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:url]];
-    [self.videoPlayerView.player setPlayerItem:playerItem];
-    [self.videoPlayerView.player play];
-    
-    
-    
-    /////////////////////////////////////////////////////// MDVRLibrary
-    MDVRConfiguration* config = [MDVRLibrary createConfig];
-    
-    [config asVideo:playerItem];
-    [config setFrames:[self twoFrames] vc:self];
-    
-    self.vrLibrary = [config build];
-    /////////////////////////////////////////////////////// MDVRLibrary
-    
+}
+- (IBAction)onRequestBtnClicked:(id)sender {
+    [self request];
 }
 
-- (NSArray*) twoFrames{
-    float width = [[UIScreen mainScreen] bounds].size.width;
-    float height = [[UIScreen mainScreen] bounds].size.height;
-    int size = 2;
-    float perWidth = width * 1.0f / size;
-    CGRect frame1 = CGRectMake(0, 0, perWidth, height);
-    CGRect frame2 = CGRectMake(perWidth, 0, perWidth, height);
-    return [NSArray arrayWithObjects:[NSValue valueWithCGRect:frame1],[NSValue valueWithCGRect:frame2], nil];
+- (void) request{
+    if (self.mRefreshBtn != nil) {
+        [self.mRefreshBtn setEnabled:NO];
+    }
+    NSString* url = @"http://mnew14.yyport.com/videoset/video.json";
+    [self.manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {}
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:nil];
+             NSString* url = [dic objectForKey:@"url"];
+             if (url != nil) {
+                [self.mUrlTextView setText:url];
+             }
+             if (self.mRefreshBtn != nil) {
+                 [self.mRefreshBtn setEnabled:YES];
+             }
+         }
+     
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull   error) {
+             NSLog(@"%@",error);
+             if (self.mRefreshBtn != nil) {
+                 [self.mRefreshBtn setEnabled:YES];
+             }
+         }
+     ];
 }
+
+- (IBAction)onNetworkButton:(id)sender {
+    NSString* url = self.mUrlTextView.text;
+    [self launch:[NSURL URLWithString:url]];
+}
+
+- (IBAction)onLocalButton:(id)sender {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"skyrim360" ofType:@"mp4"];
+    [self launch:[NSURL fileURLWithPath:path]];
+}
+
+- (void)launch:(NSURL*)url {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Player" bundle:nil];
+    PlayerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"PlayerViewController"];
+    [vc initParams:url];
+    
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

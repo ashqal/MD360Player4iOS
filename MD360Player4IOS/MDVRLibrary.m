@@ -14,7 +14,6 @@
 
 @interface MDVRLibrary()
 @property (nonatomic,strong) MD360Texture* texture;
-//@property (nonatomic,strong) MD360Renderer* renderer;
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
 @property (nonatomic,strong) NSMutableArray* renderers;
 @property (nonatomic,strong) NSMutableArray* directors;
@@ -39,7 +38,6 @@
 - (void) setup {
     self.interactiveStrategyManager.dirctors = self.directors;
     [self.interactiveStrategyManager prepare];
-
 }
 
 - (void) addDisplay:(CGRect)frame viewController:(UIViewController*)viewController view:(UIView*)parentView{
@@ -60,7 +58,7 @@
     glkViewController.rendererDelegate = renderer;
     glkViewController.touchDelegate = director;
     [glkViewController.view setFrame:frame];
-    [parentView addSubview:glkViewController.view];
+    [parentView insertSubview:glkViewController.view atIndex:0];
     if (viewController != nil) {
         [viewController addChildViewController:glkViewController];
         [glkViewController didMoveToParentViewController:viewController];

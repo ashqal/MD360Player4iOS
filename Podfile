@@ -5,5 +5,6 @@ platform :ios, '8.0'
 
 target 'MD360Player4IOS' do
 pod 'VIMVideoPlayer', '~> 6.0'
+pod 'AFNetworking', '~> 3.0'
 end
 
