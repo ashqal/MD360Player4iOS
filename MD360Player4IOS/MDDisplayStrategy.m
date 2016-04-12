@@ -8,16 +8,17 @@
 
 #import "MDDisplayStrategy.h"
 #import "MDVRLibrary.h"
+#import "MDGLKViewController.h"
 
 #pragma mark MDDisplayStrategy
 @interface MDDisplayStrategy: NSObject<IMDModeStrategy>
-@property(nonatomic,weak) NSArray* glViews;
+@property(nonatomic,weak) NSArray* glViewControllers;
 @property(nonatomic) CGRect bounds;
 @end
 
 @implementation MDDisplayStrategy
 - (void)dealloc{
-    self.glViews = nil;
+    self.glViewControllers = nil;
 }
 
 - (void) off{
@@ -37,15 +38,14 @@
 
 - (void) setVisibleSize:(int)max{
     NSArray* frames = [MDDisplayStrategy frames:max];
-    for (int i = 0; i < self.glViews.count; i++) {
-        UIView* view = [self.glViews objectAtIndex:i];
+    for (int i = 0; i < self.glViewControllers.count; i++) {
+        MDGLKViewController* vc = [self.glViewControllers objectAtIndex:i];
         if (i < max) {
             NSValue* value = [frames objectAtIndex:i];
             CGRect frame = value.CGRectValue;
-            view.hidden = NO;
-            [view setFrame:frame];
+            [vc setPendingVisible:YES frame:frame];
         } else {
-            view.hidden = YES;
+            [vc setPendingVisible:NO frame:vc.view.frame];
         }
     }
 }
@@ -85,13 +85,13 @@
     switch (mode) {
         case MDModeDisplayGlass:
             strategy = [[MDGlassStrategy alloc] init];
-            strategy.glViews = self.glViews;
+            strategy.glViewControllers = self.glViewControllers;
             strategy.bounds = self.bounds;
             break;
         case MDModeDisplayNormal:
         default:
             strategy = [[MDNormalStrategy alloc] init];
-            strategy.glViews = self.glViews;
+            strategy.glViewControllers = self.glViewControllers;
             strategy.bounds = self.bounds;
             break;
     }

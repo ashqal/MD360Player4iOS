@@ -9,7 +9,10 @@
 #import "MDGLKViewController.h"
 #import "GLUtil.h"
 
-@interface MDGLKViewController()
+@interface MDGLKViewController(){
+    Boolean pendingToVisible;
+    CGRect pendingFrame;
+}
 @property (nonatomic, strong) EAGLContext* context;
 @end
 
@@ -54,14 +57,26 @@
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    if (self.view.hidden) return;
-    if (self.context == nil) return;
-    if ([EAGLContext setCurrentContext:self.context]) {
-        if ([self.rendererDelegate respondsToSelector:@selector(rendererOnDrawFrame:)]) {
-            [self.rendererDelegate rendererOnDrawFrame:self.context];
-            [GLUtil glCheck:@"rendererOnDrawFrame"];
+    if (!self.view.hidden || pendingToVisible){
+        if (self.context == nil) return;
+        
+        if (pendingToVisible) {
+            [self.view setFrame:pendingFrame];
         }
+        
+        if ([EAGLContext setCurrentContext:self.context]) {
+            if ([self.rendererDelegate respondsToSelector:@selector(rendererOnDrawFrame:)]) {
+                [self.rendererDelegate rendererOnDrawFrame:self.context];
+                [GLUtil glCheck:@"rendererOnDrawFrame"];
+            }
+        }
+        
+        
+        
+        pendingToVisible = NO;
+        self.view.hidden = NO;
     }
+    
 }
 
 - (void) destroy:(EAGLContext*) context{
@@ -72,6 +87,17 @@
             [GLUtil glCheck:@"rendererOnDestroy"];
         }
     }
+}
+
+-(void)setPendingVisible:(BOOL)visible frame:(CGRect)frame{
+    pendingFrame = frame;
+    if (visible) {
+        pendingToVisible = true;
+    } else {
+        pendingToVisible = false;
+        self.view.hidden = YES;
+    }
+
 }
 
 #pragma mark - touches

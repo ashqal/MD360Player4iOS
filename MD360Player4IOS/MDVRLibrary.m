@@ -19,7 +19,7 @@
 @property (nonatomic,strong) MDDisplayStrategyManager* displayStrategyManager;
 @property (nonatomic,strong) NSMutableArray* renderers;
 @property (nonatomic,strong) NSMutableArray* directors;
-@property (nonatomic,strong) NSMutableArray* glViews;
+@property (nonatomic,strong) NSMutableArray* glViewControllers;
 @property (nonatomic,weak) UIView* parentView;
 @end
 
@@ -34,7 +34,7 @@
     if (self) {
         self.renderers = [[NSMutableArray alloc]init];
         self.directors = [[NSMutableArray alloc]init];
-        self.glViews = [[NSMutableArray alloc]init];
+        self.glViewControllers = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -44,7 +44,7 @@
     [self.interactiveStrategyManager prepare];
     
     self.displayStrategyManager.bounds = self.parentView.bounds;
-    self.displayStrategyManager.glViews = self.glViews;
+    self.displayStrategyManager.glViewControllers = self.glViewControllers;
     [self.displayStrategyManager prepare];
     
 }
@@ -66,14 +66,17 @@
   
     glkViewController.rendererDelegate = renderer;
     glkViewController.touchDelegate = director;
+    
     glkViewController.view.hidden = YES;
+    //[glkViewController.view setFrame:parentView.bounds];
+    
     [parentView insertSubview:glkViewController.view atIndex:0];
     if (viewController != nil) {
         [viewController addChildViewController:glkViewController];
         [glkViewController didMoveToParentViewController:viewController];
     }
     
-    [self.glViews addObject:glkViewController.view];
+    [self.glViewControllers addObject:glkViewController];
     
 }
 
