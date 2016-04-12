@@ -38,3 +38,7 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 // - (void) switchInteractiveMode:(MDModeInteractive)interactiveMode;
 - (MDModeInteractive) getInteractiveMdoe;
 @end
+
+@protocol IMDDestroyable <NSObject>
+-(void) destroy;
+@end

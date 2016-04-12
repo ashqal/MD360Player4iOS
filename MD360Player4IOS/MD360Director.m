@@ -58,6 +58,10 @@
     mCurrentRotation = mAccumulatedRotation = mTemporaryMatrix = mSensorMatrix = GLKMatrix4Identity;
 }
 
+- (void)destroy{
+
+}
+
 - (void) setup{
     
     [self initCamera];

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "GLUtil.h"
 #import "MDVideoDataAdapter.h"
+#import "MDVRLibrary.h"
 
 @protocol IMD360Texture <NSObject>
 @optional
@@ -16,13 +17,12 @@
 - (GLuint) createTextureId;
 @end
 
-@interface MD360Texture : NSObject<IMD360Texture>
+@interface MD360Texture : NSObject<IMD360Texture,IMDDestroyable>
 
 @property (nonatomic,readonly) int mWidth;
 @property (nonatomic,readonly) int mHeight;
 
 - (void) createTexture;
-- (void) releaseTexture;
 - (void) resize:(int)width height:(int)height;
 - (void) updateTexture:(EAGLContext*)context;
 @end

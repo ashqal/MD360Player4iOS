@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "MD360Program.h"
+#import "MDVRLibrary.h"
 
 @protocol MDAbsObject3DDelegate<NSObject>
 @optional
 -(NSString*) obtainObjPath;
 @end
 
-@interface MDAbsObject3D : NSObject<MDAbsObject3DDelegate> {
+@interface MDAbsObject3D : NSObject<MDAbsObject3DDelegate,IMDDestroyable> {
     float* mVertexBuffer;
     float* mTextureBuffer;
 }

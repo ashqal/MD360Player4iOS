@@ -28,7 +28,7 @@
     }
 }
 
-- (void) releaseTexture {
+- (void) destroy {
     
 }
 

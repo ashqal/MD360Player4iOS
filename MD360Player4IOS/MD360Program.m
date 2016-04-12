@@ -8,13 +8,17 @@
 
 #import "MD360Program.h"
 #import "GLUtil.h"
+@interface MD360Program(){
+    GLuint vertexShaderHandle,fragmentShaderHandle;
+}
+@end
 
 @implementation MD360Program
 - (void) build {
     NSString* vertexShader = [self getVertexShader];
     NSString* fragmentShader = [self getFragmentShader];
     // NSLog(@"%@ %@",vertexShader,fragmentShader);
-    GLuint vertexShaderHandle,fragmentShaderHandle;
+    //GLuint vertexShaderHandle,fragmentShaderHandle;
     
     if (![GLUtil compileShader:&vertexShaderHandle type:GL_VERTEX_SHADER source:vertexShader])
         NSLog(@"Failed to compile vertex shader");
@@ -33,9 +37,16 @@
     _mTextureCoordinateHandle = glGetAttribLocation(self.mProgramHandle, "a_TexCoordinate");
 }
 
+- (void) destroy {
+    if (vertexShaderHandle) glDeleteShader(vertexShaderHandle);
+    if (fragmentShaderHandle) glDeleteShader(fragmentShaderHandle);
+    if (self.mProgramHandle) glDeleteProgram(self.mProgramHandle);
+    vertexShaderHandle = fragmentShaderHandle = _mProgramHandle = 0;
+}
+
 
 - (void) use {
-    glUseProgram(self.mProgramHandle);
+    if(self.mProgramHandle) glUseProgram(self.mProgramHandle);
 }
 
 - (NSString*) getVertexShader {

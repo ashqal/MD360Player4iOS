@@ -24,7 +24,6 @@
 }
 
 - (void)dealloc{
-    NSLog(@"PlayerViewController dealloc");
 }
 
 - (void) initParams:(NSURL*)url{

@@ -32,13 +32,19 @@
     return self;
 }
 
+-(void) destroy {
+    [self.mObject3D destroy];
+    [self.mProgram destroy];
+    [self.mDirector destroy];
+    [self.mTexture destroy];
+}
+
 - (void) setup{
     self.mProgram = [[MD360Program alloc]init];
     self.mObject3D = [[MDSphere3D alloc]init];
 }
 
 - (void) rendererOnCreated:(EAGLContext*)context{
-    NSLog(@"rendererOnCreated");
     //glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
     //glEnable(GL_TEXTURE_2D);
@@ -110,6 +116,10 @@
     
     // upload
     [self.mObject3D uploadDataToProgram:self.mProgram];
+}
+
+- (void) rendererOnDestroy:(EAGLContext*) context{
+    
 }
 
 @end

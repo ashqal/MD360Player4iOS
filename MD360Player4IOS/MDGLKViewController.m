@@ -16,9 +16,11 @@
 @implementation MDGLKViewController
 
 - (void)dealloc{
+    [self destroy:self.context];
     if ([EAGLContext currentContext] == self.context) {
         [EAGLContext setCurrentContext:nil];
     }
+    self.context = nil;
 }
 
 - (void)viewDidLoad{
@@ -58,6 +60,16 @@
         if ([self.rendererDelegate respondsToSelector:@selector(rendererOnDrawFrame:)]) {
             [self.rendererDelegate rendererOnDrawFrame:self.context];
             [GLUtil glCheck:@"rendererOnDrawFrame"];
+        }
+    }
+}
+
+- (void) destroy:(EAGLContext*) context{
+    if (self.context == nil) return;
+    if ([EAGLContext setCurrentContext:self.context]) {
+        if ([self.rendererDelegate respondsToSelector:@selector(rendererOnDestroy:)]) {
+            [self.rendererDelegate rendererOnDestroy:self.context];
+            [GLUtil glCheck:@"rendererOnDestroy"];
         }
     }
 }

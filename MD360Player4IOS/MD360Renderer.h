@@ -10,6 +10,7 @@
 #import "MDGLRendererDelegate.h"
 #import "MD360Director.h"
 #import "MD360Texture.h"
+#import "MDVRLibrary.h"
 
 @class MD360Renderer;
 @interface MD360RendererBuilder : NSObject
@@ -18,7 +19,7 @@
 - (MD360Renderer*) build;
 @end
 
-@interface MD360Renderer : NSObject <MDGLRendererDelegate>
+@interface MD360Renderer : NSObject <MDGLRendererDelegate,IMDDestroyable>
 + (MD360RendererBuilder*) builder;
 @end
 

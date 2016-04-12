@@ -12,7 +12,8 @@
 static int sPositionDataSize = 3;
 @implementation MDAbsObject3D
 
-- (void)dealloc{
+
+- (void) destroy {
     if (mVertexBuffer != NULL)  free(mVertexBuffer);
     if (mTextureBuffer != NULL)  free(mTextureBuffer);
 }

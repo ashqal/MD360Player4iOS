@@ -10,6 +10,7 @@
 #import "MD360Program.h"
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
+#import "MDVRLibrary.h"
 
 #pragma mark MDTouchDelegate
 @protocol MDTouchDelegate <NSObject>
@@ -20,7 +21,7 @@
 @end
 
 #pragma mark MD360Director
-@interface MD360Director : NSObject<MDTouchDelegate>
+@interface MD360Director : NSObject<MDTouchDelegate,IMDDestroyable>
 @property (nonatomic,weak) id<MDTouchDelegate> touchDelegate;
 - (void) shot:(MD360Program*) program;
 - (void) reset;
