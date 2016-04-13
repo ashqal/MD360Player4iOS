@@ -25,7 +25,7 @@
                                     <constraint firstAttribute="height" constant="48" id="E3c-3o-Sl1"/>
                                     <constraint firstAttribute="width" constant="107" id="bKt-Mf-MVf"/>
                                 </constraints>
-                                <state key="normal" title="关闭">
+                                <state key="normal" title="CLOSE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
