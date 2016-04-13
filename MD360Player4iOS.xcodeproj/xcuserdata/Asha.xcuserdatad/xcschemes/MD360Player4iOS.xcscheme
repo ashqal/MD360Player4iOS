@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5E0A0BB11CA8146E005F08CC"
-               BuildableName = "MD360player4iOS.app"
-               BlueprintName = "MD360player4iOS"
-               ReferencedContainer = "container:MD360player4iOS.xcodeproj">
+               BuildableName = "MD360Player4iOS.app"
+               BlueprintName = "MD360Player4iOS"
+               ReferencedContainer = "container:MD360Player4iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5E0A0BB11CA8146E005F08CC"
-            BuildableName = "MD360player4iOS.app"
-            BlueprintName = "MD360player4iOS"
-            ReferencedContainer = "container:MD360player4iOS.xcodeproj">
+            BuildableName = "MD360Player4iOS.app"
+            BlueprintName = "MD360Player4iOS"
+            ReferencedContainer = "container:MD360Player4iOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5E0A0BB11CA8146E005F08CC"
-            BuildableName = "MD360player4iOS.app"
-            BlueprintName = "MD360player4iOS"
-            ReferencedContainer = "container:MD360player4iOS.xcodeproj">
+            BuildableName = "MD360Player4iOS.app"
+            BlueprintName = "MD360Player4iOS"
+            ReferencedContainer = "container:MD360Player4iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5E0A0BB11CA8146E005F08CC"
-            BuildableName = "MD360player4iOS.app"
-            BlueprintName = "MD360player4iOS"
-            ReferencedContainer = "container:MD360player4iOS.xcodeproj">
+            BuildableName = "MD360Player4iOS.app"
+            BlueprintName = "MD360Player4iOS"
+            ReferencedContainer = "container:MD360Player4iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
