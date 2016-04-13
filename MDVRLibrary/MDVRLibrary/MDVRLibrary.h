@@ -10,6 +10,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
+#define MDVR_RAW_NAME @ "vrlibraw.bundle"
+#define MDVR_RAW_PATH [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: MDVR_RAW_NAME]
+#define MDVR_RAW [NSBundle bundleWithPath: MDVR_RAW_PATH]
+
 typedef NS_ENUM(NSInteger, MDModeInteractive) {
     MDModeInteractiveTouch,
     MDModeInteractiveMotion,

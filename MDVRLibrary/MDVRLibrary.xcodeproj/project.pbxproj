@@ -1,0 +1,327 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5E1EE6DB1CBEA56B004E0B79 /* MDVRLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */; };
+		5E1EE6DD1CBEA56B004E0B79 /* MDVRLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE6DC1CBEA56B004E0B79 /* MDVRLibrary.m */; };
+		5E1EE72F1CBEA5ED004E0B79 /* GLUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE7141CBEA5ED004E0B79 /* GLUtil.m */; };
+		5E1EE7301CBEA5ED004E0B79 /* MD360Director.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE7161CBEA5ED004E0B79 /* MD360Director.m */; };
+		5E1EE7311CBEA5ED004E0B79 /* MD360Program.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE7181CBEA5ED004E0B79 /* MD360Program.m */; };
+		5E1EE7321CBEA5ED004E0B79 /* MD360Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE71A1CBEA5ED004E0B79 /* MD360Renderer.m */; };
+		5E1EE7331CBEA5ED004E0B79 /* MD360Texture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE71C1CBEA5ED004E0B79 /* MD360Texture.m */; };
+		5E1EE7341CBEA5ED004E0B79 /* MDAbsObject3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE71E1CBEA5ED004E0B79 /* MDAbsObject3D.m */; };
+		5E1EE7351CBEA5ED004E0B79 /* MDDisplayStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE7201CBEA5ED004E0B79 /* MDDisplayStrategy.m */; };
+		5E1EE7361CBEA5ED004E0B79 /* MDGLKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE7221CBEA5ED004E0B79 /* MDGLKViewController.m */; };
+		5E1EE7371CBEA5ED004E0B79 /* MDInteractiveStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE7251CBEA5ED004E0B79 /* MDInteractiveStrategy.m */; };
+		5E1EE7381CBEA5ED004E0B79 /* MDModeStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE7271CBEA5ED004E0B79 /* MDModeStrategy.m */; };
+		5E1EE7391CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */; };
+		5E1EE7441CBEA894004E0B79 /* vrlibraw.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5E1EE6D51CBEA56B004E0B79 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				5E1EE7441CBEA894004E0B79 /* vrlibraw.bundle in CopyFiles */,
+				5E1EE6DB1CBEA56B004E0B79 /* MDVRLibrary.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		5E1EE6D71CBEA56B004E0B79 /* libMDVRLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMDVRLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDVRLibrary.h; sourceTree = "<group>"; };
+		5E1EE6DC1CBEA56B004E0B79 /* MDVRLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDVRLibrary.m; sourceTree = "<group>"; };
+		5E1EE7131CBEA5ED004E0B79 /* GLUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLUtil.h; sourceTree = "<group>"; };
+		5E1EE7141CBEA5ED004E0B79 /* GLUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLUtil.m; sourceTree = "<group>"; };
+		5E1EE7151CBEA5ED004E0B79 /* MD360Director.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Director.h; sourceTree = "<group>"; };
+		5E1EE7161CBEA5ED004E0B79 /* MD360Director.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Director.m; sourceTree = "<group>"; };
+		5E1EE7171CBEA5ED004E0B79 /* MD360Program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Program.h; sourceTree = "<group>"; };
+		5E1EE7181CBEA5ED004E0B79 /* MD360Program.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Program.m; sourceTree = "<group>"; };
+		5E1EE7191CBEA5ED004E0B79 /* MD360Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Renderer.h; sourceTree = "<group>"; };
+		5E1EE71A1CBEA5ED004E0B79 /* MD360Renderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Renderer.m; sourceTree = "<group>"; };
+		5E1EE71B1CBEA5ED004E0B79 /* MD360Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Texture.h; sourceTree = "<group>"; };
+		5E1EE71C1CBEA5ED004E0B79 /* MD360Texture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Texture.m; sourceTree = "<group>"; };
+		5E1EE71D1CBEA5ED004E0B79 /* MDAbsObject3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDAbsObject3D.h; sourceTree = "<group>"; };
+		5E1EE71E1CBEA5ED004E0B79 /* MDAbsObject3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDAbsObject3D.m; sourceTree = "<group>"; };
+		5E1EE71F1CBEA5ED004E0B79 /* MDDisplayStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDisplayStrategy.h; sourceTree = "<group>"; };
+		5E1EE7201CBEA5ED004E0B79 /* MDDisplayStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDisplayStrategy.m; sourceTree = "<group>"; };
+		5E1EE7211CBEA5ED004E0B79 /* MDGLKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDGLKViewController.h; sourceTree = "<group>"; };
+		5E1EE7221CBEA5ED004E0B79 /* MDGLKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDGLKViewController.m; sourceTree = "<group>"; };
+		5E1EE7231CBEA5ED004E0B79 /* MDGLRendererDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDGLRendererDelegate.h; sourceTree = "<group>"; };
+		5E1EE7241CBEA5ED004E0B79 /* MDInteractiveStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDInteractiveStrategy.h; sourceTree = "<group>"; };
+		5E1EE7251CBEA5ED004E0B79 /* MDInteractiveStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDInteractiveStrategy.m; sourceTree = "<group>"; };
+		5E1EE7261CBEA5ED004E0B79 /* MDModeStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDModeStrategy.h; sourceTree = "<group>"; };
+		5E1EE7271CBEA5ED004E0B79 /* MDModeStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDModeStrategy.m; sourceTree = "<group>"; };
+		5E1EE7281CBEA5ED004E0B79 /* MDVideoDataAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDVideoDataAdapter.h; sourceTree = "<group>"; };
+		5E1EE7291CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDVideoDataAdatperAVPlayerImpl.h; sourceTree = "<group>"; };
+		5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDVideoDataAdatperAVPlayerImpl.m; sourceTree = "<group>"; };
+		5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = vrlibraw.bundle; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5E1EE6D41CBEA56B004E0B79 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5E1EE6CE1CBEA56B004E0B79 = {
+			isa = PBXGroup;
+			children = (
+				5E1EE6D91CBEA56B004E0B79 /* MDVRLibrary */,
+				5E1EE6D81CBEA56B004E0B79 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5E1EE6D81CBEA56B004E0B79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5E1EE6D71CBEA56B004E0B79 /* libMDVRLibrary.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5E1EE6D91CBEA56B004E0B79 /* MDVRLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */,
+				5E1EE7131CBEA5ED004E0B79 /* GLUtil.h */,
+				5E1EE7141CBEA5ED004E0B79 /* GLUtil.m */,
+				5E1EE7151CBEA5ED004E0B79 /* MD360Director.h */,
+				5E1EE7161CBEA5ED004E0B79 /* MD360Director.m */,
+				5E1EE7171CBEA5ED004E0B79 /* MD360Program.h */,
+				5E1EE7181CBEA5ED004E0B79 /* MD360Program.m */,
+				5E1EE7191CBEA5ED004E0B79 /* MD360Renderer.h */,
+				5E1EE71A1CBEA5ED004E0B79 /* MD360Renderer.m */,
+				5E1EE71B1CBEA5ED004E0B79 /* MD360Texture.h */,
+				5E1EE71C1CBEA5ED004E0B79 /* MD360Texture.m */,
+				5E1EE71D1CBEA5ED004E0B79 /* MDAbsObject3D.h */,
+				5E1EE71E1CBEA5ED004E0B79 /* MDAbsObject3D.m */,
+				5E1EE71F1CBEA5ED004E0B79 /* MDDisplayStrategy.h */,
+				5E1EE7201CBEA5ED004E0B79 /* MDDisplayStrategy.m */,
+				5E1EE7211CBEA5ED004E0B79 /* MDGLKViewController.h */,
+				5E1EE7221CBEA5ED004E0B79 /* MDGLKViewController.m */,
+				5E1EE7231CBEA5ED004E0B79 /* MDGLRendererDelegate.h */,
+				5E1EE7241CBEA5ED004E0B79 /* MDInteractiveStrategy.h */,
+				5E1EE7251CBEA5ED004E0B79 /* MDInteractiveStrategy.m */,
+				5E1EE7261CBEA5ED004E0B79 /* MDModeStrategy.h */,
+				5E1EE7271CBEA5ED004E0B79 /* MDModeStrategy.m */,
+				5E1EE7281CBEA5ED004E0B79 /* MDVideoDataAdapter.h */,
+				5E1EE7291CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.h */,
+				5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */,
+				5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */,
+				5E1EE6DC1CBEA56B004E0B79 /* MDVRLibrary.m */,
+			);
+			path = MDVRLibrary;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5E1EE6D61CBEA56B004E0B79 /* MDVRLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E1EE6E01CBEA56B004E0B79 /* Build configuration list for PBXNativeTarget "MDVRLibrary" */;
+			buildPhases = (
+				5E1EE6D31CBEA56B004E0B79 /* Sources */,
+				5E1EE6D41CBEA56B004E0B79 /* Frameworks */,
+				5E1EE6D51CBEA56B004E0B79 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MDVRLibrary;
+			productName = MDVRLibrary;
+			productReference = 5E1EE6D71CBEA56B004E0B79 /* libMDVRLibrary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5E1EE6CF1CBEA56B004E0B79 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = asha;
+				TargetAttributes = {
+					5E1EE6D61CBEA56B004E0B79 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 5E1EE6D21CBEA56B004E0B79 /* Build configuration list for PBXProject "MDVRLibrary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5E1EE6CE1CBEA56B004E0B79;
+			productRefGroup = 5E1EE6D81CBEA56B004E0B79 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5E1EE6D61CBEA56B004E0B79 /* MDVRLibrary */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5E1EE6D31CBEA56B004E0B79 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E1EE7351CBEA5ED004E0B79 /* MDDisplayStrategy.m in Sources */,
+				5E1EE7331CBEA5ED004E0B79 /* MD360Texture.m in Sources */,
+				5E1EE72F1CBEA5ED004E0B79 /* GLUtil.m in Sources */,
+				5E1EE7301CBEA5ED004E0B79 /* MD360Director.m in Sources */,
+				5E1EE7371CBEA5ED004E0B79 /* MDInteractiveStrategy.m in Sources */,
+				5E1EE7381CBEA5ED004E0B79 /* MDModeStrategy.m in Sources */,
+				5E1EE7321CBEA5ED004E0B79 /* MD360Renderer.m in Sources */,
+				5E1EE7361CBEA5ED004E0B79 /* MDGLKViewController.m in Sources */,
+				5E1EE7391CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m in Sources */,
+				5E1EE6DD1CBEA56B004E0B79 /* MDVRLibrary.m in Sources */,
+				5E1EE7341CBEA5ED004E0B79 /* MDAbsObject3D.m in Sources */,
+				5E1EE7311CBEA5ED004E0B79 /* MD360Program.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5E1EE6DE1CBEA56B004E0B79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5E1EE6DF1CBEA56B004E0B79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5E1EE6E11CBEA56B004E0B79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5E1EE6E21CBEA56B004E0B79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5E1EE6D21CBEA56B004E0B79 /* Build configuration list for PBXProject "MDVRLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E1EE6DE1CBEA56B004E0B79 /* Debug */,
+				5E1EE6DF1CBEA56B004E0B79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5E1EE6E01CBEA56B004E0B79 /* Build configuration list for PBXNativeTarget "MDVRLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E1EE6E11CBEA56B004E0B79 /* Debug */,
+				5E1EE6E21CBEA56B004E0B79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5E1EE6CF1CBEA56B004E0B79 /* Project object */;
+}

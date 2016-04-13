@@ -50,12 +50,12 @@
 }
 
 - (NSString*) getVertexShader {
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"per_pixel_vertex_shader" ofType:@"glsl"];
+    NSString* path = [MDVR_RAW pathForResource:@"per_pixel_vertex_shader" ofType:@"glsl"];
     return [GLUtil readRawText:path];
 }
 
 - (NSString*) getFragmentShader {
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"per_pixel_fragment_shader_bitmap" ofType:@"glsl"];
+    NSString* path = [MDVR_RAW pathForResource:@"per_pixel_fragment_shader_bitmap" ofType:@"glsl"];
     return [GLUtil readRawText:path];
 }
 

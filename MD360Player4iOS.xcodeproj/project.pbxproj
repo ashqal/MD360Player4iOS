@@ -7,45 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5E0386A01CBB7CB00087D7AC /* MDModeStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E03869F1CBB7CB00087D7AC /* MDModeStrategy.m */; };
-		5E0386A31CBB82020087D7AC /* MDInteractiveStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */; };
+		07C5151FE65BFFC99A51B714 /* libPods-MD360Player4iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B7FC994052D005F3DEBE78D /* libPods-MD360Player4iOS.a */; };
 		5E0386A61CBBF9CA0087D7AC /* Player.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E0386A51CBBF9CA0087D7AC /* Player.storyboard */; };
 		5E0386A91CBBFA1C0087D7AC /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0386A81CBBFA1C0087D7AC /* PlayerViewController.m */; };
-		5E0386AC1CBD2B9B0087D7AC /* MDDisplayStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0386AB1CBD2B9B0087D7AC /* MDDisplayStrategy.m */; };
 		5E0A0BB71CA8146E005F08CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BB61CA8146E005F08CC /* main.m */; };
 		5E0A0BBA1CA8146E005F08CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BB91CA8146E005F08CC /* AppDelegate.m */; };
 		5E0A0BBD1CA8146E005F08CC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A0BBC1CA8146E005F08CC /* ViewController.m */; };
 		5E0A0BC01CA8146E005F08CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E0A0BBE1CA8146E005F08CC /* Main.storyboard */; };
 		5E0A0BC21CA8146E005F08CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E0A0BC11CA8146E005F08CC /* Assets.xcassets */; };
 		5E0A0BC51CA8146E005F08CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E0A0BC31CA8146E005F08CC /* LaunchScreen.storyboard */; };
+		5E1EE73C1CBEA63C004E0B79 /* libMDVRLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E1EE73B1CBEA63C004E0B79 /* libMDVRLibrary.a */; };
+		5E1EE7461CBEAA44004E0B79 /* vrlibraw.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EE7451CBEAA44004E0B79 /* vrlibraw.bundle */; };
 		5EE78DBA1CB4D6E000A7A67D /* skyrim360.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DB91CB4D6E000A7A67D /* skyrim360.mp4 */; };
-		5EE78DBC1CB4DCCC00A7A67D /* sphere.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DBB1CB4DCCC00A7A67D /* sphere.obj */; };
-		5EE78DBF1CB4E04800A7A67D /* GLUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DBE1CB4E04800A7A67D /* GLUtil.m */; };
-		5EE78DC21CB4F2D400A7A67D /* MDAbsObject3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DC11CB4F2D400A7A67D /* MDAbsObject3D.m */; };
-		5EE78DC81CB5033200A7A67D /* MD360Program.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DC71CB5033200A7A67D /* MD360Program.m */; };
-		5EE78DCF1CB5098900A7A67D /* per_pixel_fragment_shader_bitmap.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DCB1CB5098900A7A67D /* per_pixel_fragment_shader_bitmap.glsl */; };
-		5EE78DD01CB5098900A7A67D /* per_pixel_fragment_shader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DCC1CB5098900A7A67D /* per_pixel_fragment_shader.glsl */; };
-		5EE78DD11CB5098900A7A67D /* per_pixel_vertex_shader.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DCD1CB5098900A7A67D /* per_pixel_vertex_shader.glsl */; };
-		5EE78DD21CB5098900A7A67D /* dome.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DCE1CB5098900A7A67D /* dome.obj */; };
-		5EE78DD81CB6743600A7A67D /* MD360Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DD71CB6743600A7A67D /* MD360Renderer.m */; };
-		5EE78DDB1CB67C4000A7A67D /* MD360Texture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DDA1CB67C4000A7A67D /* MD360Texture.m */; };
-		5EE78DDE1CB67E6800A7A67D /* MD360Director.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DDD1CB67E6800A7A67D /* MD360Director.m */; };
-		5EE78DE11CB6846A00A7A67D /* MDVRLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DE01CB6846A00A7A67D /* MDVRLibrary.m */; };
 		5EE78DE31CB6C89900A7A67D /* bitmap360.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DE21CB6C89900A7A67D /* bitmap360.png */; };
-		5EE78DE61CB743D000A7A67D /* MDGLKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78DE51CB743D000A7A67D /* MDGLKViewController.m */; };
-		5EE78E4A1CB93DE100A7A67D /* MDVideoDataAdatperAVPlayerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE78E491CB93DE100A7A67D /* MDVideoDataAdatperAVPlayerImpl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5E03869E1CBB7CB00087D7AC /* MDModeStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDModeStrategy.h; sourceTree = "<group>"; };
-		5E03869F1CBB7CB00087D7AC /* MDModeStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDModeStrategy.m; sourceTree = "<group>"; };
-		5E0386A11CBB82020087D7AC /* MDInteractiveStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDInteractiveStrategy.h; sourceTree = "<group>"; };
-		5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDInteractiveStrategy.m; sourceTree = "<group>"; };
+		4B7FC994052D005F3DEBE78D /* libPods-MD360Player4iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MD360Player4iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E0386A51CBBF9CA0087D7AC /* Player.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Player.storyboard; sourceTree = "<group>"; };
 		5E0386A71CBBFA1C0087D7AC /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		5E0386A81CBBFA1C0087D7AC /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
-		5E0386AA1CBD2B9B0087D7AC /* MDDisplayStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDisplayStrategy.h; sourceTree = "<group>"; };
-		5E0386AB1CBD2B9B0087D7AC /* MDDisplayStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDisplayStrategy.m; sourceTree = "<group>"; };
 		5E0A0BB21CA8146E005F08CC /* MD360Player4iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MD360Player4iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E0A0BB61CA8146E005F08CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5E0A0BB81CA8146E005F08CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,33 +37,14 @@
 		5E0A0BC11CA8146E005F08CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E0A0BC41CA8146E005F08CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E0A0BC61CA8146E005F08CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E1EE6CC1CBEA494004E0B79 /* vrlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vrlib.framework; path = "build/Debug-iphoneos/vrlib.framework"; sourceTree = "<group>"; };
+		5E1EE73B1CBEA63C004E0B79 /* libMDVRLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMDVRLibrary.a; path = "MDVRLibrary/build/Debug-iphoneos/libMDVRLibrary.a"; sourceTree = "<group>"; };
+		5E1EE7421CBEA708004E0B79 /* MDVRLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDVRLibrary.h; path = MDVRLibrary/MDVRLibrary/MDVRLibrary.h; sourceTree = SOURCE_ROOT; };
+		5E1EE7451CBEAA44004E0B79 /* vrlibraw.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = vrlibraw.bundle; path = MDVRLibrary/MDVRLibrary/vrlibraw.bundle; sourceTree = "<group>"; };
 		5EE78DB91CB4D6E000A7A67D /* skyrim360.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = skyrim360.mp4; sourceTree = "<group>"; };
-		5EE78DBB1CB4DCCC00A7A67D /* sphere.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sphere.obj; sourceTree = "<group>"; };
-		5EE78DBD1CB4E04800A7A67D /* GLUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLUtil.h; sourceTree = "<group>"; };
-		5EE78DBE1CB4E04800A7A67D /* GLUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLUtil.m; sourceTree = "<group>"; };
-		5EE78DC01CB4F2D400A7A67D /* MDAbsObject3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDAbsObject3D.h; sourceTree = "<group>"; };
-		5EE78DC11CB4F2D400A7A67D /* MDAbsObject3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDAbsObject3D.m; sourceTree = "<group>"; };
-		5EE78DC61CB5033200A7A67D /* MD360Program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Program.h; sourceTree = "<group>"; };
-		5EE78DC71CB5033200A7A67D /* MD360Program.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Program.m; sourceTree = "<group>"; };
-		5EE78DCB1CB5098900A7A67D /* per_pixel_fragment_shader_bitmap.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = per_pixel_fragment_shader_bitmap.glsl; sourceTree = "<group>"; };
-		5EE78DCC1CB5098900A7A67D /* per_pixel_fragment_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = per_pixel_fragment_shader.glsl; sourceTree = "<group>"; };
-		5EE78DCD1CB5098900A7A67D /* per_pixel_vertex_shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = per_pixel_vertex_shader.glsl; sourceTree = "<group>"; };
-		5EE78DCE1CB5098900A7A67D /* dome.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dome.obj; sourceTree = "<group>"; };
-		5EE78DD61CB6743600A7A67D /* MD360Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Renderer.h; sourceTree = "<group>"; };
-		5EE78DD71CB6743600A7A67D /* MD360Renderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Renderer.m; sourceTree = "<group>"; };
-		5EE78DD91CB67C4000A7A67D /* MD360Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Texture.h; sourceTree = "<group>"; };
-		5EE78DDA1CB67C4000A7A67D /* MD360Texture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Texture.m; sourceTree = "<group>"; };
-		5EE78DDC1CB67E6800A7A67D /* MD360Director.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD360Director.h; sourceTree = "<group>"; };
-		5EE78DDD1CB67E6800A7A67D /* MD360Director.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD360Director.m; sourceTree = "<group>"; };
-		5EE78DDF1CB6846A00A7A67D /* MDVRLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDVRLibrary.h; sourceTree = "<group>"; };
-		5EE78DE01CB6846A00A7A67D /* MDVRLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDVRLibrary.m; sourceTree = "<group>"; };
 		5EE78DE21CB6C89900A7A67D /* bitmap360.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bitmap360.png; sourceTree = "<group>"; };
-		5EE78DE41CB743D000A7A67D /* MDGLKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDGLKViewController.h; sourceTree = "<group>"; };
-		5EE78DE51CB743D000A7A67D /* MDGLKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDGLKViewController.m; sourceTree = "<group>"; };
-		5EE78E441CB8EE6A00A7A67D /* MDGLRendererDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDGLRendererDelegate.h; sourceTree = "<group>"; };
-		5EE78E451CB93BFF00A7A67D /* MDVideoDataAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDVideoDataAdapter.h; sourceTree = "<group>"; };
-		5EE78E481CB93DE100A7A67D /* MDVideoDataAdatperAVPlayerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDVideoDataAdatperAVPlayerImpl.h; sourceTree = "<group>"; };
-		5EE78E491CB93DE100A7A67D /* MDVideoDataAdatperAVPlayerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDVideoDataAdatperAVPlayerImpl.m; sourceTree = "<group>"; };
+		E4102F3553C15993DDCFAB3D /* Pods-MD360Player4iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MD360Player4iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MD360Player4iOS/Pods-MD360Player4iOS.release.xcconfig"; sourceTree = "<group>"; };
+		F68C89838134F7E604646602 /* Pods-MD360Player4iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MD360Player4iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MD360Player4iOS/Pods-MD360Player4iOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,30 +52,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E1EE73C1CBEA63C004E0B79 /* libMDVRLibrary.a in Frameworks */,
+				07C5151FE65BFFC99A51B714 /* libPods-MD360Player4iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5E0386A41CBB82160087D7AC /* strategy */ = {
+		00B8F0C046FCCE9409CA8E60 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5E03869E1CBB7CB00087D7AC /* MDModeStrategy.h */,
-				5E03869F1CBB7CB00087D7AC /* MDModeStrategy.m */,
-				5E0386A11CBB82020087D7AC /* MDInteractiveStrategy.h */,
-				5E0386A21CBB82020087D7AC /* MDInteractiveStrategy.m */,
-				5E0386AA1CBD2B9B0087D7AC /* MDDisplayStrategy.h */,
-				5E0386AB1CBD2B9B0087D7AC /* MDDisplayStrategy.m */,
+				F68C89838134F7E604646602 /* Pods-MD360Player4iOS.debug.xcconfig */,
+				E4102F3553C15993DDCFAB3D /* Pods-MD360Player4iOS.release.xcconfig */,
 			);
-			name = strategy;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		5E0A0BA91CA8146E005F08CC = {
 			isa = PBXGroup;
 			children = (
+				5E1EE7451CBEAA44004E0B79 /* vrlibraw.bundle */,
 				5E0A0BB41CA8146E005F08CC /* MD360Player4iOS */,
 				5E0A0BB31CA8146E005F08CC /* Products */,
+				00B8F0C046FCCE9409CA8E60 /* Pods */,
+				A05F50B8DE52F78A16377B27 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,7 +91,7 @@
 		5E0A0BB41CA8146E005F08CC /* MD360Player4iOS */ = {
 			isa = PBXGroup;
 			children = (
-				5EE78DC91CB503A000A7A67D /* vrlib */,
+				5E1EE7421CBEA708004E0B79 /* MDVRLibrary.h */,
 				5EE78DB91CB4D6E000A7A67D /* skyrim360.mp4 */,
 				5EE78DE21CB6C89900A7A67D /* bitmap360.png */,
 				5E0A0BB81CA8146E005F08CC /* AppDelegate.h */,
@@ -155,45 +118,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5EE78DC91CB503A000A7A67D /* vrlib */ = {
+		A05F50B8DE52F78A16377B27 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5E0386A41CBB82160087D7AC /* strategy */,
-				5EE78DCA1CB5095200A7A67D /* raw */,
-				5EE78DBD1CB4E04800A7A67D /* GLUtil.h */,
-				5EE78DBE1CB4E04800A7A67D /* GLUtil.m */,
-				5EE78DC01CB4F2D400A7A67D /* MDAbsObject3D.h */,
-				5EE78DC11CB4F2D400A7A67D /* MDAbsObject3D.m */,
-				5EE78DC61CB5033200A7A67D /* MD360Program.h */,
-				5EE78DC71CB5033200A7A67D /* MD360Program.m */,
-				5EE78DD61CB6743600A7A67D /* MD360Renderer.h */,
-				5EE78DD71CB6743600A7A67D /* MD360Renderer.m */,
-				5EE78DD91CB67C4000A7A67D /* MD360Texture.h */,
-				5EE78DDA1CB67C4000A7A67D /* MD360Texture.m */,
-				5EE78DDC1CB67E6800A7A67D /* MD360Director.h */,
-				5EE78DDD1CB67E6800A7A67D /* MD360Director.m */,
-				5EE78DDF1CB6846A00A7A67D /* MDVRLibrary.h */,
-				5EE78DE01CB6846A00A7A67D /* MDVRLibrary.m */,
-				5EE78DE41CB743D000A7A67D /* MDGLKViewController.h */,
-				5EE78DE51CB743D000A7A67D /* MDGLKViewController.m */,
-				5EE78E441CB8EE6A00A7A67D /* MDGLRendererDelegate.h */,
-				5EE78E451CB93BFF00A7A67D /* MDVideoDataAdapter.h */,
-				5EE78E481CB93DE100A7A67D /* MDVideoDataAdatperAVPlayerImpl.h */,
-				5EE78E491CB93DE100A7A67D /* MDVideoDataAdatperAVPlayerImpl.m */,
+				5E1EE73B1CBEA63C004E0B79 /* libMDVRLibrary.a */,
+				5E1EE6CC1CBEA494004E0B79 /* vrlib.framework */,
+				4B7FC994052D005F3DEBE78D /* libPods-MD360Player4iOS.a */,
 			);
-			name = vrlib;
-			sourceTree = "<group>";
-		};
-		5EE78DCA1CB5095200A7A67D /* raw */ = {
-			isa = PBXGroup;
-			children = (
-				5EE78DCB1CB5098900A7A67D /* per_pixel_fragment_shader_bitmap.glsl */,
-				5EE78DCC1CB5098900A7A67D /* per_pixel_fragment_shader.glsl */,
-				5EE78DCD1CB5098900A7A67D /* per_pixel_vertex_shader.glsl */,
-				5EE78DCE1CB5098900A7A67D /* dome.obj */,
-				5EE78DBB1CB4DCCC00A7A67D /* sphere.obj */,
-			);
-			name = raw;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,17 +189,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EE78DCF1CB5098900A7A67D /* per_pixel_fragment_shader_bitmap.glsl in Resources */,
 				5EE78DBA1CB4D6E000A7A67D /* skyrim360.mp4 in Resources */,
 				5E0A0BC51CA8146E005F08CC /* LaunchScreen.storyboard in Resources */,
 				5E0A0BC21CA8146E005F08CC /* Assets.xcassets in Resources */,
 				5EE78DE31CB6C89900A7A67D /* bitmap360.png in Resources */,
 				5E0A0BC01CA8146E005F08CC /* Main.storyboard in Resources */,
-				5EE78DD01CB5098900A7A67D /* per_pixel_fragment_shader.glsl in Resources */,
+				5E1EE7461CBEAA44004E0B79 /* vrlibraw.bundle in Resources */,
 				5E0386A61CBBF9CA0087D7AC /* Player.storyboard in Resources */,
-				5EE78DD21CB5098900A7A67D /* dome.obj in Resources */,
-				5EE78DBC1CB4DCCC00A7A67D /* sphere.obj in Resources */,
-				5EE78DD11CB5098900A7A67D /* per_pixel_vertex_shader.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,21 +254,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E0386A31CBB82020087D7AC /* MDInteractiveStrategy.m in Sources */,
-				5EE78DBF1CB4E04800A7A67D /* GLUtil.m in Sources */,
 				5E0A0BBD1CA8146E005F08CC /* ViewController.m in Sources */,
-				5EE78DE61CB743D000A7A67D /* MDGLKViewController.m in Sources */,
 				5E0A0BBA1CA8146E005F08CC /* AppDelegate.m in Sources */,
-				5EE78DD81CB6743600A7A67D /* MD360Renderer.m in Sources */,
-				5E0386A01CBB7CB00087D7AC /* MDModeStrategy.m in Sources */,
-				5EE78DC21CB4F2D400A7A67D /* MDAbsObject3D.m in Sources */,
-				5E0386AC1CBD2B9B0087D7AC /* MDDisplayStrategy.m in Sources */,
 				5E0A0BB71CA8146E005F08CC /* main.m in Sources */,
-				5EE78E4A1CB93DE100A7A67D /* MDVideoDataAdatperAVPlayerImpl.m in Sources */,
-				5EE78DC81CB5033200A7A67D /* MD360Program.m in Sources */,
-				5EE78DE11CB6846A00A7A67D /* MDVRLibrary.m in Sources */,
-				5EE78DDE1CB67E6800A7A67D /* MD360Director.m in Sources */,
-				5EE78DDB1CB67C4000A7A67D /* MD360Texture.m in Sources */,
 				5E0386A91CBBFA1C0087D7AC /* PlayerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,12 +365,27 @@
 		};
 		5E0A0BCA1CA8146E005F08CC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F68C89838134F7E604646602 /* Pods-MD360Player4iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/VIMVideoPlayer\"",
+				);
 				INFOPLIST_FILE = MD360Player4iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MDVRLibrary/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = moredoo.MD360Player4iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -463,12 +394,27 @@
 		};
 		5E0A0BCB1CA8146E005F08CC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4102F3553C15993DDCFAB3D /* Pods-MD360Player4iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/VIMVideoPlayer\"",
+				);
 				INFOPLIST_FILE = MD360Player4iOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MDVRLibrary/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = moredoo.MD360Player4iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

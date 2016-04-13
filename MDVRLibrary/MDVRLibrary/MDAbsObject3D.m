@@ -74,7 +74,7 @@ static int sPositionDataSize = 3;
 @implementation MDSphere3D
 
 -(NSString*) obtainObjPath{
-    return [[NSBundle mainBundle] pathForResource:@"sphere" ofType:@"obj"];
+    return [MDVR_RAW pathForResource:@"sphere" ofType:@"obj"];
 }
 
 @end
