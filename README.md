@@ -3,6 +3,8 @@ It is a lite library to render 360 degree panorama video for iOS.
 
 ## Preview
 ![ScreenShot](https://raw.githubusercontent.com/ashqal/MD360Player4iOS/master/screenshot.png)
+![ScreenShot](https://raw.githubusercontent.com/ashqal/MD360Player4iOS/master/screenshot2.png)
+[Raw 360 Panorama Video](http://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a.mp4)
 
 ## Pod
 ```
@@ -58,6 +60,7 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 * [VideoPlayer-iOS](https://github.com/davidAgo4g/VideoPlayer-iOS)
 * [iOS-OpenGLES-Stuff](https://github.com/jlamarche/iOS-OpenGLES-Stuff)
 * [Moredoo.com](http://www.moredoo.com/)
+* [Thanks to vimeo/VIMVideoPlayer](https://github.com/vimeo/VIMVideoPlayer)
 
 # Android Version
 [MD360Player4Android](https://github.com/ashqal/MD360Player4Android)
