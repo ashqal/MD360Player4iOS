@@ -71,6 +71,10 @@
                             <constraint firstItem="062-pd-nf8" firstAttribute="leading" secondItem="dpa-wJ-1DC" secondAttribute="leadingMargin" constant="20" id="rrI-ml-LAr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mDisplayBtn" destination="TQK-qX-kVx" id="jbs-aF-N07"/>
+                        <outlet property="mInteractiveBtn" destination="062-pd-nf8" id="XbT-kE-DdL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zt0-5f-7o0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

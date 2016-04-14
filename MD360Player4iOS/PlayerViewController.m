@@ -15,6 +15,8 @@
 }
 @property (nonatomic, strong) VIMVideoPlayerView *videoPlayerView;
 @property (nonatomic, strong) MDVRLibrary* vrLibrary;
+@property (weak, nonatomic) IBOutlet UIButton *mInteractiveBtn;
+@property (weak, nonatomic) IBOutlet UIButton *mDisplayBtn;
 @property (nonatomic, strong) NSURL* mURL;
 @end
 @implementation PlayerViewController
@@ -48,11 +50,16 @@
     /////////////////////////////////////////////////////// MDVRLibrary
     MDVRConfiguration* config = [MDVRLibrary createConfig];
     
+    [config displayMode:MDModeDisplayGlass];
+    [config interactiveMode:MDModeInteractiveMotion];
     [config asVideo:playerItem];
-    [config setContainer:self];
+    [config setContainer:self view:self.view];
     
     self.vrLibrary = [config build];
     /////////////////////////////////////////////////////// MDVRLibrary
+    
+    [self syncDisplayLabel];
+    [self syncInteractiveLabel];
 }
 
 - (IBAction)onCloseBtnClicked:(id)sender {
@@ -61,8 +68,17 @@
 }
 
 - (IBAction)onDisplayModeBtnClicked:(id)sender {
-    UIButton* button = sender;
     [self.vrLibrary switchDisplayMode];
+    [self syncDisplayLabel];
+    
+}
+
+- (IBAction)onInteractiveModeBtnClicked:(id)sender {
+    [self.vrLibrary switchInteractiveMode];
+    [self syncInteractiveLabel];
+}
+
+-(void)syncDisplayLabel{
     int mode = [self.vrLibrary getDisplayMdoe];
     NSString* label;
     if (mode == MDModeDisplayNormal) {
@@ -70,12 +86,11 @@
     } else {
         label = @"GLASS";
     }
-    [button setTitle:label forState:UIControlStateNormal];
+    [self.mDisplayBtn setTitle:label forState:UIControlStateNormal];
 }
 
-- (IBAction)onInteractiveModeBtnClicked:(id)sender {
-    UIButton* button = sender;
-    [self.vrLibrary switchInteractiveMode];
+
+-(void)syncInteractiveLabel{
     int mode = [self.vrLibrary getInteractiveMdoe];
     NSString* label;
     if (mode == MDModeInteractiveTouch) {
@@ -83,7 +98,7 @@
     } else {
         label = @"MOTION";
     }
-    [button setTitle:label forState:UIControlStateNormal];
+    [self.mInteractiveBtn setTitle:label forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
