@@ -6,8 +6,15 @@ It is a lite library to render 360 degree panorama video for iOS.
 
 ## Pod
 ```
-Coming soon.
+pod 'MD360Player4iOS', '~> 0.1.0'
 ```
+
+## Release Node
+**0.1.0**
+* Motion Sensor
+* Glass Mode(multi-screen)
+* Easy to use
+* Worked with AVPlayer.
 
 ## USAGE
 ```objc
