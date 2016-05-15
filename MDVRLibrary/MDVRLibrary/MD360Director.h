@@ -19,6 +19,7 @@
 - (void) updateProjection:(int)width height:(int)height;
 - (void) updateSensorMatrix:(GLKMatrix4)sensor;
 - (void) updateTouch:(float)distX distY:(int)distY;
+- (void) updateProjectionNearScale:(float)scale;
 @end
 
 #pragma mark MD360Director

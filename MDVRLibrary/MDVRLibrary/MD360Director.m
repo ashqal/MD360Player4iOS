@@ -21,7 +21,7 @@
     float mEyeX;// = 0f;
     float mAngle;// = 0f;
     float mRatio;// = 0f;
-    float mNear;// = 0f;
+    float mNearScale;// = 0f;
     float mLookX;// = 0f;
     
     GLKMatrix4 mCurrentRotation;// = new float[16];
@@ -39,6 +39,8 @@
 
 @implementation MD360Director
 
+static float sNear = 0.7f;
+
 - (instancetype)init{
     self = [super init];
     if (self) {
@@ -51,7 +53,7 @@
     mEyeZ = 0;
     mAngle = 0;
     mRatio = 1.5f;
-    mNear = 0.7f;
+    mNearScale = 1.0f;
     mEyeX = 0;
     mLookX = 0;
     mModelMatrix = mViewMatrix = mProjectionMatrix = mMVMatrix = mMVPMatrix = GLKMatrix4Identity;
@@ -129,17 +131,17 @@
 
 - (void) updateProjection:(int)width height:(int)height{
     mRatio = width * 1.0f / height;
-    [self updateProjectionNear:mNear];
+    [self updateProjectionNearScale:mNearScale];
 }
 
-- (void) updateProjectionNear:(float)near{
-    mNear = near;
+- (void) updateProjectionNearScale:(float)scale{
+    mNearScale = scale;
     float left = -mRatio/2;
     float right = mRatio/2;
     float bottom = -0.5f;
     float top = 0.5f;
     float far = 500;
-    mProjectionMatrix = GLKMatrix4MakeFrustum(left, right, bottom, top, mNear, far);
+    mProjectionMatrix = GLKMatrix4MakeFrustum(left, right, bottom, top, mNearScale * sNear, far);
 }
 
 - (void) updateModelRotate:(float)angle{

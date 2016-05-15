@@ -10,14 +10,19 @@
 
 @interface MDTouchHelper(){
     CGPoint prevPoint;
+    float prevScale;
+    float currentScale;
 }
 @property (nonatomic,strong) UIPanGestureRecognizer* panGestureRecognizer;
+@property (nonatomic,strong) UIPinchGestureRecognizer* pinchGestureRecognizer;
 
 @end
 
 @implementation MDTouchHelper
 
 static float sMDDamping = 0.2f;
+static float sScaleMin = 1.0f;
+static float sScaleMax = 4.0f;
 
 - (instancetype)init{
     self = [super init];
@@ -28,7 +33,7 @@ static float sMDDamping = 0.2f;
 }
 
 - (void)setup {
-    
+    currentScale = prevScale = sScaleMin;
 }
 
 
@@ -37,6 +42,9 @@ static float sMDDamping = 0.2f;
     self.panGestureRecognizer.minimumNumberOfTouches = 1;
     self.panGestureRecognizer.maximumNumberOfTouches = 1;
     [view addGestureRecognizer:self.panGestureRecognizer];
+    
+    self.pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinches:)];
+    [view addGestureRecognizer:self.pinchGestureRecognizer];
     
 }
 
@@ -48,10 +56,32 @@ static float sMDDamping = 0.2f;
         if([self.advanceGestureListener respondsToSelector:@selector(onDragDistanceX:distanceY:)]){
             float deltaX = (location.x - prevPoint.x) * sMDDamping;
             float deltaY = (location.y - prevPoint.y) * sMDDamping;
-            [self.advanceGestureListener onDragDistanceX:deltaX distanceY:deltaY];
+            [self.advanceGestureListener onDragDistanceX:deltaX/currentScale distanceY:deltaY/currentScale];
         }
         prevPoint = location;
     }
+}
+
+-(void)handlePinches:(UIPinchGestureRecognizer *)paramSender{
+    if (paramSender.state != UIGestureRecognizerStateEnded && paramSender.state != UIGestureRecognizerStateFailed) {
+        if (paramSender.scale != NAN && paramSender.scale != 0.0) {
+            float scale = paramSender.scale - 1;
+            if (scale < 0) scale *= (sScaleMax - sScaleMin);
+            currentScale = scale + prevScale;
+            currentScale = [self validateScale:currentScale];
+            if ([self.advanceGestureListener respondsToSelector:@selector(onPinch:)]) {
+                [self.advanceGestureListener onPinch:currentScale];
+            }
+        }
+    } else if(paramSender.state == UIGestureRecognizerStateEnded){
+        prevScale = currentScale;
+    }
+}
+
+-(float)validateScale:(float)scale{
+    if (scale < sScaleMin) scale = sScaleMin;
+    else if (scale > sScaleMax) scale = sScaleMax;
+    return scale;
 }
 
 @end

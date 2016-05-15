@@ -92,7 +92,9 @@
 }
 
 - (void) onPinch:(float)scale{
-    
+    for (MD360Director* dirctor in self.directors) {
+        [dirctor updateProjectionNearScale:scale];
+    }
 }
 
 #pragma mark InteractiveMode
