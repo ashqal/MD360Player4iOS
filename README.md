@@ -9,10 +9,13 @@ It is a lite library to render 360 degree panorama video for iOS.
 
 ## Pod
 ```
-pod 'MD360Player4iOS', '~> 0.1.0'
+pod 'MD360Player4iOS', '~> 0.2.0'
 ```
 
 ## Release Node
+**0.2.0**
+* Pinch gesture supported.
+
 **0.1.0**
 * Motion Sensor
 * Glass Mode(multi-screen)
@@ -54,6 +57,18 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
     MDModeDisplayNormal,
     MDModeDisplayGlass,
 };
+```
+
+## Enabled Pinch Gesture
+```objc
+/////////////////////////////////////////////////////// MDVRLibrary
+MDVRConfiguration* config = [MDVRLibrary createConfig];
+
+...
+[config pinchEnabled:true];
+
+self.vrLibrary = [config build];
+/////////////////////////////////////////////////////// MDVRLibrary
 ```
 
 ## Reference
