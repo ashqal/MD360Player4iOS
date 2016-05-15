@@ -54,6 +54,7 @@
     [config interactiveMode:MDModeInteractiveMotion];
     [config asVideo:playerItem];
     [config setContainer:self view:self.view];
+    [config pinchEnabled:true];
     
     self.vrLibrary = [config build];
     /////////////////////////////////////////////////////// MDVRLibrary

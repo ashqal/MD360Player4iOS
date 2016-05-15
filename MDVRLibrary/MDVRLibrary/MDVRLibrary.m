@@ -133,6 +133,7 @@
 @property (nonatomic,readonly) UIView* view;
 @property (nonatomic,readonly) MDModeInteractive interactiveMode;
 @property (nonatomic,readonly) MDModeDisplay displayMode;
+@property (nonatomic,readonly) bool pinchEnabled;
 
 @end
 
@@ -143,6 +144,7 @@
     if (self) {
         _interactiveMode = MDModeInteractiveTouch;
         _displayMode = MDModeDisplayNormal;
+        _pinchEnabled = NO;
     }
     return self;
 }
@@ -162,6 +164,10 @@
     _displayMode = displayMode;
 }
 
+- (void) pinchEnabled:(bool)pinch{
+    _pinchEnabled = pinch;
+}
+
 - (void) setContainer:(UIViewController*)vc{
     [self setContainer:vc view:vc.view];
 }
@@ -177,6 +183,7 @@
     library.parentView = self.view;
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
     library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];
+    library.touchHelper.pinchEnabled = self.pinchEnabled;
     for (int i = 0; i < 2; i++) {
         [library addDisplay:self.viewController view:self.view];
     }

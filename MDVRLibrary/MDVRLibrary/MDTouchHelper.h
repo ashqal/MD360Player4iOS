@@ -28,6 +28,7 @@
 
 @interface MDTouchHelper : NSObject
 - (void) registerTo:(UIView*) view;
+@property (nonatomic) bool pinchEnabled;
 @property (nonatomic,weak) id<IAdvanceGestureListener> advanceGestureListener;
 @end
 

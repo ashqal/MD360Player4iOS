@@ -43,9 +43,10 @@ static float sScaleMax = 4.0f;
     self.panGestureRecognizer.maximumNumberOfTouches = 1;
     [view addGestureRecognizer:self.panGestureRecognizer];
     
-    self.pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinches:)];
-    [view addGestureRecognizer:self.pinchGestureRecognizer];
-    
+    if (self.pinchEnabled) {
+        self.pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinches:)];
+        [view addGestureRecognizer:self.pinchGestureRecognizer];
+    }
 }
 
 -(void)handlePanGestures:(UIPanGestureRecognizer *)paramSender{

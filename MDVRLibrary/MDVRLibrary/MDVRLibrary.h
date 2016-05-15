@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 - (void) asImage:(id)data;
 - (void) interactiveMode:(MDModeInteractive)interactiveMode;
 - (void) displayMode:(MDModeDisplay)displayMode;
+- (void) pinchEnabled:(bool)pinch;
 - (void) setContainer:(UIViewController*)vc;
 - (void) setContainer:(UIViewController*)vc view:(UIView*)view;
 - (MDVRLibrary*) build;
