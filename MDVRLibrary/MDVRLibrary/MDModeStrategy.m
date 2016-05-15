@@ -11,7 +11,6 @@
 @interface MDModeManager(){
 
 }
-@property (nonatomic,strong) id<IMDModeStrategy> mStrategy;
 @end
 @implementation MDModeManager
 

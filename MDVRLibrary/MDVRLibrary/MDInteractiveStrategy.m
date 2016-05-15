@@ -13,6 +13,7 @@
 #import <GLKit/GLKit.h>
 #import "GLUtil.h"
 #import "MD360Director.h"
+#import "MDTouchHelper.h"
 
 #pragma mark MDInteractiveStrategy
 @interface MDInteractiveStrategy: NSObject<IMDModeStrategy>
@@ -35,69 +36,32 @@
 @end
 
 #pragma mark MDTouchStrategy
-@interface MDTouchStrategy:MDInteractiveStrategy<MDTouchDelegate>
-@property (nonatomic,strong) NSMutableArray* currentTouches;
+@interface MDTouchStrategy:MDInteractiveStrategy
 @end
-
-static float sMDDamping = 0.2f;
 
 @implementation MDTouchStrategy
 - (instancetype)initWithDirectorList:(NSArray*) dirctors{
     self = [super initWithDirectorList:dirctors];
     if (self) {
-        self.currentTouches = [[NSMutableArray alloc]init];
+        // nop
     }
     return self;
 }
 
-- (void)dealloc{
-    self.currentTouches = nil;
-}
-
 -(void) on{
-    for (MD360Director* director in self.dirctors) {
-        director.touchDelegate = self;
-    }
+    
 }
 
 -(void) off{
-    for (MD360Director* director in self.dirctors) {
-        director.touchDelegate = nil;
-    }
+    
 }
 
-#pragma mark touches
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches) {
-        [self.currentTouches addObject:touch];
-    }
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    float distX = [touch locationInView:touch.view].x - [touch previousLocationInView:touch.view].x;
-    float distY = [touch locationInView:touch.view].y - [touch previousLocationInView:touch.view].y;
-    distX *= sMDDamping;
-    distY *= sMDDamping;
-    // mDeltaX += distX;
-    // mDeltaY += distY;
+-(void) handleDragDistX:(float)distX distY:(float)distY{
     for (MD360Director* director in self.dirctors) {
         [director updateTouch:distX distY:distY];
     }
-   
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches) {
-        [self.currentTouches removeObject:touch];
-    }
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches) {
-        [self.currentTouches removeObject:touch];
-    }
-}
 @end
 
 
@@ -167,6 +131,12 @@ static float sMDDamping = 0.2f;
         for (MD360Director* dirctor in self.dirctors) {
             [dirctor reset];
         }
+    }
+}
+
+-(void) handleDragDistX:(float)distX distY:(float)distY{
+    if ([self.mStrategy respondsToSelector:@selector(handleDragDistX:distY:)]) {
+        [self.mStrategy handleDragDistX:distX distY:distY];
     }
 }
 

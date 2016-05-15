@@ -177,31 +177,6 @@
     mEyeX  = eyeX;
 }
 
-#pragma mark - touches
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if([self.touchDelegate respondsToSelector:@selector(touchesBegan:withEvent:)]){
-        [self.touchDelegate touchesBegan:touches withEvent:event];
-    }
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    if([self.touchDelegate respondsToSelector:@selector(touchesMoved:withEvent:)]){
-        [self.touchDelegate touchesMoved:touches withEvent:event];
-    }
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if([self.touchDelegate respondsToSelector:@selector(touchesEnded:withEvent:)]){
-        [self.touchDelegate touchesEnded:touches withEvent:event];
-    }
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    if([self.touchDelegate respondsToSelector:@selector(touchesCancelled:withEvent:)]){
-        [self.touchDelegate touchesCancelled:touches withEvent:event];
-    }
-}
-
 @end
 
 #pragma mark 

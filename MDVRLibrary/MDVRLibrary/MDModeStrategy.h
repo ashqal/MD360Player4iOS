@@ -14,11 +14,13 @@
 @optional
 -(void) on;
 -(void) off;
+-(void) handleDragDistX:(float)distX distY:(float)distY;
 @end
 
 #pragma mark MDModeManager
 @interface MDModeManager : NSObject<IMDModeStrategy>
 @property(nonatomic,readonly) int mMode;
+@property (nonatomic,strong) id<IMDModeStrategy> mStrategy;
 - (instancetype)initWithDefault:(int)mode;
 - (void) prepare;
 - (void) switchMode:(int)mode;

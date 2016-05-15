@@ -100,6 +100,7 @@
 
 }
 
+/*
 #pragma mark - touches
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -125,5 +126,6 @@
         [self.touchDelegate touchesCancelled:touches withEvent:event];
     }
 }
+ */
 
 @end

@@ -11,9 +11,10 @@
 #import "MDGLRendererDelegate.h"
 #import "MD360Director.h"
 #import <UIKit/UIKit.h>
+#import "MDTouchHelper.h"
 
 @interface MDGLKViewController : GLKViewController<UIGestureRecognizerDelegate>
 @property (nonatomic,weak) id<MDGLRendererDelegate> rendererDelegate;
-@property (nonatomic,weak) id<MDTouchDelegate> touchDelegate;
+// @property (nonatomic,weak) id<MDTouchDelegate> touchDelegate;
 -(void)setPendingVisible:(BOOL)visible frame:(CGRect)frame;
 @end

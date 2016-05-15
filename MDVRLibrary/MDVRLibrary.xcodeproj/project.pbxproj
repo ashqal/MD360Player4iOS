@@ -21,6 +21,7 @@
 		5E1EE7381CBEA5ED004E0B79 /* MDModeStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE7271CBEA5ED004E0B79 /* MDModeStrategy.m */; };
 		5E1EE7391CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */; };
 		5E1EE7441CBEA894004E0B79 /* vrlibraw.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */; };
+		5E2BBA711CE8BA5F00530898 /* MDTouchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2BBA701CE8BA5F00530898 /* MDTouchHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,6 +67,8 @@
 		5E1EE7291CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDVideoDataAdatperAVPlayerImpl.h; sourceTree = "<group>"; };
 		5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDVideoDataAdatperAVPlayerImpl.m; sourceTree = "<group>"; };
 		5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = vrlibraw.bundle; sourceTree = "<group>"; };
+		5E2BBA6F1CE8BA5F00530898 /* MDTouchHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDTouchHelper.h; sourceTree = "<group>"; };
+		5E2BBA701CE8BA5F00530898 /* MDTouchHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDTouchHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +128,8 @@
 				5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */,
 				5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */,
 				5E1EE6DC1CBEA56B004E0B79 /* MDVRLibrary.m */,
+				5E2BBA6F1CE8BA5F00530898 /* MDTouchHelper.h */,
+				5E2BBA701CE8BA5F00530898 /* MDTouchHelper.m */,
 			);
 			path = MDVRLibrary;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				5E1EE6DD1CBEA56B004E0B79 /* MDVRLibrary.m in Sources */,
 				5E1EE7341CBEA5ED004E0B79 /* MDAbsObject3D.m in Sources */,
 				5E1EE7311CBEA5ED004E0B79 /* MD360Program.m in Sources */,
+				5E2BBA711CE8BA5F00530898 /* MDTouchHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +326,7 @@
 				5E1EE6E21CBEA56B004E0B79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

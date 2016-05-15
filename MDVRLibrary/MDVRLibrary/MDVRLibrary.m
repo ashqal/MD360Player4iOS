@@ -12,14 +12,16 @@
 #import "MD360Texture.h"
 #import "MDInteractiveStrategy.h"
 #import "MDDisplayStrategy.h"
+#import "MDTouchHelper.h"
 
-@interface MDVRLibrary()
+@interface MDVRLibrary()<IAdvanceGestureListener>
 @property (nonatomic,strong) MD360Texture* texture;
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
 @property (nonatomic,strong) MDDisplayStrategyManager* displayStrategyManager;
 @property (nonatomic,strong) NSMutableArray* renderers;
 @property (nonatomic,strong) NSMutableArray* directors;
 @property (nonatomic,strong) NSMutableArray* glViewControllers;
+@property (nonatomic,strong) MDTouchHelper* touchHelper;
 @property (nonatomic,weak) UIView* parentView;
 @end
 
@@ -35,6 +37,7 @@
         self.renderers = [[NSMutableArray alloc]init];
         self.directors = [[NSMutableArray alloc]init];
         self.glViewControllers = [[NSMutableArray alloc]init];
+        self.touchHelper = [[MDTouchHelper alloc]init];
     }
     return self;
 }
@@ -46,6 +49,9 @@
     self.displayStrategyManager.bounds = self.parentView.bounds;
     self.displayStrategyManager.glViewControllers = self.glViewControllers;
     [self.displayStrategyManager prepare];
+    
+    [self.touchHelper registerTo:self.parentView];
+    self.touchHelper.advanceGestureListener = self;
     
 }
 
@@ -65,7 +71,7 @@
     [self.renderers addObject:renderer];
   
     glkViewController.rendererDelegate = renderer;
-    glkViewController.touchDelegate = director;
+    // glkViewController.touchDelegate = director;
     
     glkViewController.view.hidden = YES;
     //[glkViewController.view setFrame:parentView.bounds];
@@ -77,6 +83,15 @@
     }
     
     [self.glViewControllers addObject:glkViewController];
+    
+}
+
+#pragma mark IAdvanceGestureListener
+- (void) onDragDistanceX:(float)distanceX distanceY:(float)distanceY{
+    [self.interactiveStrategyManager handleDragDistX:distanceX distY:distanceY];
+}
+
+- (void) onPinch:(float)scale{
     
 }
 
