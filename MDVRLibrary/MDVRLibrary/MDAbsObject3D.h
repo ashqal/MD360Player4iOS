@@ -18,14 +18,25 @@
 @interface MDAbsObject3D : NSObject<MDAbsObject3DDelegate,IMDDestroyable> {
     float* mVertexBuffer;
     float* mTextureBuffer;
+    short* mIndicesBuffer;
+    int mVertexSize;
+    int mTextureSize;
 }
 @property (nonatomic,readonly) int mNumIndices;
 
 - (void)setVertexBuffer:(float*)buffer size:(int)size;
 - (void)setTextureBuffer:(float*)buffer size:(int)size;
+- (void)setIndicesBuffer:(short*)buffer size:(int)size;
 - (void)setNumIndices:(int)value;
 - (void)loadObj;
 - (void)uploadDataToProgram:(MD360Program*)program;
+
+- (short*) getIndices;
+
+@end
+
+#pragma mark MDSphere3D48
+@interface MDSphere3D48 : MDAbsObject3D
 
 @end
 

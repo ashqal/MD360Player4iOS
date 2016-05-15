@@ -97,8 +97,13 @@
     [self.mDirector shot:self.mProgram];
     [GLUtil glCheck:@"shot"];
     
+    if ([self.mObject3D getIndices] != nil) {
+        glDrawElements(GL_TRIANGLES, self.mObject3D.mNumIndices, GL_UNSIGNED_SHORT, [self.mObject3D getIndices]);
+    } else {
+        glDrawArrays(GL_TRIANGLES, 0, self.mObject3D.mNumIndices);
+    }
     // Draw
-    glDrawArrays(GL_TRIANGLES, 0, self.mObject3D.mNumIndices);
+    
     [GLUtil glCheck:@"glDrawArrays"];
 }
 
