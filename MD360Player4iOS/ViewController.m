@@ -71,9 +71,10 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Player" bundle:nil];
     PlayerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"PlayerViewController"];
-    [vc initParams:url];
     
-    [self presentViewController:vc animated:YES completion:nil];
+    [self presentViewController:vc animated:YES completion:^{
+        [vc initParams:url];
+    }];
 }
 
 
