@@ -32,11 +32,10 @@
     return self;
 }
 
--(void) destroy {
+- (void)dealloc{
     [self.mObject3D destroy];
     [self.mProgram destroy];
     [self.mDirector destroy];
-    [self.mTexture destroy];
 }
 
 - (void) setup{

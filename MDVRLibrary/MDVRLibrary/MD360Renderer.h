@@ -19,7 +19,7 @@
 - (MD360Renderer*) build;
 @end
 
-@interface MD360Renderer : NSObject <MDGLRendererDelegate,IMDDestroyable>
+@interface MD360Renderer : NSObject <MDGLRendererDelegate>
 + (MD360RendererBuilder*) builder;
 @end
 
