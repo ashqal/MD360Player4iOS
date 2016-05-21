@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '799063577043288A9D5E8AB9'
+               BlueprintIdentifier = 'B7BD58850FD4A4F9C01B7A91'
                BlueprintName = 'Pods-MD360Player4iOS'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-MD360Player4iOS.a'>

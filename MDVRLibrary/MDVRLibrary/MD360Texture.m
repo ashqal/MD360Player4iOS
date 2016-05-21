@@ -18,19 +18,9 @@
 @end
 @implementation MD360Texture
 
-- (void) createTexture {
-    // check the createTextureId function
-    if (![self respondsToSelector:@selector(createTextureId)]) return;
-    
-    glTextureId = [self createTextureId];
-    if (glTextureId != 0 && [self respondsToSelector:@selector(onTextureCreated:)]) {
-        [self onTextureCreated:glTextureId];
-    }
-}
+- (void) createTexture:(EAGLContext*)context{}
 
-- (void) destroy {
-    
-}
+- (void) destroy {}
 
 - (void) resize:(int)width height:(int)height{
     _mWidth = width;
@@ -44,7 +34,66 @@
 @end
 
 #pragma mark MD360BitmapTexture
+@interface TextureContext:NSObject
+@property (nonatomic) GLuint textureId;
+@property (nonatomic) bool hasPending;
+@end
+
+@implementation TextureContext
+
+@end
+
+
+@interface MD360BitmapTexture()
+@property(nonatomic,strong) UIImage* pendingImage;
+@property(nonatomic,weak) id<IMDImageProvider> provider;
+@property (nonatomic,strong) NSMutableDictionary* mContextTextureMap;
+@end
 @implementation MD360BitmapTexture
+
++ (MD360Texture*) createWithProvider:(id<IMDImageProvider>) provider{
+    MD360BitmapTexture* texture = [[MD360BitmapTexture alloc]init];
+    texture.provider = provider;
+    [texture load];
+    return texture;
+}
+
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        if (self.mContextTextureMap == nil) {
+            self.mContextTextureMap = [[NSMutableDictionary alloc]init];
+            
+            
+        }
+    }
+    return self;
+}
+
+- (void)load {
+    if ([self respondsToSelector:@selector(texture:)]) {
+        NSLog(@"respondsToSelector texture!");
+    }
+    
+    if ([self.provider respondsToSelector:@selector(onProvideImage:)]) {
+        [self.provider onProvideImage:self];
+    }
+}
+
+- (void) createTexture:(EAGLContext*)context{
+    if (context == NULL) return;
+    NSString* key = context.description;
+    
+    TextureContext* value = [self.mContextTextureMap objectForKey:key];
+    if (value == nil) {
+        value = [[TextureContext alloc]init];
+        [self.mContextTextureMap setObject:value forKey:key];
+    }
+    
+    value.textureId = [self createTextureId];
+    value.hasPending = self.pendingImage != nil;
+    
+}
 
 - (GLuint) createTextureId {
     GLuint textureId;
@@ -53,13 +102,21 @@
     return textureId;
 }
 
-- (void) onTextureCreated:(GLuint)textureId{
-    [self textureInThread:textureId];
+- (void) updateTexture:(EAGLContext*)context{
+    if (context == NULL) return;
+    NSString* key = context.description;
+    
+    TextureContext* value = [self.mContextTextureMap objectForKey:key];
+    if(value != nil && value.hasPending){
+        [self textureInThread:value.textureId];
+        value.hasPending = false;
+    }
 }
 
 - (void) textureInThread:(int)textureId {
+    if (self.pendingImage == nil) return;
+    
     // Bind to the texture in OpenGL
-    //GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureId);
     
@@ -72,10 +129,20 @@
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
-    NSString* path = [[NSBundle mainBundle]pathForResource:@"bitmap360" ofType:@"png"];
-    
     // Load the bitmap into the bound texture.
-    [GLUtil texImage2D:path];
+    [GLUtil texImage2D:self.pendingImage];
+}
+
+
+-(void) texture:(UIImage*)image{
+    NSLog(@"texture:%@",image);
+    if(image == nil) return;
+    
+    self.pendingImage = image;
+    for (NSString* key in self.mContextTextureMap) {
+        TextureContext* value = [self.mContextTextureMap objectForKey:key];
+        value.hasPending = YES;
+    }
 }
 
 @end

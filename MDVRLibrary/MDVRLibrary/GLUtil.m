@@ -282,9 +282,13 @@ typedef struct
     return programHandle;
 }
 
-+ (void)texImage2D:(NSString*)path{
++ (void)texImage2DWithPath:(NSString*)path{
     NSData *texData = [[NSData alloc] initWithContentsOfFile:path];
     UIImage *image = [[UIImage alloc] initWithData:texData];
+    [GLUtil texImage2D:image];
+}
+
++ (void)texImage2D:(UIImage*)image{
     assert(image!=nil);
     
     GLuint width = (GLuint)CGImageGetWidth(image.CGImage);

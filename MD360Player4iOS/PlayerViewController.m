@@ -7,17 +7,12 @@
 //
 
 #import "PlayerViewController.h"
-#import "VIMVideoPlayerView.h"
-#import "VIMVideoPlayer.h"
-#import "MDVRLibrary.h"
 
-@interface PlayerViewController()<VIMVideoPlayerViewDelegate>{
+
+@interface PlayerViewController(){
 }
-@property (nonatomic, strong) VIMVideoPlayerView *videoPlayerView;
-@property (nonatomic, strong) MDVRLibrary* vrLibrary;
 @property (weak, nonatomic) IBOutlet UIButton *mInteractiveBtn;
 @property (weak, nonatomic) IBOutlet UIButton *mDisplayBtn;
-@property (nonatomic, strong) NSURL* mURL;
 @end
 @implementation PlayerViewController
 - (void)viewDidLoad {
@@ -28,43 +23,21 @@
 - (void)dealloc{
 }
 
+- (void) onClosed{
+}
+
 - (void) initParams:(NSURL*)url{
     self.mURL = url;
     [self initPlayer];
-}
-
-- (void) initPlayer{
-    // video player
-    self.videoPlayerView = [[VIMVideoPlayerView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-    self.videoPlayerView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.videoPlayerView.delegate = self;
-    [self.videoPlayerView setVideoFillMode:AVLayerVideoGravityResizeAspect];
-    [self.videoPlayerView.player enableTimeUpdates];
-    [self.videoPlayerView.player enableAirplay];
-    
-    AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:self.mURL];
-    [self.videoPlayerView.player setPlayerItem:playerItem];
-    [self.videoPlayerView.player play];
-    
-
-    /////////////////////////////////////////////////////// MDVRLibrary
-    MDVRConfiguration* config = [MDVRLibrary createConfig];
-    
-    [config displayMode:MDModeDisplayGlass];
-    [config interactiveMode:MDModeInteractiveMotion];
-    [config asVideo:playerItem];
-    [config setContainer:self view:self.view];
-    [config pinchEnabled:true];
-    
-    self.vrLibrary = [config build];
-    /////////////////////////////////////////////////////// MDVRLibrary
     
     [self syncDisplayLabel];
     [self syncInteractiveLabel];
 }
 
+- (void) initPlayer{}
+
 - (IBAction)onCloseBtnClicked:(id)sender {
-    [self.videoPlayerView.player reset];
+    [self onClosed];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 

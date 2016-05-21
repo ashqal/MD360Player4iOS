@@ -11,24 +11,19 @@
 #import "MDVideoDataAdapter.h"
 #import "MDVRLibrary.h"
 
-@protocol IMD360Texture <NSObject>
-@optional
-- (void) onTextureCreated:(GLuint)textureId;
-- (GLuint) createTextureId;
-@end
 
-@interface MD360Texture : NSObject<IMD360Texture,IMDDestroyable>
+@interface MD360Texture : NSObject<IMDDestroyable>
 
 @property (nonatomic,readonly) int mWidth;
 @property (nonatomic,readonly) int mHeight;
 
-- (void) createTexture;
+- (void) createTexture:(EAGLContext*)context;
 - (void) resize:(int)width height:(int)height;
 - (void) updateTexture:(EAGLContext*)context;
 @end
 
-@interface MD360BitmapTexture : MD360Texture
-
+@interface MD360BitmapTexture : MD360Texture<TextureCallback>
++ (MD360Texture*) createWithProvider:(id<IMDImageProvider>) provider;
 @end
 
 @interface MD360VideoTexture : MD360Texture

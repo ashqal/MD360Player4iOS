@@ -7,9 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "PlayerViewController.h"
 #import <AFNetworking.h>
 #import <AFNetworking/AFNetworking.h>
+#import "BitmapPlayerViewController.h"
+#import "VideoPlayerViewController.h"
 
 
 @interface ViewController(){
@@ -59,23 +60,39 @@
 
 - (IBAction)onNetworkButton:(id)sender {
     NSString* url = self.mUrlTextView.text;
-    [self launch:[NSURL URLWithString:url]];
+    [self launchAsVideo:[NSURL URLWithString:url]];
 }
 
 - (IBAction)onLocalButton:(id)sender {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"skyrim360" ofType:@"mp4"];
-    [self launch:[NSURL fileURLWithPath:path]];
+    [self launchAsVideo:[NSURL fileURLWithPath:path]];
+}
+- (IBAction)onImageButton:(id)sender {
+    
+    [self launchAsImage:[NSURL URLWithString:@"http://image5.tuku.cn/wallpaper/Landscape%20Wallpapers/8750_2560x1600.jpg"]];
 }
 
-- (void)launch:(NSURL*)url {
+- (void)launchAsVideo:(NSURL*)url {
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Player" bundle:nil];
-    PlayerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"PlayerViewController"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"VideoPlayer" bundle:nil];
+    PlayerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"VideoPlayerViewController"];
     
     [self presentViewController:vc animated:YES completion:^{
         [vc initParams:url];
     }];
 }
+
+
+- (void)launchAsImage:(NSURL*)url {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"BitmapPlayer" bundle:nil];
+    PlayerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BitmapPlayerViewController"];
+    
+    [self presentViewController:vc animated:YES completion:^{
+        [vc initParams:url];
+    }];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

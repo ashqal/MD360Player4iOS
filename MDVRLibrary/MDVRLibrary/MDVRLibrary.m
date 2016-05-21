@@ -152,8 +152,9 @@
     _texture = [MD360VideoTexture createWithAVPlayerItem:playerItem];
 }
 
-- (void) asImage:(id)data{
+- (void) asImage:(id<IMDImageProvider>)data{
     // nop
+    _texture = [MD360BitmapTexture createWithProvider:data];
 }
 
 - (void) interactiveMode:(MDModeInteractive)interactiveMode{

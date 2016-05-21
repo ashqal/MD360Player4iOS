@@ -54,7 +54,7 @@
     [self initProgram];
     [GLUtil glCheck:@"initProgram"];
     
-    [self initTexture];
+    [self initTexture:context];
     [GLUtil glCheck:@"initTexture"];
     
     [self initObject3D];
@@ -96,8 +96,10 @@
     [self.mDirector shot:self.mProgram];
     [GLUtil glCheck:@"shot"];
     
-    if ([self.mObject3D getIndices] != nil) {
-        glDrawElements(GL_TRIANGLES, self.mObject3D.mNumIndices, GL_UNSIGNED_SHORT, [self.mObject3D getIndices]);
+    if ([self.mObject3D getIndices] != 0) {
+        GLsizei count = self.mObject3D.mNumIndices;
+        const GLvoid* indices = [self.mObject3D getIndices];
+        glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_SHORT, indices);
     } else {
         glDrawArrays(GL_TRIANGLES, 0, self.mObject3D.mNumIndices);
     }
@@ -110,8 +112,8 @@
     [self.mProgram build];
 }
 
-- (void) initTexture {
-    [self.mTexture createTexture];
+- (void) initTexture:(EAGLContext*)context {
+    [self.mTexture createTexture:context];
 }
 
 - (void) initObject3D {

@@ -8,37 +8,41 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>Pods-MD360Player4iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>VIMVideoPlayer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4E77CB5AAC1775E3AF0444A6AF7F931A</key>
+		<key>006D7AE1FE3C58CEE83AFC7B9720FD12</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>05D8A6A40EDCECDF9F8369CD81989C75</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>15E1A0FDDFC1A8DF17B1312DF2916FDD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>928353533005A4198EBDA5B700D37B64</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DDC100F1A874DA32E1969B7B7EF1F6B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

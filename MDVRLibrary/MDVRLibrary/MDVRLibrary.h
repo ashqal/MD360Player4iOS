@@ -14,6 +14,20 @@
 #define MDVR_RAW_PATH [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: MDVR_RAW_NAME]
 #define MDVR_RAW [NSBundle bundleWithPath: MDVR_RAW_PATH]
 
+@protocol IMDDestroyable <NSObject>
+-(void) destroy;
+@end
+
+@protocol TextureCallback <NSObject>
+@required
+-(void) texture:(UIImage*)image;
+@end
+
+@protocol IMDImageProvider <NSObject>
+@required
+-(void) onProvideImage:(id<TextureCallback>)callback;
+@end
+
 typedef NS_ENUM(NSInteger, MDModeInteractive) {
     MDModeInteractiveTouch,
     MDModeInteractiveMotion,
@@ -28,7 +42,7 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 #pragma mark MDVRConfiguration
 @interface MDVRConfiguration : NSObject
 - (void) asVideo:(AVPlayerItem*)playerItem;
-- (void) asImage:(id)data;
+- (void) asImage:(id<IMDImageProvider>)data;
 - (void) interactiveMode:(MDModeInteractive)interactiveMode;
 - (void) displayMode:(MDModeDisplay)displayMode;
 - (void) pinchEnabled:(bool)pinch;
@@ -48,8 +62,4 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 - (void) switchDisplayMode:(MDModeDisplay)displayMode;
 - (void) switchDisplayMode;
 - (MDModeDisplay) getDisplayMdoe;
-@end
-
-@protocol IMDDestroyable <NSObject>
--(void) destroy;
 @end

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VIMVideoPlayerView.h"
+#import "VIMVideoPlayer.h"
+#import "MDVRLibrary.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface PlayerViewController : UIViewController
+@property (nonatomic, strong) MDVRLibrary* vrLibrary;
+@property (nonatomic, strong) NSURL* mURL;
 - (void) initParams:(NSURL*)url;
+- (void) onClosed;
 @end
