@@ -53,3 +53,5 @@ fastlane/report.xml
 fastlane/screenshots
 
 MD360Player4iOS/570624aae1c52.mp4
+
+*.xcuserstate
