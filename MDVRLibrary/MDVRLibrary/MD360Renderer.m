@@ -28,6 +28,8 @@
     self = [super init];
     if (self) {
         [self setup];
+        
+        NSLog(@"MD360Renderer init:%@",self);
     }
     return self;
 }
@@ -36,6 +38,8 @@
     [self.mObject3D destroy];
     [self.mProgram destroy];
     [self.mDirector destroy];
+    
+    NSLog(@"MD360Renderer dealloc:%@",self);
 }
 
 - (void) setup{
@@ -74,26 +78,36 @@
 }
 
 - (void) rendererOnDrawFrame:(EAGLContext*)context{
+    
+    NSLog(@"rendererOnDrawFrame ");
+    
     // clear
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
     // glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     // glClear(GL_COLOR_BUFFER_BIT);
     [GLUtil glCheck:@"glClear"];
     
+    
+    
     // use
-    [self.mProgram use];
+    // [self.mProgram use];
     [GLUtil glCheck:@"mProgram use"];
     
+    
     // update texture
-    [self.mTexture updateTexture:context];
+    // [self.mTexture updateTexture:context];
+    
+    
     
     // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
-    glUniform1i(self.mProgram.mTextureUniformHandle, 0);
+    // glUniform1i(self.mProgram.mTextureUniformHandle, 0);
     [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
     
     // Pass in the combined matrix.
-    [self.mDirector shot:self.mProgram];
+    // [self.mDirector shot:self.mProgram];
     [GLUtil glCheck:@"shot"];
     
     if ([self.mObject3D getIndices] != 0) {

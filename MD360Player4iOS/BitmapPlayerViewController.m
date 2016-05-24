@@ -31,7 +31,7 @@
     
     [config displayMode:MDModeDisplayGlass];
     [config interactiveMode:MDModeInteractiveMotion];
-    [config asImage:self];
+    [config asImage:nil];
     // [config asVideo:playerItem];
     [config setContainer:self view:self.view];
     [config pinchEnabled:true];

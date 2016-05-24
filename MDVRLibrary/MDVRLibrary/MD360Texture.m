@@ -31,6 +31,11 @@
 
 }
 
+- (void)dealloc
+{
+    NSLog(@"MD360Texture dealloc:%@",self);
+}
+
 @end
 
 #pragma mark MD360BitmapTexture
@@ -51,6 +56,7 @@
 @end
 @implementation MD360BitmapTexture
 
+
 + (MD360Texture*) createWithProvider:(id<IMDImageProvider>) provider{
     MD360BitmapTexture* texture = [[MD360BitmapTexture alloc]init];
     texture.provider = provider;
@@ -63,18 +69,14 @@
     if (self) {
         if (self.mContextTextureMap == nil) {
             self.mContextTextureMap = [[NSMutableDictionary alloc]init];
-            
-            
         }
     }
     return self;
 }
 
+
 - (void)load {
-    if ([self respondsToSelector:@selector(texture:)]) {
-        NSLog(@"respondsToSelector texture!");
-    }
-    
+
     if ([self.provider respondsToSelector:@selector(onProvideImage:)]) {
         [self.provider onProvideImage:self];
     }
@@ -90,7 +92,7 @@
         [self.mContextTextureMap setObject:value forKey:key];
     }
     
-    value.textureId = [self createTextureId];
+    // value.textureId = [self createTextureId];
     value.hasPending = self.pendingImage != nil;
     
 }
@@ -108,7 +110,7 @@
     
     TextureContext* value = [self.mContextTextureMap objectForKey:key];
     if(value != nil && value.hasPending){
-        [self textureInThread:value.textureId];
+        // [self textureInThread:value.textureId];
         value.hasPending = false;
     }
 }

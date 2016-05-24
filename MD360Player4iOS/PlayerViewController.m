@@ -38,7 +38,7 @@
 
 - (IBAction)onCloseBtnClicked:(id)sender {
     [self onClosed];
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)onDisplayModeBtnClicked:(id)sender {

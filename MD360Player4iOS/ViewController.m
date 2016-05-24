@@ -77,7 +77,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"VideoPlayer" bundle:nil];
     PlayerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"VideoPlayerViewController"];
     
-    [self presentViewController:vc animated:YES completion:^{
+    [self presentViewController:vc animated:NO completion:^{
         [vc initParams:url];
     }];
 }
@@ -88,7 +88,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"BitmapPlayer" bundle:nil];
     PlayerViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BitmapPlayerViewController"];
     
-    [self presentViewController:vc animated:YES completion:^{
+    [self presentViewController:vc animated:NO completion:^{
         [vc initParams:url];
     }];
 }

@@ -42,6 +42,12 @@
     return self;
 }
 
+-(void)dealloc{
+    for(UIView* view in self.parentView.subviews){
+        [view removeFromSuperview];
+    }
+}
+
 - (void) setup {
     self.interactiveStrategyManager.dirctors = self.directors;
     [self.interactiveStrategyManager prepare];

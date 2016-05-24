@@ -16,6 +16,7 @@ static int sPositionDataSize = 3;
 - (void) destroy {
     if (mVertexBuffer != NULL)  free(mVertexBuffer);
     if (mTextureBuffer != NULL)  free(mTextureBuffer);
+    if (mIndicesBuffer != NULL) free(mIndicesBuffer);
 }
 
 - (void)setVertexBuffer:(float*)buffer size:(int)size{
@@ -27,6 +28,7 @@ static int sPositionDataSize = 3;
 - (void)setIndicesBuffer:(short *)buffer size:(int)size{
     int size_t = sizeof(short)*size;
     mIndicesBuffer = malloc(size_t);
+    assert(mIndicesBuffer);
     memcpy(mIndicesBuffer, buffer, size_t);
 }
 
@@ -127,7 +129,7 @@ void generateSphere(float radius, int rings, int sectors, MDAbsObject3D* object3
     int numTexcoords = rings * sectors * 2;
     
     float* points = malloc ( sizeof(float) *  numPoints); //new float[rings * sectors * 3];
-    float* normals = malloc ( sizeof(float) * numNormals);//new float[rings * sectors * 3];
+    // float* normals = malloc ( sizeof(float) * numNormals);//new float[rings * sectors * 3];
     float* texcoords = malloc ( sizeof(float) *  numTexcoords);//new float[rings * sectors * 2];
     
     int t = 0, v = 0, n = 0;
@@ -144,9 +146,9 @@ void generateSphere(float radius, int rings, int sectors, MDAbsObject3D* object3
             points[v++] = - y * radius;
             points[v++] = z * radius;
             
-            normals[n++] = x;
-            normals[n++] = y;
-            normals[n++] = z;
+            // normals[n++] = x;
+            // normals[n++] = y;
+            // normals[n++] = z;
         }
         
         
@@ -174,6 +176,8 @@ void generateSphere(float radius, int rings, int sectors, MDAbsObject3D* object3
     free(indices);
     free(texcoords);
     free(points);
+    
+    NSLog(@"generateSphere over");
 }
 
 #pragma mark generate sphere

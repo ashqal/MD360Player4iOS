@@ -19,6 +19,8 @@
 @implementation MDGLKViewController
 
 - (void)dealloc{
+    
+    NSLog(@"MDGLKViewController dealloc!!!!!!!!!!!!!!!!!!");
     [self destroy:self.context];
     if ([EAGLContext currentContext] == self.context) {
         [EAGLContext setCurrentContext:nil];
