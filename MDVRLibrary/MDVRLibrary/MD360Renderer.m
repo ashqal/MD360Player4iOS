@@ -79,7 +79,7 @@
 
 - (void) rendererOnDrawFrame:(EAGLContext*)context{
     
-    NSLog(@"rendererOnDrawFrame ");
+    // NSLog(@"rendererOnDrawFrame ");
     
     // clear
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -93,21 +93,21 @@
     
     
     // use
-    // [self.mProgram use];
+    [self.mProgram use];
     [GLUtil glCheck:@"mProgram use"];
     
     
     // update texture
-    // [self.mTexture updateTexture:context];
+    [self.mTexture updateTexture:context];
     
     
     
     // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
-    // glUniform1i(self.mProgram.mTextureUniformHandle, 0);
+    glUniform1i(self.mProgram.mTextureUniformHandle, 0);
     [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
     
     // Pass in the combined matrix.
-    // [self.mDirector shot:self.mProgram];
+    [self.mDirector shot:self.mProgram];
     [GLUtil glCheck:@"shot"];
     
     if ([self.mObject3D getIndices] != 0) {

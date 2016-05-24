@@ -31,7 +31,7 @@
     
     [config displayMode:MDModeDisplayGlass];
     [config interactiveMode:MDModeInteractiveMotion];
-    [config asImage:nil];
+    [config asImage:self];
     // [config asVideo:playerItem];
     [config setContainer:self view:self.view];
     [config pinchEnabled:true];
@@ -46,7 +46,7 @@
     SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
     [downloader downloadImageWithURL:self.mURL options:0
                             progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                // NSLog(@"progress:%ld/%ld",receivedSize,expectedSize);
+                                NSLog(@"progress:%ld/%ld",receivedSize,expectedSize);
                                 // progression tracking code
                             }
                            completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {

@@ -92,7 +92,7 @@
         [self.mContextTextureMap setObject:value forKey:key];
     }
     
-    // value.textureId = [self createTextureId];
+    value.textureId = [self createTextureId];
     value.hasPending = self.pendingImage != nil;
     
 }
@@ -110,7 +110,7 @@
     
     TextureContext* value = [self.mContextTextureMap objectForKey:key];
     if(value != nil && value.hasPending){
-        // [self textureInThread:value.textureId];
+        [self textureInThread:value.textureId];
         value.hasPending = false;
     }
 }
