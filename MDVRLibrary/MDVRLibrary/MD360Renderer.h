@@ -11,11 +11,13 @@
 #import "MD360Director.h"
 #import "MD360Texture.h"
 #import "MDVRLibrary.h"
+#import "MDDisplayStrategy.h"
 
 @class MD360Renderer;
 @interface MD360RendererBuilder : NSObject
-- (void) setDirector:(MD360Director*) director;
+- (void) setDirectors:(NSArray*) directors;
 - (void) setTexture:(MD360Texture*) texture;
+- (void) setDisplayStrategyManager:(MDDisplayStrategyManager*) displayStrategyManager;
 - (MD360Renderer*) build;
 @end
 

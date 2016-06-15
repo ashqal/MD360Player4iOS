@@ -17,5 +17,4 @@
 @property (nonatomic,weak) id<MDGLRendererDelegate> rendererDelegate;
 @property (nonatomic,strong) NSString* name;
 // @property (nonatomic,weak) id<MDTouchDelegate> touchDelegate;
--(void)setPendingVisible:(BOOL)visible frame:(CGRect)frame;
 @end

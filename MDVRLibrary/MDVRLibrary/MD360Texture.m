@@ -31,9 +31,7 @@
     return NO;
 }
 
-- (void)dealloc
-{
-    NSLog(@"MD360Texture dealloc:%@",self);
+- (void)dealloc {
 }
 
 @end

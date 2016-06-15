@@ -10,12 +10,14 @@
 #import "MDAbsObject3D.h"
 #import "MD360Program.h"
 #import "GLUtil.h"
+#import "MD360Director.h"
 
 @interface MD360Renderer()
 @property (nonatomic,strong) MDAbsObject3D* mObject3D;
 @property (nonatomic,strong) MD360Program* mProgram;
 @property (nonatomic,strong) MD360Texture* mTexture;
-@property (nonatomic,strong) MD360Director* mDirector;
+@property (nonatomic,strong) NSArray* mDirectors;
+@property (nonatomic,strong) MDDisplayStrategyManager* mDisplayStrategyManager;
 @end
 
 @implementation MD360Renderer
@@ -28,15 +30,12 @@
     self = [super init];
     if (self) {
         [self setup];
-        
-        NSLog(@"MD360Renderer init:%@",self);
     }
     return self;
 }
 
 - (void)dealloc{
     
-    NSLog(@"MD360Renderer dealloc:%@",self);
 }
 
 - (void) setup{
@@ -64,10 +63,8 @@
 }
 
 - (void) rendererOnChanged:(EAGLContext*)context width:(int)width height:(int)height{
-    
-    // float contentScale = [GLUtil getScrrenScale];
-    // self.mWidth = width;// / contentScale;
-    // self.mHeight = height;// / contentScale;
+    // update surface
+    [self.mTexture resize:width height:height];
 }
 
 - (void) rendererOnDrawFrame:(EAGLContext*)context width:(int)width height:(int)height{
@@ -76,7 +73,6 @@
     
     // clear
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [GLUtil glCheck:@"glClear"];
 
@@ -96,19 +92,21 @@
         int widthPx = width * scale;
         int heightPx = height * scale;
         
-        int size = 2;
+        int size = [self.mDisplayStrategyManager getVisibleSize];
         int itemWidthPx = widthPx * 1.0 / size;
         for (int i = 0; i < size; i++ ) {
+            if (i >= [self.mDirectors count]) {
+                return;
+            }
+            
+            MD360Director* direcotr = [self.mDirectors objectAtIndex:i];
             glViewport(itemWidthPx * i, 0, itemWidthPx, heightPx);
-            
-            // update surface
-            // [self.mTexture resize:itemWidth height:self.mHeight];
-            
+
             // Update Projection
-            [self.mDirector updateProjection:itemWidthPx height:heightPx];
+            [direcotr updateProjection:itemWidthPx height:heightPx];
             
             // Pass in the combined matrix.
-            [self.mDirector shot:self.mProgram];
+            [direcotr shot:self.mProgram];
             [GLUtil glCheck:@"shot"];
             
             
@@ -144,30 +142,36 @@
 - (void) rendererOnDestroy:(EAGLContext*) context{
     [self.mObject3D destroy];
     [self.mProgram destroy];
-    [self.mDirector destroy];
+    self.mDirectors = nil;
 }
 
 @end
 
 @interface MD360RendererBuilder()
-@property (nonatomic,readonly) MD360Director* director;
+@property (nonatomic,readonly) NSArray* directors;
 @property (nonatomic,readonly) MD360Texture* texture;
+@property (nonatomic,readonly) MDDisplayStrategyManager* displayStrategyManager;
 @end
 
 @implementation MD360RendererBuilder
 
-- (void) setDirector:(MD360Director*) director{
-    _director = director;
+- (void) setDirectors:(NSArray*) directors{
+    _directors = directors;
 }
 
 - (void) setTexture:(MD360Texture*) texture{
     _texture = texture;
 }
 
+- (void) setDisplayStrategyManager:(MDDisplayStrategyManager*) displayStrategyManager{
+    _displayStrategyManager = displayStrategyManager;
+}
+
 - (MD360Renderer*) build{
     MD360Renderer* renderer = [[MD360Renderer alloc]init];
-    renderer.mDirector = self.director;
+    renderer.mDirectors = self.directors;
     renderer.mTexture = self.texture;
+    renderer.mDisplayStrategyManager = self.displayStrategyManager;
     return renderer;
 }
 

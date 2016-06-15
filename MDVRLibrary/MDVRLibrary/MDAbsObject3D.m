@@ -29,7 +29,6 @@ static int sPositionDataSize = 3;
 }
 
 - (void) destroy {
-    NSLog(@"MDAbsObject3D.h destroy!!!!!!!!!!");
     if (mVertexBuffer != NULL)  free(mVertexBuffer);
     if (mTextureBuffer != NULL)  free(mTextureBuffer);
     if (mIndicesBuffer != NULL) free(mIndicesBuffer);
@@ -210,8 +209,6 @@ void generateSphere(float radius, int rings, int sectors, MDAbsObject3D* object3
     free(indices);
     free(texcoords);
     free(points);
-    
-    NSLog(@"generateSphere over");
 }
 
 #pragma mark generate sphere

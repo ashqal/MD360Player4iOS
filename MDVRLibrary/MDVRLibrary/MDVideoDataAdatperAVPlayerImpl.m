@@ -35,10 +35,6 @@
 
 - (CVPixelBufferRef)copyPixelBuffer{
     CMTime currentTime = [self.playerItem currentTime];
-    
-    // It is very strange, but worked well!
-    [self.output hasNewPixelBufferForItemTime:currentTime];
-    
     CVPixelBufferRef pixelBuffer = [self.output copyPixelBufferForItemTime:currentTime itemTimeForDisplay:nil];
     return pixelBuffer;
 }

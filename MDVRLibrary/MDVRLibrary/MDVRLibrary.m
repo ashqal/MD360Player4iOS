@@ -14,13 +14,14 @@
 #import "MDDisplayStrategy.h"
 #import "MDTouchHelper.h"
 
+#define sMultiScreenSize 2
+
 @interface MDVRLibrary()<IAdvanceGestureListener>
 @property (nonatomic,strong) MD360Texture* texture;
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
 @property (nonatomic,strong) MDDisplayStrategyManager* displayStrategyManager;
-@property (nonatomic,strong) NSMutableArray* renderers;
+@property (nonatomic,strong) MD360Renderer* renderer;
 @property (nonatomic,strong) NSMutableArray* directors;
-@property (nonatomic,strong) NSMutableArray* glViewControllers;
 @property (nonatomic,strong) MDTouchHelper* touchHelper;
 @property (nonatomic,weak) UIView* parentView;
 @end
@@ -34,10 +35,14 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.renderers = [[NSMutableArray alloc]init];
-        self.directors = [[NSMutableArray alloc]init];
-        self.glViewControllers = [[NSMutableArray alloc]init];
         self.touchHelper = [[MDTouchHelper alloc]init];
+        
+        self.directors = [[NSMutableArray alloc]init];
+        for (int i = 0; i < sMultiScreenSize; i++) {
+            MD360Director* director = [MD360DirectorFactory create:i];
+            [self.directors addObject:director];
+        }
+
     }
     return self;
 }
@@ -49,51 +54,37 @@
 }
 
 - (void) setup {
-    self.interactiveStrategyManager.dirctors = self.directors;
-    [self.interactiveStrategyManager prepare];
-    
-    self.displayStrategyManager.bounds = self.parentView.bounds;
-    self.displayStrategyManager.glViewControllers = self.glViewControllers;
-    [self.displayStrategyManager prepare];
-    
     [self.touchHelper registerTo:self.parentView];
     self.touchHelper.advanceGestureListener = self;
     
 }
 
-- (void) addDisplay:(UIViewController*)viewController view:(UIView*)parentView{
+- (void) setupStrategyManager {
+    self.interactiveStrategyManager.dirctors = self.directors;
+    [self.interactiveStrategyManager prepare];
+    [self.displayStrategyManager prepare];
+}
+
+- (void) setupDisplay:(UIViewController*)viewController view:(UIView*)parentView{
     MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
-    
-    int size = self.glViewControllers.count;
-    glkViewController.name = [NSString stringWithFormat:@"vc:%d",size];
-    
-    // director
-    int index = (int)[self.directors count];
-    MD360Director* director = [MD360DirectorFactory create:index];
-    [self.directors addObject:director];
     
     // renderer
     MD360RendererBuilder* builder = [MD360Renderer builder];
     [builder setTexture:self.texture];
-    [builder setDirector:director];
-    MD360Renderer* renderer = [builder build];
-    [self.renderers addObject:renderer];
-  
-    glkViewController.rendererDelegate = renderer;
-    // glkViewController.touchDelegate = director;
+    [builder setDirectors:self.directors];
+    [builder setDisplayStrategyManager:self.displayStrategyManager];
+    self.renderer = [builder build];
+    glkViewController.rendererDelegate = self.renderer;
     
-    glkViewController.view.hidden = YES;
-    //[glkViewController.view setFrame:parentView.bounds];
+    float width = [[UIScreen mainScreen] bounds].size.width;
+    float height = [[UIScreen mainScreen] bounds].size.height;
+    [glkViewController.view setFrame:CGRectMake(0, 0, width, height)];
     
     [parentView insertSubview:glkViewController.view atIndex:0];
     if (viewController != nil) {
         [viewController addChildViewController:glkViewController];
         [glkViewController didMoveToParentViewController:viewController];
     }
-    
-    [self.glViewControllers addObject:glkViewController];
-   
-    
 }
 
 #pragma mark IAdvanceGestureListener
@@ -194,10 +185,11 @@
     library.parentView = self.view;
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
     library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];
+    [library setupStrategyManager];
+    
     library.touchHelper.pinchEnabled = self.pinchEnabled;
-    for (int i = 0; i < 1; i++) {
-        [library addDisplay:self.viewController view:self.view];
-    }
+    [library setupDisplay:self.viewController view:self.view];
+    
     [library setup];
     return library;
 }

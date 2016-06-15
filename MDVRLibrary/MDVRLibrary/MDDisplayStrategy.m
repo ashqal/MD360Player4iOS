@@ -12,43 +12,18 @@
 
 #pragma mark MDDisplayStrategy
 @interface MDDisplayStrategy: NSObject<IMDModeStrategy>
-@property(nonatomic,weak) NSArray* glViewControllers;
-@property(nonatomic) CGRect bounds;
+
 @end
 
 @implementation MDDisplayStrategy
 - (void)dealloc{
-    self.glViewControllers = nil;
 }
 
 - (void) off{
 
 }
 
-+ (NSArray*) frames:(int)size{
-    float width = [[UIScreen mainScreen] bounds].size.width;
-    float height = [[UIScreen mainScreen] bounds].size.height;
-    float perWidth = width * 1.0f / size;
-    NSMutableArray* frames = [[NSMutableArray alloc] init];
-    for (int i = 0; i < size; i++) {
-        [frames addObject:[NSValue valueWithCGRect:CGRectMake( i * perWidth, 0, perWidth, height)]];
-    }
-    return frames;
-}
-
-- (void) setVisibleSize:(int)max{
-    NSArray* frames = [MDDisplayStrategy frames:max];
-    for (int i = 0; i < self.glViewControllers.count; i++) {
-        MDGLKViewController* vc = [self.glViewControllers objectAtIndex:i];
-        if (i < max) {
-            NSValue* value = [frames objectAtIndex:i];
-            CGRect frame = value.CGRectValue;
-            [vc setPendingVisible:YES frame:frame];
-        } else {
-            [vc setPendingVisible:NO frame:vc.view.frame];
-        }
-    }
-}
+- (int) getVisibleSize { return 0; }
 
 @end
 
@@ -58,7 +33,11 @@
 
 @implementation MDNormalStrategy
 -(void) on{
-    [self setVisibleSize:1];
+    // [self setVisibleSize:1];
+}
+
+- (int) getVisibleSize {
+    return 1;
 }
 @end
 
@@ -68,7 +47,11 @@
 
 @implementation MDGlassStrategy
 -(void) on{
-    [self setVisibleSize:2];
+    // [self setVisibleSize:2];
+}
+
+- (int) getVisibleSize {
+    return 2;
 }
 @end
 
@@ -85,16 +68,17 @@
     switch (mode) {
         case MDModeDisplayGlass:
             strategy = [[MDGlassStrategy alloc] init];
-            strategy.glViewControllers = self.glViewControllers;
-            strategy.bounds = self.bounds;
             break;
         case MDModeDisplayNormal:
         default:
             strategy = [[MDNormalStrategy alloc] init];
-            strategy.glViewControllers = self.glViewControllers;
-            strategy.bounds = self.bounds;
             break;
     }
     return strategy;
+}
+
+- (int) getVisibleSize{
+    MDDisplayStrategy* strategy = self.mStrategy;
+    return [strategy getVisibleSize];
 }
 @end
