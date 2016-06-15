@@ -37,20 +37,11 @@
 @end
 
 #pragma mark MD360BitmapTexture
-@interface TextureContext:NSObject
-@property (nonatomic) GLuint textureId;
-@property (nonatomic) bool hasPending;
-@end
-
-@implementation TextureContext
-
-@end
-
 
 @interface MD360BitmapTexture()
 @property(nonatomic,strong) UIImage* pendingImage;
+@property (nonatomic) GLuint textureId;
 @property(nonatomic,weak) id<IMDImageProvider> provider;
-@property (nonatomic,strong) NSMutableDictionary* mContextTextureMap;
 @end
 @implementation MD360BitmapTexture
 
@@ -62,17 +53,6 @@
     return texture;
 }
 
-- (instancetype)init{
-    self = [super init];
-    if (self) {
-        if (self.mContextTextureMap == nil) {
-            self.mContextTextureMap = [[NSMutableDictionary alloc]init];
-        }
-    }
-    return self;
-}
-
-
 - (void)load {
 
     if ([self.provider respondsToSelector:@selector(onProvideImage:)]) {
@@ -82,17 +62,8 @@
 
 - (void) createTexture:(EAGLContext*)context{
     if (context == NULL) return;
-    NSString* key = context.description;
     
-    TextureContext* value = [self.mContextTextureMap objectForKey:key];
-    if (value == nil) {
-        value = [[TextureContext alloc]init];
-        [self.mContextTextureMap setObject:value forKey:key];
-    }
-    
-    value.textureId = [self createTextureId];
-    value.hasPending = self.pendingImage != nil;
-    
+    self.textureId = [self createTextureId];
 }
 
 - (GLuint) createTextureId {
@@ -104,15 +75,12 @@
 
 - (BOOL) updateTexture:(EAGLContext*)context{
     if (context == NULL) return NO;
-    NSString* key = context.description;
-    
-    TextureContext* value = [self.mContextTextureMap objectForKey:key];
-    if(value != nil && value.hasPending){
-        [self textureInThread:value.textureId];
-        value.hasPending = false;
-        return YES;
+    if (self.pendingImage != nil) {
+        [self textureInThread:self.textureId];
     }
-    return NO;
+    
+    return YES;
+    
 }
 
 - (void) textureInThread:(int)textureId {
@@ -133,26 +101,24 @@
     
     // Load the bitmap into the bound texture.
     [GLUtil texImage2D:self.pendingImage];
+    
+    self.pendingImage = nil;
 }
 
 
 -(void) texture:(UIImage*)image{
     NSLog(@"texture:%@",image);
     if(image == nil) return;
-    
     self.pendingImage = image;
-    for (NSString* key in self.mContextTextureMap) {
-        TextureContext* value = [self.mContextTextureMap objectForKey:key];
-        value.hasPending = YES;
-    }
 }
 
 @end
 
 #pragma mark MD360VideoTexture
 @interface MD360VideoTexture(){
+    CVOpenGLESTextureCacheRef ref;
 }
-@property (nonatomic,strong) NSMutableDictionary* mContextTextureMap;
+
 @property (nonatomic,strong) id<MDVideoDataAdapter> mDataAdatper;
 @end
 
@@ -162,19 +128,16 @@
     self = [super init];
     if (self) {
         self.mDataAdatper = adapter;
-        self.mContextTextureMap = [[NSMutableDictionary alloc]init];
+        ref = NULL;
     }
     return self;
 }
 
 - (void)dealloc{
-    if (self.mContextTextureMap == nil) return;
-    for (NSString* key in self.mContextTextureMap) {
-        NSValue* value = [self.mContextTextureMap objectForKey:key];
-        CVOpenGLESTextureCacheRef ref = [value pointerValue];
+    if (ref != NULL) {
         CFRelease(ref);
     }
-    self.mContextTextureMap = nil;
+    ref = NULL;
 }
 
 + (MD360Texture*) createWithAVPlayerItem:(AVPlayerItem*) playerItem{
@@ -184,12 +147,10 @@
 }
 
 - (CVOpenGLESTextureCacheRef)textureCache:(EAGLContext*)context{
-    NSValue* value = [self.mContextTextureMap objectForKey:context.description];
-    CVOpenGLESTextureCacheRef texture = [value pointerValue];
+    CVOpenGLESTextureCacheRef texture = ref;
     if (texture == NULL){
         CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge CVEAGLContext _Nonnull)((__bridge void *)context), NULL, &texture);
         if (err) NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreate");
-        [self.mContextTextureMap setObject:[NSValue valueWithPointer:texture] forKey:context.description];
     }
     return texture;
 }

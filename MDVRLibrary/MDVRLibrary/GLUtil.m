@@ -296,8 +296,6 @@ typedef struct
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     void *imageData = malloc( height * width * 4 );
     CGContextRef context = CGBitmapContextCreate( imageData, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big );
-    CGContextTranslateCTM (context, 0, height);
-    CGContextScaleCTM (context, 1.0, -1.0);
     CGColorSpaceRelease( colorSpace );
     CGContextClearRect( context, CGRectMake( 0, 0, width, height ) );
     CGContextDrawImage( context, CGRectMake( 0, 0, width, height ), image.CGImage );
