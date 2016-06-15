@@ -191,12 +191,13 @@ void generateSphere(float radius, int rings, int sectors, MDAbsObject3D* object3
     short* indices = malloc ( sizeof(short) * numIndices );//new short[rings * sectors * 6];
     for(r = 0; r < rings - 1; r++){
         for(s = 0; s < sectors-1; s++) {
+            
             indices[counter++] = (short) (r * sectors + s);       //(a)
             indices[counter++] = (short) ((r+1) * sectors + (s));    //(b)
-            indices[counter++] = (short) ((r+1) * sectors + (s+1));  // (c)
-            indices[counter++] = (short) ((r) * sectors + (s));  // (a)
-            indices[counter++] = (short) ((r) * sectors + (s+1));     //(d)
-            indices[counter++] = (short) ((r+1) * sectors + (s+1));    //(c)
+            indices[counter++] = (short) ((r) * sectors + (s+1));  // (c)
+            indices[counter++] = (short) ((r) * sectors + (s+1));  // (c)
+            indices[counter++] = (short) ((r+1) * sectors + (s));    //(b)
+            indices[counter++] = (short) ((r+1) * sectors + (s+1));  // (d)
             
         }
     }

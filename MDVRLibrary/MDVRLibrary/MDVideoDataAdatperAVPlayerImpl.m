@@ -35,7 +35,17 @@
 
 - (CVPixelBufferRef)copyPixelBuffer{
     CMTime currentTime = [self.playerItem currentTime];
+    [self.output hasNewPixelBufferForItemTime:currentTime];
     CVPixelBufferRef pixelBuffer = [self.output copyPixelBufferForItemTime:currentTime itemTimeForDisplay:nil];
     return pixelBuffer;
+    
+}
+
+- (void)dealloc{
+    if (self.playerItem != nil && self.output != nil) {
+        [self.playerItem removeOutput:self.output];
+        self.output = nil;
+        self.playerItem = nil;
+    }
 }
 @end

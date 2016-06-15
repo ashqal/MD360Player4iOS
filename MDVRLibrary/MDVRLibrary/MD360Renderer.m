@@ -44,10 +44,6 @@
 }
 
 - (void) rendererOnCreated:(EAGLContext*)context{
-    //glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_CULL_FACE);
-    //glEnable(GL_TEXTURE_2D);
-    //glEnable(GL_BLEND);
     [GLUtil glCheck:@"glEnable"];
     
     // init
@@ -69,13 +65,12 @@
 
 - (void) rendererOnDrawFrame:(EAGLContext*)context width:(int)width height:(int)height{
     
-    // NSLog(@"rendererOnDrawFrame ");
-    
     // clear
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [GLUtil glCheck:@"glClear"];
-
+    
+  
     // use
     [self.mProgram use];
     [GLUtil glCheck:@"mProgram use"];
@@ -83,45 +78,37 @@
     
     // update texture
     BOOL updated = [self.mTexture updateTexture:context];
-    if (updated) {
-        
-        // upload
-        [self.mObject3D uploadDataToProgram:self.mProgram];
-        [GLUtil glCheck:@"uploadDataToProgram"];
-        float scale = [GLUtil getScrrenScale];
-        int widthPx = width * scale;
-        int heightPx = height * scale;
-        
-        int size = [self.mDisplayStrategyManager getVisibleSize];
-        int itemWidthPx = widthPx * 1.0 / size;
-        for (int i = 0; i < size; i++ ) {
-            if (i >= [self.mDirectors count]) {
-                return;
-            }
-            
-            MD360Director* direcotr = [self.mDirectors objectAtIndex:i];
-            glViewport(itemWidthPx * i, 0, itemWidthPx, heightPx);
-
-            // Update Projection
-            [direcotr updateProjection:itemWidthPx height:heightPx];
-            
-            // Pass in the combined matrix.
-            [direcotr shot:self.mProgram];
-            [GLUtil glCheck:@"shot"];
-            
-            
-            // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
-            glUniform1i(self.mProgram.mTextureUniformHandle, 0);
-            [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
-            
-            [self.mObject3D onDraw];
+    
+    // upload
+    [self.mObject3D uploadDataToProgram:self.mProgram];
+    [GLUtil glCheck:@"uploadDataToProgram"];
+    float scale = [GLUtil getScrrenScale];
+    int widthPx = width * scale;
+    int heightPx = height * scale;
+    
+    int size = [self.mDisplayStrategyManager getVisibleSize];
+    int itemWidthPx = widthPx * 1.0 / size;
+    for (int i = 0; i < size; i++ ) {
+        if (i >= [self.mDirectors count]) {
+            return;
         }
         
+        MD360Director* direcotr = [self.mDirectors objectAtIndex:i];
+        glViewport(itemWidthPx * i, 0, itemWidthPx, heightPx);
+
+        // Update Projection
+        [direcotr updateProjection:itemWidthPx height:heightPx];
         
+        // Pass in the combined matrix.
+        [direcotr shot:self.mProgram];
+        [GLUtil glCheck:@"shot"];
+        
+        // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
+        glUniform1i(self.mProgram.mTextureUniformHandle, 0);
+        [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
+        
+        [self.mObject3D onDraw];
     }
-    
-    
-    
 }
 
 - (void) initProgram {
