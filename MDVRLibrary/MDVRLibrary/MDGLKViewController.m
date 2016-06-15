@@ -24,8 +24,11 @@
     [self destroy:self.context];
     if ([EAGLContext currentContext] == self.context) {
         [EAGLContext setCurrentContext:nil];
+        // NSLog(@"EAGLContext debugDescription:%@",self.context.debugLabel);
+        
+        
     }
-    self.context = nil;
+    // self.context = nil;
 }
 
 - (void)viewDidLoad{
@@ -35,7 +38,7 @@
     
     assert(self.context != nil);
     if ([EAGLContext setCurrentContext:self.context]) {
-        
+        NSLog(@"MDGLKViewController viewDidLoad [enter %@]",self.name);
         GLKView *view = (GLKView *)self.view;
         view.context = self.context;
         view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
@@ -43,18 +46,21 @@
             [self.rendererDelegate rendererOnCreated:self.context];
             [GLUtil glCheck:@"rendererOnCreated"];
         }
+        NSLog(@"MDGLKViewController viewDidLoad [exit %@]",self.name);
     }
 }
 
 - (void)viewDidLayoutSubviews{
     if (self.context == nil) return;
     if ([EAGLContext setCurrentContext:self.context]) {
+        NSLog(@"MDGLKViewController viewDidLayoutSubviews [enter %@]",self.name);
         if([self.rendererDelegate respondsToSelector:@selector(rendererOnChanged:width:height:)]){
             int width = self.view.bounds.size.width;
             int height = self.view.bounds.size.height;
             [self.rendererDelegate rendererOnChanged:self.context width:width height:height];
             [GLUtil glCheck:@"rendererOnChanged"];
         }
+        NSLog(@"MDGLKViewController viewDidLayoutSubviews [exit %@]",self.name);
     }
 }
 
@@ -67,13 +73,13 @@
         }
         
         if ([EAGLContext setCurrentContext:self.context]) {
-            if ([self.rendererDelegate respondsToSelector:@selector(rendererOnDrawFrame:)]) {
-                [self.rendererDelegate rendererOnDrawFrame:self.context];
+            NSLog(@"MDGLKViewController drawInRect [enter %@]",self.name);
+            if ([self.rendererDelegate respondsToSelector:@selector(rendererOnDrawFrame:width:height:)]) {
+                [self.rendererDelegate rendererOnDrawFrame:self.context width:rect.size.width height:rect.size.height];
                 [GLUtil glCheck:@"rendererOnDrawFrame"];
             }
+            NSLog(@"MDGLKViewController drawInRect [exit %@]",self.name);
         }
-        
-        
         
         pendingToVisible = NO;
         self.view.hidden = NO;
@@ -84,10 +90,12 @@
 - (void) destroy:(EAGLContext*) context{
     if (self.context == nil) return;
     if ([EAGLContext setCurrentContext:self.context]) {
+        NSLog(@"MDGLKViewController destroy [enter %@]",self.name);
         if ([self.rendererDelegate respondsToSelector:@selector(rendererOnDestroy:)]) {
             [self.rendererDelegate rendererOnDestroy:self.context];
             [GLUtil glCheck:@"rendererOnDestroy"];
         }
+        NSLog(@"MDGLKViewController destroy [exit %@]",self.name);
     }
 }
 
@@ -101,33 +109,5 @@
     }
 
 }
-
-/*
-#pragma mark - touches
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if([self.touchDelegate respondsToSelector:@selector(touchesBegan:withEvent:)]){
-        [self.touchDelegate touchesBegan:touches withEvent:event];
-    }
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    if([self.touchDelegate respondsToSelector:@selector(touchesMoved:withEvent:)]){
-        [self.touchDelegate touchesMoved:touches withEvent:event];
-    }
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if([self.touchDelegate respondsToSelector:@selector(touchesEnded:withEvent:)]){
-        [self.touchDelegate touchesEnded:touches withEvent:event];
-    }
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    if([self.touchDelegate respondsToSelector:@selector(touchesCancelled:withEvent:)]){
-        [self.touchDelegate touchesCancelled:touches withEvent:event];
-    }
-}
- */
 
 @end

@@ -27,8 +27,8 @@
     _mHeight = height;
 }
 
-- (void) updateTexture:(EAGLContext*)context{
-
+- (BOOL) updateTexture:(EAGLContext*)context{
+    return NO;
 }
 
 - (void)dealloc
@@ -104,15 +104,17 @@
     return textureId;
 }
 
-- (void) updateTexture:(EAGLContext*)context{
-    if (context == NULL) return;
+- (BOOL) updateTexture:(EAGLContext*)context{
+    if (context == NULL) return NO;
     NSString* key = context.description;
     
     TextureContext* value = [self.mContextTextureMap objectForKey:key];
     if(value != nil && value.hasPending){
         [self textureInThread:value.textureId];
         value.hasPending = false;
+        return YES;
     }
+    return NO;
 }
 
 - (void) textureInThread:(int)textureId {
@@ -194,10 +196,10 @@
     return texture;
 }
 
-- (void) updateTexture:(EAGLContext*)context{
+- (BOOL) updateTexture:(EAGLContext*)context{
     if ([self.mDataAdatper respondsToSelector:@selector(copyPixelBuffer)]) {
         CVPixelBufferRef pixelBuffer = [self.mDataAdatper copyPixelBuffer];
-        if (pixelBuffer == NULL) return;
+        if (pixelBuffer == NULL) return NO;
         
         int bufferHeight = (int) CVPixelBufferGetHeight(pixelBuffer);
         int bufferWidth = (int) CVPixelBufferGetWidth(pixelBuffer);
@@ -221,7 +223,10 @@
         CVOpenGLESTextureCacheFlush(textureCache, 0);
         CFRelease(pixelBuffer);
         CFRelease(texture);
+        
+        return YES;
     }
+    return NO;
 }
 
 @end

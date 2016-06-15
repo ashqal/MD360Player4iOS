@@ -42,7 +42,7 @@
     /////////////////////////////////////////////////////// MDVRLibrary
     MDVRConfiguration* config = [MDVRLibrary createConfig];
     
-    [config displayMode:MDModeDisplayGlass];
+    [config displayMode:MDModeDisplayNormal];
     [config interactiveMode:MDModeInteractiveMotion];
     
     [config asVideo:playerItem];

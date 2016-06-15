@@ -19,7 +19,7 @@
 
 - (void) createTexture:(EAGLContext*)context;
 - (void) resize:(int)width height:(int)height;
-- (void) updateTexture:(EAGLContext*)context;
+- (BOOL) updateTexture:(EAGLContext*)context;
 @end
 
 @interface MD360BitmapTexture : MD360Texture<TextureCallback>

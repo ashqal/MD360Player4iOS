@@ -14,7 +14,7 @@
 @required
 - (void) rendererOnCreated:(EAGLContext*)context;
 - (void) rendererOnChanged:(EAGLContext*)context width:(int)width height:(int)height;
-- (void) rendererOnDrawFrame:(EAGLContext*)context;
+- (void) rendererOnDrawFrame:(EAGLContext*)context width:(int)width height:(int)height;
 - (void) rendererOnDestroy:(EAGLContext*) context;
 @end
 

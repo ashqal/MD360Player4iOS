@@ -35,9 +35,6 @@
 }
 
 - (void)dealloc{
-    [self.mObject3D destroy];
-    [self.mProgram destroy];
-    [self.mDirector destroy];
     
     NSLog(@"MD360Renderer dealloc:%@",self);
 }
@@ -67,17 +64,13 @@
 }
 
 - (void) rendererOnChanged:(EAGLContext*)context width:(int)width height:(int)height{
-    // Set the OpenGL viewport to the same size as the surface.
-    glViewport(0, 0, width, height);
     
-    // update surface
-    [self.mTexture resize:width height:height];
-    
-    // Update Projection
-    [self.mDirector updateProjection:width height:height];
+    // float contentScale = [GLUtil getScrrenScale];
+    // self.mWidth = width;// / contentScale;
+    // self.mHeight = height;// / contentScale;
 }
 
-- (void) rendererOnDrawFrame:(EAGLContext*)context{
+- (void) rendererOnDrawFrame:(EAGLContext*)context width:(int)width height:(int)height{
     
     // NSLog(@"rendererOnDrawFrame ");
     
@@ -85,41 +78,52 @@
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    // glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    // glClear(GL_COLOR_BUFFER_BIT);
     [GLUtil glCheck:@"glClear"];
-    
-    
-    
+
     // use
     [self.mProgram use];
     [GLUtil glCheck:@"mProgram use"];
     
     
     // update texture
-    [self.mTexture updateTexture:context];
-    
-    
-    
-    // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
-    glUniform1i(self.mProgram.mTextureUniformHandle, 0);
-    [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
-    
-    // Pass in the combined matrix.
-    [self.mDirector shot:self.mProgram];
-    [GLUtil glCheck:@"shot"];
-    
-    if ([self.mObject3D getIndices] != 0) {
-        GLsizei count = self.mObject3D.mNumIndices;
-        const GLvoid* indices = [self.mObject3D getIndices];
-        glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_SHORT, indices);
-    } else {
-        glDrawArrays(GL_TRIANGLES, 0, self.mObject3D.mNumIndices);
+    BOOL updated = [self.mTexture updateTexture:context];
+    if (updated) {
+        
+        // upload
+        [self.mObject3D uploadDataToProgram:self.mProgram];
+        [GLUtil glCheck:@"uploadDataToProgram"];
+        float scale = [GLUtil getScrrenScale];
+        int widthPx = width * scale;
+        int heightPx = height * scale;
+        
+        int size = 2;
+        int itemWidthPx = widthPx * 1.0 / size;
+        for (int i = 0; i < size; i++ ) {
+            glViewport(itemWidthPx * i, 0, itemWidthPx, heightPx);
+            
+            // update surface
+            // [self.mTexture resize:itemWidth height:self.mHeight];
+            
+            // Update Projection
+            [self.mDirector updateProjection:itemWidthPx height:heightPx];
+            
+            // Pass in the combined matrix.
+            [self.mDirector shot:self.mProgram];
+            [GLUtil glCheck:@"shot"];
+            
+            
+            // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
+            glUniform1i(self.mProgram.mTextureUniformHandle, 0);
+            [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
+            
+            [self.mObject3D onDraw];
+        }
+        
+        
     }
-    // Draw
     
-    [GLUtil glCheck:@"glDrawArrays"];
+    
+    
 }
 
 - (void) initProgram {
@@ -133,13 +137,14 @@
 - (void) initObject3D {
     // load
     [self.mObject3D loadObj];
-    
-    // upload
-    [self.mObject3D uploadDataToProgram:self.mProgram];
+  
+       
 }
 
 - (void) rendererOnDestroy:(EAGLContext*) context{
-    
+    [self.mObject3D destroy];
+    [self.mProgram destroy];
+    [self.mDirector destroy];
 }
 
 @end

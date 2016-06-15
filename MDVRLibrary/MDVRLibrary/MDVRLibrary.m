@@ -64,6 +64,9 @@
 - (void) addDisplay:(UIViewController*)viewController view:(UIView*)parentView{
     MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
     
+    int size = self.glViewControllers.count;
+    glkViewController.name = [NSString stringWithFormat:@"vc:%d",size];
+    
     // director
     int index = (int)[self.directors count];
     MD360Director* director = [MD360DirectorFactory create:index];
@@ -89,6 +92,7 @@
     }
     
     [self.glViewControllers addObject:glkViewController];
+   
     
 }
 
@@ -191,7 +195,7 @@
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
     library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];
     library.touchHelper.pinchEnabled = self.pinchEnabled;
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
         [library addDisplay:self.viewController view:self.view];
     }
     [library setup];

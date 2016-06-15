@@ -28,6 +28,7 @@
 - (void)setTextureBuffer:(float*)buffer size:(int)size;
 - (void)setIndicesBuffer:(short*)buffer size:(int)size;
 - (void)setNumIndices:(int)value;
+- (void)onDraw;
 - (void)loadObj;
 - (void)uploadDataToProgram:(MD360Program*)program;
 

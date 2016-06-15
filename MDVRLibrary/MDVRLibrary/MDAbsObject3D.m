@@ -10,13 +10,40 @@
 #import "GLUtil.h"
 
 static int sPositionDataSize = 3;
+@interface MDAbsObject3D(){
+    int positionHandle;
+    int textureCoordinateHandle;
+}
+
+@end
 @implementation MDAbsObject3D
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        positionHandle = -1;
+        textureCoordinateHandle = -1;
+    }
+    return self;
+}
 
 - (void) destroy {
+    NSLog(@"MDAbsObject3D.h destroy!!!!!!!!!!");
     if (mVertexBuffer != NULL)  free(mVertexBuffer);
     if (mTextureBuffer != NULL)  free(mTextureBuffer);
     if (mIndicesBuffer != NULL) free(mIndicesBuffer);
+    
+    if (positionHandle != -1){
+        glDisableVertexAttribArray(positionHandle);
+        positionHandle = -1;
+    }
+    
+    if (textureCoordinateHandle != -1){
+        glDisableVertexAttribArray(textureCoordinateHandle);
+        textureCoordinateHandle = -1;
+    }
+    
 }
 
 - (void)setVertexBuffer:(float*)buffer size:(int)size{
@@ -58,24 +85,31 @@ static int sPositionDataSize = 3;
 
 
 - (void)uploadDataToProgram:(MD360Program*)program{
-    
-    
-    int positionHandle = program.mPositionHandle;
-    glVertexAttribPointer(positionHandle, sPositionDataSize, GL_FLOAT, 0, 0, mVertexBuffer);
+    positionHandle = program.mPositionHandle;
     glEnableVertexAttribArray(positionHandle);
+    glVertexAttribPointer(positionHandle, sPositionDataSize, GL_FLOAT, 0, 0, mVertexBuffer);
+    // glDisableVertexAttribArray(positionHandle);
     
-    int textureCoordinateHandle = program.mTextureCoordinateHandle;
-    glVertexAttribPointer(textureCoordinateHandle, 2, GL_FLOAT, 0, 0, mTextureBuffer);
+    textureCoordinateHandle = program.mTextureCoordinateHandle;
     glEnableVertexAttribArray(textureCoordinateHandle);
+    glVertexAttribPointer(textureCoordinateHandle, 2, GL_FLOAT, 0, 0, mTextureBuffer);
+    // glDisableVertexAttribArray(textureCoordinateHandle);
     
-    //int vertexIndicesBufferID = 0;
+}
+
+
+- (void)onDraw{
     
-    //Indices
-//    glGenBuffers(1, &vertexIndicesBufferID);
-//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertexIndicesBufferID);
-//    glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-//                 sizeof(GLushort) * self.mNumIndices,
-//                 mIndicesBuffer, GL_STATIC_DRAW);
+    if ([self getIndices] != 0) {
+        GLsizei count = self.mNumIndices;
+        const GLvoid* indices = [self getIndices];
+        glDrawElements(GL_TRIANGLE_STRIP, count, GL_UNSIGNED_SHORT, indices);
+    } else {
+        glDrawArrays(GL_TRIANGLES, 0, self.mNumIndices);
+    }
+    // Draw
+    
+    [GLUtil glCheck:@"glDrawArrays"];
 }
 
 -(NSString *)description{

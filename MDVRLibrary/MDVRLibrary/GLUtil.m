@@ -539,4 +539,12 @@ typedef struct
  
 }
 
++(float) getScrrenScale {
+    float contentScale = 1.0f;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)]) {
+        contentScale = [[UIScreen mainScreen] scale];
+    }
+    return contentScale;
+}
+
 @end
