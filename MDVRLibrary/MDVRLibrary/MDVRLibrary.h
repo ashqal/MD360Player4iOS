@@ -31,6 +31,7 @@
 typedef NS_ENUM(NSInteger, MDModeInteractive) {
     MDModeInteractiveTouch,
     MDModeInteractiveMotion,
+    MDModeInteractiveMotionWithTouch,
 };
 
 typedef NS_ENUM(NSInteger, MDModeDisplay) {

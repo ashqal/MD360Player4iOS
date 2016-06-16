@@ -69,6 +69,8 @@
     NSString* label;
     if (mode == MDModeInteractiveTouch) {
         label = @"TOUCH";
+    } else if(mode == MDModeInteractiveMotionWithTouch) {
+        label = @"M & T";
     } else {
         label = @"MOTION";
     }

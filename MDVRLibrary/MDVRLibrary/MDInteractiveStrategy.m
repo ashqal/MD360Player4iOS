@@ -40,13 +40,6 @@
 @end
 
 @implementation MDTouchStrategy
-- (instancetype)initWithDirectorList:(NSArray*) dirctors{
-    self = [super initWithDirectorList:dirctors];
-    if (self) {
-        // nop
-    }
-    return self;
-}
 
 -(void) on{
     
@@ -113,15 +106,36 @@
 
 @end
 
-#pragma mark MDInteractiveStrategyManager
-@interface MDInteractiveStrategyManager()
+#pragma mark MDTouchStrategy
+@interface MDMotionWithTouchStrategy:MDMotionStrategy
+@end
+
+@implementation MDMotionWithTouchStrategy
+
+-(void) handleDragDistX:(float)distX distY:(float)distY{
+    for (MD360Director* director in self.dirctors) {
+        [director updateTouch:distX distY:distY];
+    }
+}
 
 @end
+
+#pragma mark MDInteractiveStrategyManager
+@interface MDInteractiveStrategyManager()
+@property (nonatomic,strong) NSArray* modes;
+@end
+
 @implementation MDInteractiveStrategyManager
 
+
 - (void) switchMode{
-    int newMode = self.mMode == MDModeInteractiveMotion ? MDModeInteractiveTouch : MDModeInteractiveMotion;
-    [self switchMode:newMode];
+    if (self.modes == nil) {
+        self.modes = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:MDModeInteractiveTouch], [NSNumber numberWithInt:MDModeInteractiveMotion], [NSNumber numberWithInt:MDModeInteractiveMotionWithTouch], nil];
+    }
+    int index = [self.modes indexOfObject:[NSNumber numberWithInt:self.mMode]];
+    index ++;
+    NSNumber* nextMode = [self.modes objectAtIndex:(index % self.modes.count)];
+    [self switchMode:[nextMode intValue]];
 }
 
 - (void) switchMode:(int)mode{
@@ -144,6 +158,8 @@
     switch (mode) {
         case MDModeInteractiveMotion:
             return [[MDMotionStrategy alloc] initWithDirectorList:self.dirctors];
+        case MDModeInteractiveMotionWithTouch:
+            return [[MDMotionWithTouchStrategy alloc] initWithDirectorList:self.dirctors];
         case MDModeInteractiveTouch:
         default:
             return [[MDTouchStrategy alloc] initWithDirectorList:self.dirctors];
