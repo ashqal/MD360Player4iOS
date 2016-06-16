@@ -147,12 +147,11 @@
 }
 
 - (CVOpenGLESTextureCacheRef)textureCache:(EAGLContext*)context{
-    CVOpenGLESTextureCacheRef texture = ref;
-    if (texture == NULL){
-        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge CVEAGLContext _Nonnull)((__bridge void *)context), NULL, &texture);
+    if (ref == NULL){
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, (__bridge CVEAGLContext _Nonnull)((__bridge void *)context), NULL, &ref);
         if (err) NSAssert(NO, @"Error at CVOpenGLESTextureCacheCreate");
     }
-    return texture;
+    return ref;
 }
 
 - (BOOL) updateTexture:(EAGLContext*)context{
