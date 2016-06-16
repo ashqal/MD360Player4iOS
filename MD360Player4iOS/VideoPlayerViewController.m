@@ -8,8 +8,8 @@
 
 #import "VideoPlayerViewController.h"
 
-@interface VideoPlayerViewController ()<VIMVideoPlayerViewDelegate>
-@property (nonatomic, strong) VIMVideoPlayerView *videoPlayerView;
+@interface VideoPlayerViewController ()<VIMVideoPlayerDelegate>
+@property (nonatomic, strong) VIMVideoPlayer *player;
 @end
 
 @implementation VideoPlayerViewController
@@ -20,23 +20,18 @@
 }
 
 - (void) onClosed{
-  [self.videoPlayerView.player reset];
+    [self.player reset];
 }
 
 - (void) initPlayer{
     // video player
     
-     self.videoPlayerView = [[VIMVideoPlayerView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
-     self.videoPlayerView.translatesAutoresizingMaskIntoConstraints = NO;
-     self.videoPlayerView.delegate = self;
-     [self.videoPlayerView setVideoFillMode:AVLayerVideoGravityResizeAspect];
-     [self.videoPlayerView.player enableTimeUpdates];
-     [self.videoPlayerView.player enableAirplay];
-     
+      self.player = [[VIMVideoPlayer alloc] init];
+    
      AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:self.mURL];
-     [self.videoPlayerView.player setPlayerItem:playerItem];
-     
-    [self.videoPlayerView.player play];
+     [self.player setPlayerItem:playerItem];
+    self.player.delegate = self;
+    [self.player play];
     
     
     /////////////////////////////////////////////////////// MDVRLibrary
