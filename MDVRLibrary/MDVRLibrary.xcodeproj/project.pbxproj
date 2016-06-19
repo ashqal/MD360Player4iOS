@@ -39,6 +39,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5E18034B1D16FEEC00E579FD /* MDVRHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDVRHeader.h; sourceTree = "<group>"; };
 		5E1EE6D71CBEA56B004E0B79 /* libMDVRLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMDVRLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDVRLibrary.h; sourceTree = "<group>"; };
 		5E1EE6DC1CBEA56B004E0B79 /* MDVRLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDVRLibrary.m; sourceTree = "<group>"; };
@@ -130,6 +131,7 @@
 				5E1EE6DC1CBEA56B004E0B79 /* MDVRLibrary.m */,
 				5E2BBA6F1CE8BA5F00530898 /* MDTouchHelper.h */,
 				5E2BBA701CE8BA5F00530898 /* MDTouchHelper.m */,
+				5E18034B1D16FEEC00E579FD /* MDVRHeader.h */,
 			);
 			path = MDVRLibrary;
 			sourceTree = "<group>";

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "GLUtil.h"
 #import "MDVideoDataAdapter.h"
-#import "MDVRLibrary.h"
+#import "MDVRHeader.h"
 
 
 @interface MD360Texture : NSObject<IMDDestroyable>

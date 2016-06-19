@@ -9,24 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
-
-#define MDVR_RAW_NAME @ "vrlibraw.bundle"
-#define MDVR_RAW_PATH [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: MDVR_RAW_NAME]
-#define MDVR_RAW [NSBundle bundleWithPath: MDVR_RAW_PATH]
-
-@protocol IMDDestroyable <NSObject>
--(void) destroy;
-@end
-
-@protocol TextureCallback <NSObject>
-@required
--(void) texture:(UIImage*)image;
-@end
-
-@protocol IMDImageProvider <NSObject>
-@required
--(void) onProvideImage:(id<TextureCallback>)callback;
-@end
+#import "MD360Director.h"
 
 typedef NS_ENUM(NSInteger, MDModeInteractive) {
     MDModeInteractiveTouch,
@@ -49,6 +32,7 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 - (void) pinchEnabled:(bool)pinch;
 - (void) setContainer:(UIViewController*)vc;
 - (void) setContainer:(UIViewController*)vc view:(UIView*)view;
+- (void) setDirectorFactory:(id<MD360DirectorFactory>) directorFactory;
 - (MDVRLibrary*) build;
 @end
 

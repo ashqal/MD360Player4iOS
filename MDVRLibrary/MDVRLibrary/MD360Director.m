@@ -21,9 +21,9 @@
     float mEyeX;// = 0f;
     float mAngleX;// = 0f;
     float mAngleY;
+    float mLookX;// = 0f;
     float mRatio;// = 0f;
     float mNearScale;// = 0f;
-    float mLookX;// = 0f;
     
     GLKMatrix4 mCurrentRotation;// = new float[16];
     GLKMatrix4 mAccumulatedRotation;// = new float[16];
@@ -182,11 +182,19 @@ static float sNear = 0.7f;
     mEyeX  = eyeX;
 }
 
+- (void) setAngleX:(float)angleX{
+    mAngleX = angleX;
+}
+
+- (void) setAngleY:(float)angleY{
+    mAngleY = angleY;
+}
+
 @end
 
 #pragma mark 
-@implementation MD360DirectorFactory
-+ (MD360Director*) create:(int) index{
+@implementation MD360DefaultDirectorFactory
+- (MD360Director*) createDirector:(int) index{
     MD360Director* director = [[MD360Director alloc]init];
     switch (index) {
         case 1:

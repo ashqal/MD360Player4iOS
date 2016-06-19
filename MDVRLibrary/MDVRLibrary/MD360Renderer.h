@@ -10,7 +10,7 @@
 #import "MDGLRendererDelegate.h"
 #import "MD360Director.h"
 #import "MD360Texture.h"
-#import "MDVRLibrary.h"
+#import "MDVRHeader.h"
 #import "MDDisplayStrategy.h"
 
 @class MD360Renderer;

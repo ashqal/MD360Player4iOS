@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MD360Program.h"
-#import "MDVRLibrary.h"
+#import "MDVRHeader.h"
 
 @protocol MDAbsObject3DDelegate<NSObject>
 @optional

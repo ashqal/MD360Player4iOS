@@ -7,8 +7,9 @@
 //
 
 #import "VideoPlayerViewController.h"
+#import "MDVRLibrary.h"
 
-@interface VideoPlayerViewController ()<VIMVideoPlayerDelegate>
+@interface VideoPlayerViewController ()<VIMVideoPlayerDelegate,MD360DirectorFactory>
 @property (nonatomic, strong) VIMVideoPlayer *player;
 @property (nonatomic, strong) AVPlayer* avplayer;
 @end
@@ -37,17 +38,32 @@
     /////////////////////////////////////////////////////// MDVRLibrary
     MDVRConfiguration* config = [MDVRLibrary createConfig];
     
-    [config displayMode:MDModeDisplayNormal];
-    [config interactiveMode:MDModeInteractiveMotion];
-    
     [config asVideo:playerItem];
     [config setContainer:self view:self.view];
+    
+    // optional
+    [config displayMode:MDModeDisplayNormal];
+    [config interactiveMode:MDModeInteractiveMotion];
     [config pinchEnabled:true];
+    [config setDirectorFactory:self];
     
     self.vrLibrary = [config build];
     /////////////////////////////////////////////////////// MDVRLibrary
     
     [self.player play];
+}
+
+- (MD360Director*) createDirector:(int) index{
+    MD360Director* director = [[MD360Director alloc]init];
+    switch (index) {
+        case 1:
+            [director setEyeX:-2.0f];
+            [director setLookX:-2.0f];
+            break;
+        default:
+            break;
+    }
+    return director;
 }
 
 - (void)didReceiveMemoryWarning {

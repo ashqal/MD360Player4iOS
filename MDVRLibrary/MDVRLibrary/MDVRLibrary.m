@@ -36,12 +36,8 @@
     self = [super init];
     if (self) {
         self.touchHelper = [[MDTouchHelper alloc]init];
-        
         self.directors = [[NSMutableArray alloc]init];
-        for (int i = 0; i < sMultiScreenSize; i++) {
-            MD360Director* director = [MD360DirectorFactory create:i];
-            [self.directors addObject:director];
-        }
+        
 
     }
     return self;
@@ -63,6 +59,16 @@
     self.interactiveStrategyManager.dirctors = self.directors;
     [self.interactiveStrategyManager prepare];
     [self.displayStrategyManager prepare];
+}
+
+- (void) setupDirector:(id<MD360DirectorFactory>)factory{
+    
+    for (int i = 0; i < sMultiScreenSize; i++) {
+        if ([factory respondsToSelector:@selector(createDirector:)]) {
+            MD360Director* director = [factory createDirector:i];
+            [self.directors addObject:director];
+        }
+    }
 }
 
 - (void) setupDisplay:(UIViewController*)viewController view:(UIView*)parentView{
@@ -135,6 +141,7 @@
 @property (nonatomic,readonly) MDModeInteractive interactiveMode;
 @property (nonatomic,readonly) MDModeDisplay displayMode;
 @property (nonatomic,readonly) bool pinchEnabled;
+@property (nonatomic,readonly) id<MD360DirectorFactory> directorFactory;
 
 @end
 
@@ -179,8 +186,17 @@
     _view = view;
 }
 
+- (void) setDirectorFactory:(id<MD360DirectorFactory>) directorFactory{
+    _directorFactory = directorFactory;
+}
+
 - (MDVRLibrary*) build{
+    if (self.directorFactory == nil) {
+        _directorFactory = [[MD360DefaultDirectorFactory alloc]init];
+    }
+    
     MDVRLibrary* library = [[MDVRLibrary alloc]init];
+    [library setupDirector:self.directorFactory];
     library.texture = self.texture;
     library.parentView = self.view;
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
