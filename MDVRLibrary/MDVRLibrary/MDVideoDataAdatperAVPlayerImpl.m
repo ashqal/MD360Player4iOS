@@ -52,7 +52,7 @@ static void *VideoPlayer_PlayerItemStatusContext = &VideoPlayer_PlayerItemStatus
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if (context == VideoPlayer_PlayerItemStatusContext) {
         AVPlayerStatus newStatus = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
-        AVPlayerStatus oldStatus = [[change objectForKey:NSKeyValueChangeOldKey] integerValue];
+        // AVPlayerStatus oldStatus = [[change objectForKey:NSKeyValueChangeOldKey] integerValue];
         
         if (newStatus == AVPlayerItemStatusReadyToPlay && self.output == nil) {
             [self setup];

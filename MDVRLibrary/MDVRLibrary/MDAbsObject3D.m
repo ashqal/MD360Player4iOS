@@ -160,7 +160,7 @@ int generateSphere (float radius, int numSlices, MDAbsObject3D* object3D) {
     
     float* vertices = malloc ( sizeof(float) * 3 * numVertices );
     float* texCoords = malloc ( sizeof(float) * 2 * numVertices );
-    float* indices = malloc ( sizeof(uint16_t) * numIndices );
+    short* indices = malloc ( sizeof(short) * numIndices );
     
     
     for ( i = 0; i < numParallels + 1; i++ ) {
@@ -183,15 +183,15 @@ int generateSphere (float radius, int numSlices, MDAbsObject3D* object3D) {
     
     // Generate the indices
     if ( indices != NULL ) {
-        uint16_t *indexBuf = indices;
+        short* indexBuf = indices;
         for ( i = 0; i < numParallels ; i++ ) {
             for ( j = 0; j < numSlices; j++ ) {
-                *indexBuf++  = i * ( numSlices + 1 ) + j; // a
-                *indexBuf++ = ( i + 1 ) * ( numSlices + 1 ) + j; // b
-                *indexBuf++ = ( i + 1 ) * ( numSlices + 1 ) + ( j + 1 ); // c
-                *indexBuf++ = i * ( numSlices + 1 ) + j; // a
-                *indexBuf++ = ( i + 1 ) * ( numSlices + 1 ) + ( j + 1 ); // c
-                *indexBuf++ = i * ( numSlices + 1 ) + ( j + 1 ); // d
+                *indexBuf++ = (short)(i * ( numSlices + 1 ) + j); // a
+                *indexBuf++ = (short)(( i + 1 ) * ( numSlices + 1 ) + j); // b
+                *indexBuf++ = (short)(( i + 1 ) * ( numSlices + 1 ) + ( j + 1 )); // c
+                *indexBuf++ = (short)(i * ( numSlices + 1 ) + j); // a
+                *indexBuf++ = (short)(( i + 1 ) * ( numSlices + 1 ) + ( j + 1 )); // c
+                *indexBuf++ = (short)(i * ( numSlices + 1 ) + ( j + 1 )); // d
                 
             }
         }

@@ -77,7 +77,7 @@
     
     
     // update texture
-    BOOL updated = [self.mTexture updateTexture:context];
+    [self.mTexture updateTexture:context];
     
     // upload
     [self.mObject3D uploadDataToProgram:self.mProgram];

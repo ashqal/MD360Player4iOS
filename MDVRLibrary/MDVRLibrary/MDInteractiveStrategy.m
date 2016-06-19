@@ -132,7 +132,7 @@
     if (self.modes == nil) {
         self.modes = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:MDModeInteractiveTouch], [NSNumber numberWithInt:MDModeInteractiveMotion], [NSNumber numberWithInt:MDModeInteractiveMotionWithTouch], nil];
     }
-    int index = [self.modes indexOfObject:[NSNumber numberWithInt:self.mMode]];
+    NSUInteger index = [self.modes indexOfObject:[NSNumber numberWithInt:self.mMode]];
     index ++;
     NSNumber* nextMode = [self.modes objectAtIndex:(index % self.modes.count)];
     [self switchMode:[nextMode intValue]];

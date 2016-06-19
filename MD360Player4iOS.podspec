@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MD360Player4iOS"
-  s.version      = "0.2.0"
+  s.version      = "0.3.0"
   s.summary      = "It is a lite library to render 360 degree panorama video for iOS."
 
   # This description is used to generate tags and improve search results.
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  s.description  = "It is a lite library to render 360 degree panorama video for iOS. In verison 0.1.0, motion mode and glass mode are supported. In version 0.2.0, pinch gesture is supported."
+  s.description  = "It is a lite library to render 360 degree panorama video for iOS. In verison 0.1.0, motion mode and glass mode are supported. In version 0.2.0, pinch gesture is supported. In version 0.3.0, fix a few crucial bugs."
 
   s.homepage     = "https://github.com/ashqal/MD360Player4iOS/"
   s.screenshots  = "https://raw.githubusercontent.com/ashqal/MD360Player4iOS/master/screenshot.png"
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/ashqal/MD360Player4iOS.git", :tag => "0.2.0" }
+  s.source       = { :git => "https://github.com/ashqal/MD360Player4iOS.git", :tag => "0.3.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
