@@ -14,60 +14,82 @@
 
 @end
 
+static void *VideoPlayer_PlayerItemStatusContext = &VideoPlayer_PlayerItemStatusContext;
+
 @implementation MDVideoDataAdatperAVPlayerImpl
 
 - (instancetype)initWithPlayerItem:(AVPlayerItem*) playerItem{
     self = [super init];
     if (self) {
         self.playerItem = playerItem;
-        [self setup];
+        [self addObserver];
+        
     }
     return self;
+}
+
+- (void) addObserver{
+    [self.playerItem addObserver:self
+                 forKeyPath:NSStringFromSelector(@selector(status))
+                    options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                    context:VideoPlayer_PlayerItemStatusContext];
+}
+
+- (void) removeObserver{
+    if (self.playerItem == nil) {
+        return;
+    }
+    
+    @try {
+        [self.playerItem removeObserver:self
+                        forKeyPath:NSStringFromSelector(@selector(status))
+                           context:VideoPlayer_PlayerItemStatusContext];
+    } @catch (NSException *exception) {
+        NSLog(@"Exception removing observer: %@", exception);
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if (context == VideoPlayer_PlayerItemStatusContext) {
+        AVPlayerStatus newStatus = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
+        AVPlayerStatus oldStatus = [[change objectForKey:NSKeyValueChangeOldKey] integerValue];
+        
+        if (newStatus == AVPlayerItemStatusReadyToPlay && self.output == nil) {
+            [self setup];
+        }
+    }
 }
 
 - (void) setup{
     NSDictionary *pixBuffAttributes = @{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
     self.output = [[AVPlayerItemVideoOutput alloc] initWithPixelBufferAttributes:pixBuffAttributes];
-    [self.output setDelegate:self queue:dispatch_get_main_queue()];
     [self.playerItem addOutput:self.output];
+}
 
+- (void)teardown{
+    if (self.playerItem != nil && self.output != nil) {
+        [self.playerItem removeOutput:self.output];
+        self.output = nil;
+    }
 }
 
 - (CVPixelBufferRef)copyPixelBuffer{
-    CMTime currentTime = [self.playerItem currentTime];
-    if([self.output hasNewPixelBufferForItemTime:currentTime]){
-        // NSLog(@"copyPixelBuffer:%ld",currentTime.value / currentTime.timescale);
-        return [self.output copyPixelBufferForItemTime:currentTime itemTimeForDisplay:nil];
-    } else {
-        // NSLog(@"copyPixelBuffer nil:%ld",currentTime.value / currentTime.timescale);
+    if (self.output == nil) {
         return nil;
     }
     
-    
+    CMTime currentTime = [self.playerItem currentTime];
+    if([self.output hasNewPixelBufferForItemTime:currentTime]){
+        return [self.output copyPixelBufferForItemTime:currentTime itemTimeForDisplay:nil];
+    } else {
+        return nil;
+    }
     
 }
 
 - (void)dealloc{
-    if (self.playerItem != nil && self.output != nil) {
-        [self.playerItem removeOutput:self.output];
-        self.output = nil;
-        self.playerItem = nil;
-    }
+    [self removeObserver];
+    [self teardown];
 }
 
-- (void)outputMediaDataWillChange:(AVPlayerItemOutput *)sender{
-    NSLog(@"outputMediaDataWillChange");
-}
-
-/*!
-	@method			outputSequenceWasFlushed:
-	@abstract		A method invoked when the output is commencing a new sequence.
-	@discussion
- This method is invoked after any seeking and change in playback direction. If you are maintaining any queued future samples, copied previously, you may want to discard these after receiving this message.
- */
-
-- (void)outputSequenceWasFlushed:(AVPlayerItemOutput *)output{
-
-    NSLog(@"outputSequenceWasFlushed");
-}
 @end
