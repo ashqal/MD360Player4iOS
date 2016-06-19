@@ -179,8 +179,10 @@
         
         // Do processing work on the texture data here
         CVOpenGLESTextureCacheFlush(textureCache, 0);
-        CFRelease(pixelBuffer);
+        CVBufferRelease(pixelBuffer);
         CFRelease(texture);
+        
+        
         
         return YES;
     }

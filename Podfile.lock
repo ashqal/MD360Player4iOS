@@ -22,7 +22,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - SDWebImage (~> 3.7)
-  - VIMVideoPlayer (~> 6.0)
+  - VIMVideoPlayer (~> 6.0.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
