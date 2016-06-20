@@ -9,7 +9,7 @@ It is a lite library to render 360 degree panorama video for iOS.
 
 ## Pod
 ```
-pod 'MD360Player4iOS', '~> 0.3.0'
+pod 'MD360Player4iOS', '~> 0.3.1'
 ```
 
 ## Release Node
