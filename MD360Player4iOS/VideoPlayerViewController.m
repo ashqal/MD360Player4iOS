@@ -42,6 +42,7 @@
     [config setContainer:self view:self.view];
     
     // optional
+    // [config displayAsDome];
     [config displayMode:MDModeDisplayNormal];
     [config interactiveMode:MDModeInteractiveMotion];
     [config pinchEnabled:true];

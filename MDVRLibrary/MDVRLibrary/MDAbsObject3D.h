@@ -45,3 +45,9 @@
 @interface MDSphere3D : MDAbsObject3D
 
 @end
+
+#pragma mark MDDome3D
+@interface MDDome3D : MDAbsObject3D
+
+@end
+

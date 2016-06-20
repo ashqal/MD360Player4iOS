@@ -29,6 +29,9 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 - (void) asVideo:(AVPlayerItem*)playerItem;
 - (void) asVideoWithDataAdatper:(id<MDVideoDataAdapter>)adapter;
 
+- (void) displayAsDome;
+- (void) displayAsSphere;
+
 - (void) asImage:(id<IMDImageProvider>)data;
 - (void) interactiveMode:(MDModeInteractive)interactiveMode;
 - (void) displayMode:(MDModeDisplay)displayMode;

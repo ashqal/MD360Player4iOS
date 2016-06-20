@@ -17,6 +17,7 @@
 @interface MD360RendererBuilder : NSObject
 - (void) setDirectors:(NSArray*) directors;
 - (void) setTexture:(MD360Texture*) texture;
+- (void) setObject3D:(MDAbsObject3D*) object3D;
 - (void) setDisplayStrategyManager:(MDDisplayStrategyManager*) displayStrategyManager;
 - (MD360Renderer*) build;
 @end

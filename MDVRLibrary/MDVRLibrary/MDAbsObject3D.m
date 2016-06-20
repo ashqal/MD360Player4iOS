@@ -211,3 +211,12 @@ int generateSphere (float radius, int numSlices, MDAbsObject3D* object3D) {
     return numIndices;
 }
 @end
+
+#pragma mark MDDome3D
+@implementation MDDome3D
+
+-(NSString*) obtainObjPath{
+    return [MDVR_RAW pathForResource:@"dome" ofType:@"obj"];
+}
+
+@end

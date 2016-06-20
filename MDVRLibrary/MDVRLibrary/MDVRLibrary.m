@@ -14,11 +14,13 @@
 #import "MDDisplayStrategy.h"
 #import "MDTouchHelper.h"
 #import "MDVideoDataAdatperAVPlayerImpl.h"
+#import "MDAbsObject3D.h"
 
 #define sMultiScreenSize 2
 
 @interface MDVRLibrary()<IAdvanceGestureListener>
 @property (nonatomic,strong) MD360Texture* texture;
+@property (nonatomic,strong) MDAbsObject3D* object3D;
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
 @property (nonatomic,strong) MDDisplayStrategyManager* displayStrategyManager;
 @property (nonatomic,strong) MD360Renderer* renderer;
@@ -38,8 +40,6 @@
     if (self) {
         self.touchHelper = [[MDTouchHelper alloc]init];
         self.directors = [[NSMutableArray alloc]init];
-        
-
     }
     return self;
 }
@@ -79,6 +79,7 @@
     MD360RendererBuilder* builder = [MD360Renderer builder];
     [builder setTexture:self.texture];
     [builder setDirectors:self.directors];
+    [builder setObject3D:self.object3D];
     [builder setDisplayStrategyManager:self.displayStrategyManager];
     self.renderer = [builder build];
     glkViewController.rendererDelegate = self.renderer;
@@ -143,6 +144,7 @@
 @property (nonatomic,readonly) MDModeDisplay displayMode;
 @property (nonatomic,readonly) bool pinchEnabled;
 @property (nonatomic,readonly) id<MD360DirectorFactory> directorFactory;
+@property (nonatomic,readonly) MDAbsObject3D* object3D;
 
 @end
 
@@ -196,14 +198,27 @@
     _directorFactory = directorFactory;
 }
 
+- (void) displayAsDome{
+    _object3D = [[MDDome3D alloc]init];
+}
+
+- (void) displayAsSphere{
+    _object3D = [[MDSphere3D alloc]init];
+}
+
 - (MDVRLibrary*) build{
     if (self.directorFactory == nil) {
         _directorFactory = [[MD360DefaultDirectorFactory alloc]init];
     }
     
+    if (self.object3D == nil) {
+        [self displayAsSphere];
+    }
+    
     MDVRLibrary* library = [[MDVRLibrary alloc]init];
     [library setupDirector:self.directorFactory];
     library.texture = self.texture;
+    library.object3D = self.object3D;
     library.parentView = self.view;
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
     library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];

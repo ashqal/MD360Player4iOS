@@ -40,7 +40,6 @@
 
 - (void) setup{
     self.mProgram = [[MD360Program alloc]init];
-    self.mObject3D = [[MDSphere3D alloc]init];
 }
 
 - (void) rendererOnCreated:(EAGLContext*)context{
@@ -137,6 +136,7 @@
 @interface MD360RendererBuilder()
 @property (nonatomic,readonly) NSArray* directors;
 @property (nonatomic,readonly) MD360Texture* texture;
+@property (nonatomic,readonly) MDAbsObject3D* object3D;
 @property (nonatomic,readonly) MDDisplayStrategyManager* displayStrategyManager;
 @end
 
@@ -150,6 +150,10 @@
     _texture = texture;
 }
 
+- (void) setObject3D:(MDAbsObject3D*) object3D{
+    _object3D = object3D;
+}
+
 - (void) setDisplayStrategyManager:(MDDisplayStrategyManager*) displayStrategyManager{
     _displayStrategyManager = displayStrategyManager;
 }
@@ -158,6 +162,7 @@
     MD360Renderer* renderer = [[MD360Renderer alloc]init];
     renderer.mDirectors = self.directors;
     renderer.mTexture = self.texture;
+    renderer.mObject3D = self.object3D;
     renderer.mDisplayStrategyManager = self.displayStrategyManager;
     return renderer;
 }
