@@ -176,6 +176,12 @@ See [BitmapPlayerViewController.m](https://github.com/ashqal/MD360Player4iOS/blo
 # Android Version
 [MD360Player4Android](https://github.com/ashqal/MD360Player4Android)
 
+## Feedback
+* Open a new issue
+* or ashqalcn@gmail.com
+* or QQ Group<br/>
+![QQ Group](https://cloud.githubusercontent.com/assets/5126517/15381968/5a0e56a2-1db7-11e6-986e-462d96dd5e02.jpeg)
+
 ##LICENSE
 ```
 Copyright 2016 Asha
