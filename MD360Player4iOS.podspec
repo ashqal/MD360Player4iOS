@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MD360Player4iOS"
-  s.version      = "0.3.0"
+  s.version      = "0.3.1"
   s.summary      = "It is a lite library to render 360 degree panorama video for iOS."
 
   # This description is used to generate tags and improve search results.
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/ashqal/MD360Player4iOS.git", :tag => "0.3.0" }
+  s.source       = { :git => "https://github.com/ashqal/MD360Player4iOS.git", :tag => "0.3.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

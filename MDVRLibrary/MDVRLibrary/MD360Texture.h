@@ -27,5 +27,5 @@
 @end
 
 @interface MD360VideoTexture : MD360Texture
-+ (MD360Texture*) createWithAVPlayerItem:(AVPlayerItem*) playerItem;
++ (MD360Texture*) createWithDataAdapter:(id<MDVideoDataAdapter>) adapter;
 @end

@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 #import "MD360Director.h"
+#import "MDVideoDataAdapter.h"
 
 typedef NS_ENUM(NSInteger, MDModeInteractive) {
     MDModeInteractiveTouch,
@@ -26,6 +27,8 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
 #pragma mark MDVRConfiguration
 @interface MDVRConfiguration : NSObject
 - (void) asVideo:(AVPlayerItem*)playerItem;
+- (void) asVideoWithDataAdatper:(id<MDVideoDataAdapter>)adapter;
+
 - (void) asImage:(id<IMDImageProvider>)data;
 - (void) interactiveMode:(MDModeInteractive)interactiveMode;
 - (void) displayMode:(MDModeDisplay)displayMode;

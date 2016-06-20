@@ -140,8 +140,7 @@
     ref = NULL;
 }
 
-+ (MD360Texture*) createWithAVPlayerItem:(AVPlayerItem*) playerItem{
-    MDVideoDataAdatperAVPlayerImpl* adapter = [[MDVideoDataAdatperAVPlayerImpl alloc]initWithPlayerItem:playerItem];
++ (MD360Texture*) createWithDataAdapter:(id<MDVideoDataAdapter>) adapter{
     MD360Texture* texture = [[MD360VideoTexture alloc] initWithAdatper:adapter];
     return texture;
 }

@@ -13,6 +13,7 @@
 #import "MDInteractiveStrategy.h"
 #import "MDDisplayStrategy.h"
 #import "MDTouchHelper.h"
+#import "MDVideoDataAdatperAVPlayerImpl.h"
 
 #define sMultiScreenSize 2
 
@@ -157,7 +158,12 @@
     return self;
 }
 - (void) asVideo:(AVPlayerItem*)playerItem{
-    _texture = [MD360VideoTexture createWithAVPlayerItem:playerItem];
+    MDVideoDataAdatperAVPlayerImpl* adapter = [[MDVideoDataAdatperAVPlayerImpl alloc]initWithPlayerItem:playerItem];
+    _texture = [MD360VideoTexture createWithDataAdapter:adapter];
+}
+
+- (void) asVideoWithDataAdatper:(id<MDVideoDataAdapter>)adapter{
+    _texture = [MD360VideoTexture createWithDataAdapter:adapter];
 }
 
 - (void) asImage:(id<IMDImageProvider>)data{
