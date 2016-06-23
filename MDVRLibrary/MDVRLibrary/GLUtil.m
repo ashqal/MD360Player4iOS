@@ -537,10 +537,18 @@ typedef struct
  
 }
 
+#ifndef IS_OS_8_OR_LATER
+#define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#endif
+
 +(float) getScrrenScale {
     float contentScale = 1.0f;
     if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)]) {
-        contentScale = [[UIScreen mainScreen] scale];
+        if (IS_OS_8_OR_LATER) {
+            contentScale = [[UIScreen mainScreen] nativeScale];
+        } else {
+            contentScale = [[UIScreen mainScreen] scale];
+        }
     }
     return contentScale;
 }
