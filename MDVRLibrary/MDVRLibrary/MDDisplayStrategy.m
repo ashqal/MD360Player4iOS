@@ -17,13 +17,6 @@
 
 @implementation MDDisplayStrategy
 
-- (void) dealloc{
-}
-
-- (void) off {
-
-}
-
 - (int) getVisibleSize {
     return 0;
 }
@@ -36,10 +29,6 @@
 
 @implementation MDNormalStrategy
 
--(void) on{
-    
-}
-
 - (int) getVisibleSize {
     return 1;
 }
@@ -50,10 +39,6 @@
 @end
 
 @implementation MDGlassStrategy
-
--(void) on{
-    
-}
 
 - (int) getVisibleSize {
     return 2;

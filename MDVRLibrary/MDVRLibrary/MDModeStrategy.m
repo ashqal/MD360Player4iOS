@@ -9,18 +9,15 @@
 #import "MDModeStrategy.h"
 
 @interface MDModeManager(){
-
 }
-
 @property(nonatomic,strong) NSArray* mModes;
 
 @end
+
+
 @implementation MDModeManager
 
-static int modes[] = {1,2,3,4};
-
-- (instancetype)initWithDefault:(int)mode
-{
+- (instancetype)initWithDefault:(int)mode{
     self = [super init];
     if (self) {
         _mMode = mode;
@@ -34,21 +31,21 @@ static int modes[] = {1,2,3,4};
 }
 
 - (void) initMode:(int)mode{
-    if (self.mStrategy != nil) {
-        [self.mStrategy off];
-    }
+    [self off];
     self.mStrategy = [self createStrategy:self.mMode];
     [self on];
 }
 
 -(void) on{
-    [self.mStrategy on];
-    
-    
+    if ([self.mStrategy respondsToSelector:@selector(on)]) {
+        [self.mStrategy on];
+    }
 }
 
 -(void) off{
-    [self.mStrategy off];
+    if ([self.mStrategy respondsToSelector:@selector(off)]) {
+        [self.mStrategy off];
+    }
 }
 
 - (void) switchMode:(int)mode{

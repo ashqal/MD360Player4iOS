@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "MDModeStrategy.h"
 
-@protocol IInteractiveMode <NSObject>
+@protocol IMDInteractiveMode <NSObject>
 @optional
 -(void) handleDragDistX:(float)distX distY:(float)distY;
 @end
 
-@interface MDInteractiveStrategyManager : MDModeManager<IInteractiveMode>
+@interface MDInteractiveStrategyManager : MDModeManager<IMDInteractiveMode>
 @property(nonatomic,weak) NSArray* dirctors;
 
 @end

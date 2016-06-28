@@ -23,6 +23,18 @@ typedef NS_ENUM(NSInteger, MDModeDisplay) {
     MDModeDisplayGlass,
 };
 
+typedef NS_ENUM(NSInteger, MDModeProjection) {
+    MDModeProjectionSphere,
+    MDModeProjectionDome180,
+    MDModeProjectionDome230,
+    MDModeProjectionDome180Upper,
+    MDModeProjectionDome230Upper,
+    MDModeProjectionStereoSphere,
+    MDModeProjectionPlantFit,
+    MDModeProjectionPlantCrop,
+    MDModeProjectionPlantFull,
+};
+
 @class MDVRLibrary;
 #pragma mark MDVRConfiguration
 @interface MDVRConfiguration : NSObject

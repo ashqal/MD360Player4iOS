@@ -16,7 +16,7 @@
 #import "MDTouchHelper.h"
 
 #pragma mark MDInteractiveStrategy
-@interface AbsInteractiveStrategy: NSObject<IMDModeStrategy,IInteractiveMode>
+@interface AbsInteractiveStrategy: NSObject<IMDModeStrategy,IMDInteractiveMode>
 @property(nonatomic,strong) NSArray* dirctors;
 - (instancetype)initWithDirectorList:(NSArray*) dirctors;
 @end
@@ -40,14 +40,6 @@
 @end
 
 @implementation MDTouchStrategy
-
--(void) on{
-    
-}
-
--(void) off{
-    
-}
 
 -(void) handleDragDistX:(float)distX distY:(float)distY{
     for (MD360Director* director in self.dirctors) {
