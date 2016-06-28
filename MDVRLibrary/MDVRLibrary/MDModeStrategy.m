@@ -11,14 +11,20 @@
 @interface MDModeManager(){
 
 }
+
+@property(nonatomic,strong) NSArray* mModes;
+
 @end
 @implementation MDModeManager
+
+static int modes[] = {1,2,3,4};
 
 - (instancetype)initWithDefault:(int)mode
 {
     self = [super init];
     if (self) {
         _mMode = mode;
+        self.mModes = [self createModes];
     }
     return self;
 }
@@ -37,6 +43,8 @@
 
 -(void) on{
     [self.mStrategy on];
+    
+    
 }
 
 -(void) off{
@@ -49,9 +57,15 @@
     [self initMode:self.mMode];
 }
 
+- (void) switchMode{
+    NSUInteger index = [self.mModes indexOfObject:[NSNumber numberWithInt:self.mMode]];
+    index ++;
+    NSNumber* nextMode = [self.mModes objectAtIndex:(index % self.mModes.count)];
+    [self switchMode:[nextMode intValue]];
+}
+
 #pragma mark abstract
-- (void) switchMode{}
-- (id<IMDModeStrategy>) createStrategy:(int)mode{ return nil; }
+- (id) createStrategy:(int)mode{ return nil; }
 @end
 
 

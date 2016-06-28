@@ -16,14 +16,17 @@
 @end
 
 @implementation MDDisplayStrategy
-- (void)dealloc{
+
+- (void) dealloc{
 }
 
-- (void) off{
+- (void) off {
 
 }
 
-- (int) getVisibleSize { return 0; }
+- (int) getVisibleSize {
+    return 0;
+}
 
 @end
 
@@ -32,8 +35,9 @@
 @end
 
 @implementation MDNormalStrategy
+
 -(void) on{
-    // [self setVisibleSize:1];
+    
 }
 
 - (int) getVisibleSize {
@@ -46,8 +50,9 @@
 @end
 
 @implementation MDGlassStrategy
+
 -(void) on{
-    // [self setVisibleSize:2];
+    
 }
 
 - (int) getVisibleSize {
@@ -58,10 +63,6 @@
 
 #pragma mark MDDisplayStrategyManager
 @implementation MDDisplayStrategyManager
-- (void) switchMode{
-    int newMode = self.mMode == MDModeDisplayNormal ? MDModeDisplayGlass : MDModeDisplayNormal;
-    [self switchMode:newMode];
-}
 
 - (id<IMDModeStrategy>) createStrategy:(int)mode{
     MDDisplayStrategy* strategy;
@@ -80,5 +81,9 @@
 - (int) getVisibleSize{
     MDDisplayStrategy* strategy = self.mStrategy;
     return [strategy getVisibleSize];
+}
+
+- (NSArray*) createModes{
+    return [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:MDModeDisplayNormal], [NSNumber numberWithInt:MDModeDisplayGlass], nil];
 }
 @end

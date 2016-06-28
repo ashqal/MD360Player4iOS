@@ -16,12 +16,12 @@
 #import "MDTouchHelper.h"
 
 #pragma mark MDInteractiveStrategy
-@interface MDInteractiveStrategy: NSObject<IMDModeStrategy>
+@interface AbsInteractiveStrategy: NSObject<IMDModeStrategy,IInteractiveMode>
 @property(nonatomic,strong) NSArray* dirctors;
 - (instancetype)initWithDirectorList:(NSArray*) dirctors;
 @end
 
-@implementation MDInteractiveStrategy
+@implementation AbsInteractiveStrategy
 - (instancetype)initWithDirectorList:(NSArray*) dirctors{
     self = [super init];
     if (self) {
@@ -36,7 +36,7 @@
 @end
 
 #pragma mark MDTouchStrategy
-@interface MDTouchStrategy:MDInteractiveStrategy
+@interface MDTouchStrategy:AbsInteractiveStrategy
 @end
 
 @implementation MDTouchStrategy
@@ -59,7 +59,7 @@
 
 
 #pragma mark MDMotionStrategy
-@interface MDMotionStrategy:MDInteractiveStrategy
+@interface MDMotionStrategy:AbsInteractiveStrategy
 @property (nonatomic,strong) CMMotionManager* motionManager;
 @end
 
@@ -122,21 +122,10 @@
 
 #pragma mark MDInteractiveStrategyManager
 @interface MDInteractiveStrategyManager()
-@property (nonatomic,strong) NSArray* modes;
+
 @end
 
 @implementation MDInteractiveStrategyManager
-
-
-- (void) switchMode{
-    if (self.modes == nil) {
-        self.modes = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:MDModeInteractiveTouch], [NSNumber numberWithInt:MDModeInteractiveMotion], [NSNumber numberWithInt:MDModeInteractiveMotionWithTouch], nil];
-    }
-    NSUInteger index = [self.modes indexOfObject:[NSNumber numberWithInt:self.mMode]];
-    index ++;
-    NSNumber* nextMode = [self.modes objectAtIndex:(index % self.modes.count)];
-    [self switchMode:[nextMode intValue]];
-}
 
 - (void) switchMode:(int)mode{
     int prev = self.mMode;
@@ -154,7 +143,7 @@
     }
 }
 
-- (id<IMDModeStrategy>) createStrategy:(int)mode{
+- (id) createStrategy:(int)mode{
     switch (mode) {
         case MDModeInteractiveMotion:
             return [[MDMotionStrategy alloc] initWithDirectorList:self.dirctors];
@@ -165,6 +154,10 @@
             return [[MDTouchStrategy alloc] initWithDirectorList:self.dirctors];
     }
     return nil;
+}
+
+- (NSArray*) createModes{
+    return [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:MDModeInteractiveTouch], [NSNumber numberWithInt:MDModeInteractiveMotion], [NSNumber numberWithInt:MDModeInteractiveMotionWithTouch], nil];
 }
 
 @end
