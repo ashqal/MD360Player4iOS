@@ -82,19 +82,11 @@
     }
     if (directors == nil) return;
     
-    // use
-    [self.mProgram use];
-    [GLUtil glCheck:@"mProgram use"];
-    
-    
     // update texture
-    [self.mTexture updateTexture:context];
+    BOOL updated = [self.mTexture updateTexture:context];
+    if (!updated) return;
     
-    
-    // upload
-    [object3D uploadDataToProgram:self.mProgram];
-    [GLUtil glCheck:@"uploadDataToProgram"];
-    
+    // draw
     float scale = [GLUtil getScrrenScale];
     int widthPx = width * scale;
     int heightPx = height * scale;
@@ -111,6 +103,15 @@
 
         // Update Projection
         [direcotr updateProjection:itemWidthPx height:heightPx];
+        
+        // use
+        [self.mProgram use];
+        [GLUtil glCheck:@"mProgram use"];
+
+        // upload
+        [object3D uploadVerticesBufferIfNeed:self.mProgram index:i];
+        [object3D uploadTexCoordinateBufferIfNeed:self.mProgram index:i];
+        [GLUtil glCheck:@"uploadDataToProgram"];
         
         // Pass in the combined matrix.
         [direcotr shot:self.mProgram];
@@ -134,9 +135,13 @@
 
 - (void) initObject3D {
     // load
-    // [self.mObject3D loadObj];
-  
-       
+
+    if ([self.mProjectionStrategyManager respondsToSelector:@selector(getObject3D)]) {
+        MDAbsObject3D* object3D = [self.mProjectionStrategyManager getObject3D];
+        if ([object3D respondsToSelector:@selector(markChanged)]) {
+            [object3D markChanged];
+        }
+    }
 }
 
 - (void) rendererOnDestroy:(EAGLContext*) context{

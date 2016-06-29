@@ -13,6 +13,14 @@ static int sPositionDataSize = 3;
 @interface MDAbsObject3D(){
     int positionHandle;
     int textureCoordinateHandle;
+    BOOL mVerticesChanged;
+    BOOL mTexCoordinateChanged;
+    
+    float* mVertexBuffer;
+    float* mTextureBuffer;
+    short* mIndicesBuffer;
+    int mVertexSize;
+    int mTextureSize;
 }
 
 @end
@@ -82,20 +90,40 @@ static int sPositionDataSize = 3;
     //[GLUtil loadObject3DMock:self];
 }
 
-
-- (void)uploadDataToProgram:(MD360Program*)program{
-    positionHandle = program.mPositionHandle;
-    glEnableVertexAttribArray(positionHandle);
-    glVertexAttribPointer(positionHandle, sPositionDataSize, GL_FLOAT, 0, 0, mVertexBuffer);
-    // glDisableVertexAttribArray(positionHandle);
-    
-    textureCoordinateHandle = program.mTextureCoordinateHandle;
-    glEnableVertexAttribArray(textureCoordinateHandle);
-    glVertexAttribPointer(textureCoordinateHandle, 2, GL_FLOAT, 0, 0, mTextureBuffer);
-    // glDisableVertexAttribArray(textureCoordinateHandle);
-    
+- (void)markChanged{
+    [self markVerticesChanged];
+    [self markTexCoordinateChanged];
 }
 
+- (void)markVerticesChanged{
+    mVerticesChanged = YES;
+}
+
+- (void)markTexCoordinateChanged{
+    mTexCoordinateChanged = YES;
+}
+
+- (void)uploadVerticesBufferIfNeed:(MD360Program*) program index:(int)index{
+    if (mVertexBuffer == NULL) return;
+    
+    if(mVerticesChanged){
+        positionHandle = program.mPositionHandle;
+        glEnableVertexAttribArray(positionHandle);
+        glVertexAttribPointer(positionHandle, sPositionDataSize, GL_FLOAT, 0, 0, mVertexBuffer);
+        mVerticesChanged = NO;
+    }
+}
+
+- (void)uploadTexCoordinateBufferIfNeed:(MD360Program*) program index:(int)index{
+    if (mTextureBuffer == NULL) return;
+    
+    if(mTexCoordinateChanged){
+        textureCoordinateHandle = program.mTextureCoordinateHandle;
+        glEnableVertexAttribArray(textureCoordinateHandle);
+        glVertexAttribPointer(textureCoordinateHandle, 2, GL_FLOAT, 0, 0, mTextureBuffer);
+        mTexCoordinateChanged = NO;
+    }
+}
 
 - (void)onDraw{
     

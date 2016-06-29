@@ -16,7 +16,12 @@
 -(MDAbsObject3D*) getObject3D;
 @end
 
+@interface MDProjectionStrategyConfiguration : NSObject
+@property(nonatomic,strong) id<MD360DirectorFactory> directorFactory;
+@end
+
+
 @interface MDProjectionStrategyManager : MDModeManager<IMDProjectionMode>
-@property (nonatomic,strong) id<MD360DirectorFactory> directorFactory;
+- (instancetype)initWithDefault:(int)mode config:(MDProjectionStrategyConfiguration*) config;
 - (NSArray*) getDirectors;
 @end

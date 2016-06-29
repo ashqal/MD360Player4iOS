@@ -35,16 +35,38 @@
 
 @implementation SphereProjection
 
+- (void) on{
+    self.object3D = [[MDSphere3D alloc]init];
+    [self.object3D loadObj];
+}
+
+- (MDAbsObject3D*) getObject3D{
+    return self.object3D;
+}
+
 @end
 
+#pragma mark MDProjectionStrategyConfiguration
+@implementation MDProjectionStrategyConfiguration
+
+@end
 
 @interface MDProjectionStrategyManager()
 @property (nonatomic,strong) NSMutableArray* directors;
-
+@property (nonatomic,strong) MDProjectionStrategyConfiguration* configuration;
 @end
 
 #pragma mark MDProjectionStrategyManager
 @implementation MDProjectionStrategyManager
+
+- (instancetype)initWithDefault:(int)mode config:(MDProjectionStrategyConfiguration*)config{
+    self = [super init];
+    if (self) {
+        self.directors = [[NSMutableArray alloc] init];
+        self.configuration = config;
+    }
+    return self;
+}
 
 - (id) createStrategy:(int)mode{
     switch (mode) {
@@ -66,7 +88,7 @@
     [super on];
     
     [self.directors removeAllObjects];
-    id<MD360DirectorFactory> factory = self.directorFactory;
+    id<MD360DirectorFactory> factory = self.configuration.directorFactory;
     id<MD360DirectorFactory> hijack = [self.mStrategy hijackDirectorFactory];
     factory = hijack != nil ? hijack : factory;
 
@@ -78,6 +100,10 @@
     }
 }
 
+- (NSArray*) createModes{
+    return [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:MDModeProjectionSphere], [NSNumber numberWithInt:MDModeProjectionDome180],[NSNumber numberWithInt:MDModeProjectionDome230], [NSNumber numberWithInt:MDModeProjectionDome180Upper],[NSNumber numberWithInt:MDModeProjectionDome230Upper],[NSNumber numberWithInt:MDModeProjectionStereoSphere],[NSNumber numberWithInt:MDModeProjectionPlantFit],[NSNumber numberWithInt:MDModeProjectionPlantCrop],[NSNumber numberWithInt:MDModeProjectionPlantFull],nil];
+}
+
 - (MDAbsObject3D*) getObject3D{
     return [self.mStrategy getObject3D];
 }
@@ -85,5 +111,7 @@
 - (NSArray*) getDirectors{
     return self.directors;
 }
+
+
 
 @end

@@ -15,13 +15,8 @@
 -(NSString*) obtainObjPath;
 @end
 
-@interface MDAbsObject3D : NSObject<MDAbsObject3DDelegate,IMDDestroyable> {
-    float* mVertexBuffer;
-    float* mTextureBuffer;
-    short* mIndicesBuffer;
-    int mVertexSize;
-    int mTextureSize;
-}
+@interface MDAbsObject3D : NSObject<MDAbsObject3DDelegate,IMDDestroyable>
+
 @property (nonatomic,readonly) int mNumIndices;
 
 - (void)setVertexBuffer:(float*)buffer size:(int)size;
@@ -30,7 +25,11 @@
 - (void)setNumIndices:(int)value;
 - (void)onDraw;
 - (void)loadObj;
-- (void)uploadDataToProgram:(MD360Program*)program;
+- (void)uploadVerticesBufferIfNeed:(MD360Program*) program index:(int)index;
+- (void)uploadTexCoordinateBufferIfNeed:(MD360Program*) program index:(int)index;
+- (void)markChanged;
+- (void)markVerticesChanged;
+- (void)markTexCoordinateChanged;
 
 - (short*) getIndices;
 
