@@ -9,6 +9,7 @@
 #import "MDProjectionStrategy.h"
 #import "MD360Director.h"
 #import "MDVRLibrary.h"
+#import "MDVRHeader.h"
 
 #pragma mark AbsProjectionMode
 @interface AbsProjectionMode : NSObject<IMDModeStrategy,IMDProjectionMode>
@@ -34,11 +35,13 @@
 
 @implementation SphereProjection
 
-
-
 @end
 
 
+@interface MDProjectionStrategyManager()
+@property (nonatomic,strong) NSMutableArray* directors;
+
+@end
 
 #pragma mark MDProjectionStrategyManager
 @implementation MDProjectionStrategyManager
@@ -59,8 +62,28 @@
     return nil;
 }
 
+- (void) on{
+    [super on];
+    
+    [self.directors removeAllObjects];
+    id<MD360DirectorFactory> factory = self.directorFactory;
+    id<MD360DirectorFactory> hijack = [self.mStrategy hijackDirectorFactory];
+    factory = hijack != nil ? hijack : factory;
+
+    for (int i = 0; i < MULTI_SCREEN_SIZE; i++) {
+        if ([factory respondsToSelector:@selector(createDirector:)]) {
+            MD360Director* director = [factory createDirector:i];
+            [self.directors addObject:director];
+        }
+    }
+}
+
 - (MDAbsObject3D*) getObject3D{
     return [self.mStrategy getObject3D];
+}
+
+- (NSArray*) getDirectors{
+    return self.directors;
 }
 
 @end

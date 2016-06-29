@@ -15,16 +15,14 @@
 #import "MDTouchHelper.h"
 #import "MDVideoDataAdatperAVPlayerImpl.h"
 #import "MDAbsObject3D.h"
-
-#define sMultiScreenSize 2
+#import "MDProjectionStrategy.h"
 
 @interface MDVRLibrary()<IAdvanceGestureListener>
 @property (nonatomic,strong) MD360Texture* texture;
-@property (nonatomic,strong) MDAbsObject3D* object3D;
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
 @property (nonatomic,strong) MDDisplayStrategyManager* displayStrategyManager;
+@property (nonatomic,strong) MDProjectionStrategyManager* projectionStrategyManager;
 @property (nonatomic,strong) MD360Renderer* renderer;
-@property (nonatomic,strong) NSMutableArray* directors;
 @property (nonatomic,strong) MDTouchHelper* touchHelper;
 @property (nonatomic,weak) UIView* parentView;
 @end
@@ -39,7 +37,6 @@
     self = [super init];
     if (self) {
         self.touchHelper = [[MDTouchHelper alloc]init];
-        self.directors = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -56,20 +53,11 @@
     
 }
 
-- (void) setupStrategyManager {
-    self.interactiveStrategyManager.dirctors = self.directors;
+- (void) setupStrategyManager:(id<MD360DirectorFactory>) factory {
+    self.projectionStrategyManager.directorFactory = factory;
+    self.interactiveStrategyManager.projectionStrategyManager = self.projectionStrategyManager;
     [self.interactiveStrategyManager prepare];
     [self.displayStrategyManager prepare];
-}
-
-- (void) setupDirector:(id<MD360DirectorFactory>)factory{
-    
-    for (int i = 0; i < sMultiScreenSize; i++) {
-        if ([factory respondsToSelector:@selector(createDirector:)]) {
-            MD360Director* director = [factory createDirector:i];
-            [self.directors addObject:director];
-        }
-    }
 }
 
 - (void) setupDisplay:(UIViewController*)viewController view:(UIView*)parentView{
@@ -78,9 +66,8 @@
     // renderer
     MD360RendererBuilder* builder = [MD360Renderer builder];
     [builder setTexture:self.texture];
-    [builder setDirectors:self.directors];
-    [builder setObject3D:self.object3D];
     [builder setDisplayStrategyManager:self.displayStrategyManager];
+    [builder setProjectionStrategyManager:self.projectionStrategyManager];
     self.renderer = [builder build];
     glkViewController.rendererDelegate = self.renderer;
     
@@ -101,7 +88,8 @@
 }
 
 - (void) onPinch:(float)scale{
-    for (MD360Director* dirctor in self.directors) {
+    NSArray* directors = [self.projectionStrategyManager getDirectors];
+    for (MD360Director* dirctor in directors) {
         [dirctor updateProjectionNearScale:scale];
     }
 }
@@ -132,6 +120,19 @@
     return self.displayStrategyManager.mMode;
 }
 
+#pragma mark ProjectionMode
+- (void) switchProjectionMode{
+    [self.projectionStrategyManager switchMode];
+}
+
+- (void) switchProjectionMode:(MDModeProjection)projectionMode{
+    [self.projectionStrategyManager switchMode:projectionMode];
+}
+
+- (MDModeProjection) getProjectionMode{
+    return self.projectionStrategyManager.mMode;
+}
+
 @end
 
 #pragma mark MDVRConfiguration
@@ -142,8 +143,9 @@
 @property (nonatomic,readonly) UIView* view;
 @property (nonatomic,readonly) MDModeInteractive interactiveMode;
 @property (nonatomic,readonly) MDModeDisplay displayMode;
+@property (nonatomic,readonly) MDModeProjection projectionMode;
 @property (nonatomic,readonly) bool pinchEnabled;
-@property (nonatomic,readonly) id<MD360DirectorFactory> directorFactory;
+@property (nonatomic,weak) id<MD360DirectorFactory> directorFactory;
 @property (nonatomic,readonly) MDAbsObject3D* object3D;
 
 @end
@@ -181,6 +183,10 @@
     _displayMode = displayMode;
 }
 
+- (void) projectionMode:(MDModeProjection)projectionMode{
+    _projectionMode = projectionMode;
+}
+
 - (void) pinchEnabled:(bool)pinch{
     _pinchEnabled = pinch;
 }
@@ -216,13 +222,12 @@
     }
     
     MDVRLibrary* library = [[MDVRLibrary alloc]init];
-    [library setupDirector:self.directorFactory];
     library.texture = self.texture;
-    library.object3D = self.object3D;
     library.parentView = self.view;
+    library.projectionStrategyManager = [[MDProjectionStrategyManager alloc]initWithDefault:self.projectionMode];
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
     library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];
-    [library setupStrategyManager];
+    [library setupStrategyManager:self.directorFactory];
     
     library.touchHelper.pinchEnabled = self.pinchEnabled;
     [library setupDisplay:self.viewController view:self.view];

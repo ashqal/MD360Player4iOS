@@ -41,7 +41,7 @@
 @implementation MDGlassStrategy
 
 - (int) getVisibleSize {
-    return 2;
+    return MULTI_SCREEN_SIZE;
 }
 @end
 

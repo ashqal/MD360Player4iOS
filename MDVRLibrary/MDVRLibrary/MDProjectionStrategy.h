@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MDModeStrategy.h"
 #import "MDAbsObject3D.h"
+#import "MD360Director.h"
 
 @protocol IMDProjectionMode <NSObject>
 @required
@@ -16,5 +17,6 @@
 @end
 
 @interface MDProjectionStrategyManager : MDModeManager<IMDProjectionMode>
-
+@property (nonatomic,strong) id<MD360DirectorFactory> directorFactory;
+- (NSArray*) getDirectors;
 @end

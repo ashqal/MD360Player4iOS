@@ -13,11 +13,10 @@
 #import "MD360Director.h"
 
 @interface MD360Renderer()
-@property (nonatomic,strong) MDAbsObject3D* mObject3D;
 @property (nonatomic,strong) MD360Program* mProgram;
 @property (nonatomic,strong) MD360Texture* mTexture;
-@property (nonatomic,strong) NSArray* mDirectors;
-@property (nonatomic,strong) MDDisplayStrategyManager* mDisplayStrategyManager;
+@property (nonatomic,weak) MDDisplayStrategyManager* mDisplayStrategyManager;
+@property (nonatomic,weak) MDProjectionStrategyManager* mProjectionStrategyManager;
 @end
 
 @implementation MD360Renderer
@@ -69,7 +68,20 @@
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [GLUtil glCheck:@"glClear"];
     
-  
+    // get object3D
+    MDAbsObject3D* object3D = nil;
+    if ([self.mProjectionStrategyManager respondsToSelector:@selector(getObject3D)]) {
+        object3D = [self.mProjectionStrategyManager getObject3D];
+    }
+    if (object3D == nil) return;
+    
+    // get directors
+    NSArray* directors = nil;
+    if ([self.mProjectionStrategyManager respondsToSelector:@selector(getDirectors)]) {
+        directors = [self.mProjectionStrategyManager getDirectors];
+    }
+    if (directors == nil) return;
+    
     // use
     [self.mProgram use];
     [GLUtil glCheck:@"mProgram use"];
@@ -78,9 +90,11 @@
     // update texture
     [self.mTexture updateTexture:context];
     
+    
     // upload
-    [self.mObject3D uploadDataToProgram:self.mProgram];
+    [object3D uploadDataToProgram:self.mProgram];
     [GLUtil glCheck:@"uploadDataToProgram"];
+    
     float scale = [GLUtil getScrrenScale];
     int widthPx = width * scale;
     int heightPx = height * scale;
@@ -88,11 +102,11 @@
     int size = [self.mDisplayStrategyManager getVisibleSize];
     int itemWidthPx = widthPx * 1.0 / size;
     for (int i = 0; i < size; i++ ) {
-        if (i >= [self.mDirectors count]) {
+        if (i >= [directors count]) {
             return;
         }
         
-        MD360Director* direcotr = [self.mDirectors objectAtIndex:i];
+        MD360Director* direcotr = [directors objectAtIndex:i];
         glViewport(itemWidthPx * i, 0, itemWidthPx, heightPx);
 
         // Update Projection
@@ -106,7 +120,7 @@
         glUniform1i(self.mProgram.mTextureUniformHandle, 0);
         [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
         
-        [self.mObject3D onDraw];
+        [object3D onDraw];
     }
 }
 
@@ -120,15 +134,15 @@
 
 - (void) initObject3D {
     // load
-    [self.mObject3D loadObj];
+    // [self.mObject3D loadObj];
   
        
 }
 
 - (void) rendererOnDestroy:(EAGLContext*) context{
-    [self.mObject3D destroy];
+    // [self.mObject3D destroy];
     [self.mProgram destroy];
-    self.mDirectors = nil;
+    // self.mDirectors = nil;
 }
 
 @end
@@ -136,8 +150,8 @@
 @interface MD360RendererBuilder()
 @property (nonatomic,readonly) NSArray* directors;
 @property (nonatomic,readonly) MD360Texture* texture;
-@property (nonatomic,readonly) MDAbsObject3D* object3D;
-@property (nonatomic,readonly) MDDisplayStrategyManager* displayStrategyManager;
+@property (nonatomic,weak) MDDisplayStrategyManager* displayStrategyManager;
+@property (nonatomic,weak) MDDisplayStrategyManager* projectionStrategyManager;
 @end
 
 @implementation MD360RendererBuilder
@@ -150,19 +164,18 @@
     _texture = texture;
 }
 
-- (void) setObject3D:(MDAbsObject3D*) object3D{
-    _object3D = object3D;
-}
-
 - (void) setDisplayStrategyManager:(MDDisplayStrategyManager*) displayStrategyManager{
     _displayStrategyManager = displayStrategyManager;
 }
 
+- (void) setProjectionStrategyManager:(MDProjectionStrategyManager*) projectionStrategyManager{
+    _projectionStrategyManager = projectionStrategyManager;
+}
+
 - (MD360Renderer*) build{
     MD360Renderer* renderer = [[MD360Renderer alloc]init];
-    renderer.mDirectors = self.directors;
     renderer.mTexture = self.texture;
-    renderer.mObject3D = self.object3D;
+    renderer.mProjectionStrategyManager = self.projectionStrategyManager;
     renderer.mDisplayStrategyManager = self.displayStrategyManager;
     return renderer;
 }

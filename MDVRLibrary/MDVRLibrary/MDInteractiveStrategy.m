@@ -17,21 +17,21 @@
 
 #pragma mark MDInteractiveStrategy
 @interface AbsInteractiveStrategy: NSObject<IMDModeStrategy,IMDInteractiveMode>
-@property(nonatomic,strong) NSArray* dirctors;
-- (instancetype)initWithDirectorList:(NSArray*) dirctors;
+@property(nonatomic,weak) MDProjectionStrategyManager* projectionStrategyManager;
+- (instancetype)initWithProjectionManager:(MDProjectionStrategyManager*) projectionStrategyManager;
 @end
 
 @implementation AbsInteractiveStrategy
-- (instancetype)initWithDirectorList:(NSArray*) dirctors{
+- (instancetype)initWithProjectionManager:(MDProjectionStrategyManager*) projectionStrategyManager{
     self = [super init];
     if (self) {
-        self.dirctors = dirctors;
+        self.projectionStrategyManager = projectionStrategyManager;
     }
     return self;
 }
 
 - (void)dealloc{
-    self.dirctors = nil;
+    self.projectionStrategyManager = nil;
 }
 @end
 
@@ -42,9 +42,13 @@
 @implementation MDTouchStrategy
 
 -(void) handleDragDistX:(float)distX distY:(float)distY{
-    for (MD360Director* director in self.dirctors) {
-        [director updateTouch:distX distY:distY];
+    if ([self.projectionStrategyManager respondsToSelector:@selector(getDirectors)]) {
+        NSArray* directors = [self.projectionStrategyManager getDirectors];
+        for (MD360Director* director in directors) {
+            [director updateTouch:distX distY:distY];
+        }
     }
+    
 }
 
 @end
@@ -85,8 +89,11 @@
         sensor = [GLUtil calculateMatrixFromQuaternion:&quaternion orientation:orientation];
         
         sensor = GLKMatrix4RotateX(sensor, M_PI_2);
-        for (MD360Director* director in self.dirctors) {
-            [director updateSensorMatrix:sensor];
+        if ([self.projectionStrategyManager respondsToSelector:@selector(getDirectors)]) {
+            NSArray* directors = [self.projectionStrategyManager getDirectors];
+            for (MD360Director* director in directors) {
+                [director updateSensorMatrix:sensor];
+            }
         }
     }];
 }
@@ -105,8 +112,11 @@
 @implementation MDMotionWithTouchStrategy
 
 -(void) handleDragDistX:(float)distX distY:(float)distY{
-    for (MD360Director* director in self.dirctors) {
-        [director updateTouch:distX distY:distY];
+    if ([self.projectionStrategyManager respondsToSelector:@selector(getDirectors)]) {
+        NSArray* directors = [self.projectionStrategyManager getDirectors];
+        for (MD360Director* director in directors) {
+            [director updateTouch:distX distY:distY];
+        }
     }
 }
 
@@ -123,8 +133,11 @@
     int prev = self.mMode;
     [super switchMode:mode];
     if (prev != mode) {
-        for (MD360Director* dirctor in self.dirctors) {
-            [dirctor reset];
+        if([self.projectionStrategyManager respondsToSelector:@selector(getDirectors)]){
+            NSArray* directors = [self.projectionStrategyManager getDirectors];
+            for (MD360Director* director in directors) {
+                [director reset];
+            }
         }
     }
 }
@@ -138,12 +151,12 @@
 - (id) createStrategy:(int)mode{
     switch (mode) {
         case MDModeInteractiveMotion:
-            return [[MDMotionStrategy alloc] initWithDirectorList:self.dirctors];
+            return [[MDMotionStrategy alloc] initWithProjectionManager:self.projectionStrategyManager];
         case MDModeInteractiveMotionWithTouch:
-            return [[MDMotionWithTouchStrategy alloc] initWithDirectorList:self.dirctors];
+            return [[MDMotionWithTouchStrategy alloc] initWithProjectionManager:self.projectionStrategyManager];
         case MDModeInteractiveTouch:
         default:
-            return [[MDTouchStrategy alloc] initWithDirectorList:self.dirctors];
+            return [[MDTouchStrategy alloc] initWithProjectionManager:self.projectionStrategyManager];
     }
     return nil;
 }
