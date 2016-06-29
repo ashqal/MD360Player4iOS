@@ -67,7 +67,6 @@ static float sNear = 0.7f;
 }
 
 - (void) setup{
-    
     [self initCamera];
     [self initModel];
 }

@@ -26,6 +26,7 @@
 - (void) setEyeX:(float)eyeX;
 - (void) setAngleX:(float)angleX;
 - (void) setAngleY:(float)angleY;
+- (void) setup;
 
 @end
 

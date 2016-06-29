@@ -34,7 +34,7 @@
 }
 
 - (void)dealloc{
-    
+    NSLog(@"MD360Renderer dealloc");
 }
 
 - (void) setup{

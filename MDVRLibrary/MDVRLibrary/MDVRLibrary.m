@@ -42,6 +42,7 @@
 }
 
 -(void)dealloc{
+    NSLog(@"MDVRLibrary dealloc");
     for(UIView* view in self.parentView.subviews){
         [view removeFromSuperview];
     }
@@ -146,7 +147,6 @@
 @property (nonatomic,readonly) MDModeProjection projectionMode;
 @property (nonatomic,readonly) bool pinchEnabled;
 @property (nonatomic,readonly) id<MD360DirectorFactory> directorFactory;
-@property (nonatomic,readonly) MDAbsObject3D* object3D;
 
 @end
 
@@ -204,26 +204,16 @@
     _directorFactory = directorFactory;
 }
 
-- (void) displayAsDome{
-    _object3D = [[MDDome3D alloc]init];
-}
-
-- (void) displayAsSphere{
-    _object3D = [[MDSphere3D alloc]init];
-}
 
 - (MDVRLibrary*) build{
     if (self.directorFactory == nil) {
         _directorFactory = [[MD360DefaultDirectorFactory alloc]init];
     }
     
-    if (self.object3D == nil) {
-        [self displayAsSphere];
-    }
-    
     MDVRLibrary* library = [[MDVRLibrary alloc]init];
     library.texture = self.texture;
     library.parentView = self.view;
+    
     
     MDProjectionStrategyConfiguration* projectionConfig = [[MDProjectionStrategyConfiguration alloc]init];
     projectionConfig.directorFactory = self.directorFactory;
@@ -237,6 +227,7 @@
     [library setupDisplay:self.viewController view:self.view];
     
     [library setup];
+     
     return library;
 }
 

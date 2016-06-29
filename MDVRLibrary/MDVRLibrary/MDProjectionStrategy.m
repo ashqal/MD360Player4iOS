@@ -46,6 +46,37 @@
 
 @end
 
+#pragma mark StereoSphereProjection
+@interface StereoSphereProjection : AbsProjectionMode<MD360DirectorFactory>
+@property (nonatomic,strong) MDStereoSphere3D* object3D;
+@end
+
+@implementation StereoSphereProjection
+
+
+- (void) on{
+    self.object3D = [[MDStereoSphere3D alloc]init];
+    [self.object3D loadObj];
+}
+
+
+- (MDAbsObject3D*) getObject3D{
+    return self.object3D;
+}
+
+- (id<MD360DirectorFactory>) hijackDirectorFactory{
+    // hijack by self
+    return self;
+}
+
+- (MD360Director*) createDirector:(int) index{
+    MD360Director* director = [[MD360Director alloc]init];
+    [director setup];
+    return director;
+}
+
+@end
+
 #pragma mark MDProjectionStrategyConfiguration
 @implementation MDProjectionStrategyConfiguration
 
@@ -60,7 +91,7 @@
 @implementation MDProjectionStrategyManager
 
 - (instancetype)initWithDefault:(int)mode config:(MDProjectionStrategyConfiguration*)config{
-    self = [super init];
+    self = [super initWithDefault:mode];
     if (self) {
         self.directors = [[NSMutableArray alloc] init];
         self.configuration = config;
@@ -75,6 +106,7 @@
         case MDModeProjectionDome180Upper:
         case MDModeProjectionDome230Upper:
         case MDModeProjectionStereoSphere:
+            return [[StereoSphereProjection alloc] init];
         case MDModeProjectionPlantFit:
         case MDModeProjectionPlantCrop:
         case MDModeProjectionPlantFull:

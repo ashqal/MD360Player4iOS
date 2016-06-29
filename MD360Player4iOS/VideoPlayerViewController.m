@@ -9,7 +9,27 @@
 #import "VideoPlayerViewController.h"
 #import "MDVRLibrary.h"
 
-@interface VideoPlayerViewController ()<VIMVideoPlayerDelegate,MD360DirectorFactory>
+@interface CustomDirectorFactory : NSObject<MD360DirectorFactory>
+@end
+
+@implementation CustomDirectorFactory
+
+- (MD360Director*) createDirector:(int) index{
+    MD360Director* director = [[MD360Director alloc]init];
+    switch (index) {
+        case 1:
+            [director setEyeX:-2.0f];
+            [director setLookX:-2.0f];
+            break;
+        default:
+            break;
+    }
+    return director;
+}
+
+@end
+
+@interface VideoPlayerViewController ()<VIMVideoPlayerDelegate>
 @property (nonatomic, strong) VIMVideoPlayer *player;
 @property (nonatomic, strong) AVPlayer* avplayer;
 @end
@@ -42,11 +62,11 @@
     [config setContainer:self view:self.view];
     
     // optional
-    // [config displayAsDome];
+    [config projectionMode:MDModeProjectionStereoSphere];
     [config displayMode:MDModeDisplayNormal];
     [config interactiveMode:MDModeInteractiveMotion];
     [config pinchEnabled:true];
-    [config setDirectorFactory:self];
+    [config setDirectorFactory:[[CustomDirectorFactory alloc]init]];
     
     self.vrLibrary = [config build];
     /////////////////////////////////////////////////////// MDVRLibrary
@@ -54,18 +74,7 @@
     [self.player play];
 }
 
-- (MD360Director*) createDirector:(int) index{
-    MD360Director* director = [[MD360Director alloc]init];
-    switch (index) {
-        case 1:
-            [director setEyeX:-2.0f];
-            [director setLookX:-2.0f];
-            break;
-        default:
-            break;
-    }
-    return director;
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

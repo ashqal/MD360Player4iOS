@@ -22,6 +22,9 @@
 - (void)setVertexBuffer:(float*)buffer size:(int)size;
 - (void)setTextureBuffer:(float*)buffer size:(int)size;
 - (void)setIndicesBuffer:(short*)buffer size:(int)size;
+- (float*)getVertexBuffer:(int)index;
+- (float*)getTextureBuffer:(int)index;
+
 - (void)setNumIndices:(int)value;
 - (void)onDraw;
 - (void)loadObj;
@@ -35,13 +38,20 @@
 
 @end
 
-#pragma mark MDSphere3D48
-@interface MDSphere3D48 : MDAbsObject3D
-
-@end
 
 #pragma mark MDSphere3D
 @interface MDSphere3D : MDAbsObject3D
+
+@end
+
+#pragma mark MDStereoSphere3D
+@interface MDStereoSphere3D : MDAbsObject3D
+
+@end
+
+/*
+#pragma mark MDSphere3D48
+@interface MDSphere3D48 : MDAbsObject3D
 
 @end
 
@@ -49,4 +59,7 @@
 @interface MDDome3D : MDAbsObject3D
 
 @end
+ */
+
+
 
