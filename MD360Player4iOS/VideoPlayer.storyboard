@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaw-9T-25d">
-                                <rect key="frame" x="453" y="20" width="107" height="48"/>
+                                <rect key="frame" x="493" y="0.0" width="107" height="48"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="E3c-3o-Sl1"/>
@@ -33,7 +33,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="062-pd-nf8">
-                                <rect key="frame" x="40" y="20" width="107" height="48"/>
+                                <rect key="frame" x="0.0" y="0.0" width="107" height="48"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="MzB-a6-gkm"/>
@@ -42,12 +42,9 @@
                                 <state key="normal" title="TOUCH">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="onInteractiveModeBtnClicked:" destination="him-Mf-4X0" eventType="touchUpInside" id="W3p-Hx-EcO"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQK-qX-kVx">
-                                <rect key="frame" x="155" y="20" width="107" height="48"/>
+                                <rect key="frame" x="115" y="0.0" width="107" height="48"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="107" id="BsM-0S-p85"/>
@@ -56,24 +53,49 @@
                                 <state key="normal" title="NORMAL">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="onDisplayModeBtnClicked:" destination="him-Mf-4X0" eventType="touchUpInside" id="uBd-jT-5db"/>
-                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcr-tL-PM2">
+                                <rect key="frame" x="230" y="0.0" width="107" height="48"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="SPm-JB-q3c"/>
+                                    <constraint firstAttribute="width" constant="107" id="cHU-IC-GUA"/>
+                                </constraints>
+                                <state key="normal" title="SPHERE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="062-pd-nf8" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" id="1Nt-gn-ljC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Vaw-9T-25d" secondAttribute="trailing" constant="20" id="7jb-NX-gyk"/>
+                            <constraint firstItem="xcr-tL-PM2" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" id="9JE-eM-fad"/>
                             <constraint firstItem="Vaw-9T-25d" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" constant="20" id="AVV-GC-WZs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vaw-9T-25d" secondAttribute="trailing" constant="-20" id="BZ6-P8-yTl"/>
                             <constraint firstItem="TQK-qX-kVx" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" constant="20" id="CgB-0e-dgn"/>
+                            <constraint firstItem="Vaw-9T-25d" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" id="HIn-sW-0KV"/>
+                            <constraint firstItem="xcr-tL-PM2" firstAttribute="leading" secondItem="TQK-qX-kVx" secondAttribute="trailing" constant="8" id="Hhw-GH-goE"/>
                             <constraint firstItem="062-pd-nf8" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" constant="20" id="J0P-38-SpQ"/>
+                            <constraint firstItem="062-pd-nf8" firstAttribute="leading" secondItem="dpa-wJ-1DC" secondAttribute="leadingMargin" constant="-20" id="WL3-IE-g6x"/>
+                            <constraint firstItem="TQK-qX-kVx" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" id="keJ-uU-kP5"/>
                             <constraint firstItem="TQK-qX-kVx" firstAttribute="leading" secondItem="062-pd-nf8" secondAttribute="trailing" constant="8" id="lIU-HV-7ab"/>
                             <constraint firstItem="062-pd-nf8" firstAttribute="leading" secondItem="dpa-wJ-1DC" secondAttribute="leadingMargin" constant="20" id="rrI-ml-LAr"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="J0P-38-SpQ"/>
+                                <exclude reference="rrI-ml-LAr"/>
+                                <exclude reference="CgB-0e-dgn"/>
+                                <exclude reference="7jb-NX-gyk"/>
+                                <exclude reference="AVV-GC-WZs"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="mDisplayBtn" destination="TQK-qX-kVx" id="jbs-aF-N07"/>
                         <outlet property="mInteractiveBtn" destination="062-pd-nf8" id="XbT-kE-DdL"/>
+                        <outlet property="mProjectionBtn" destination="xcr-tL-PM2" id="Cm9-u7-9CV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zt0-5f-7o0" userLabel="First Responder" sceneMemberID="firstResponder"/>

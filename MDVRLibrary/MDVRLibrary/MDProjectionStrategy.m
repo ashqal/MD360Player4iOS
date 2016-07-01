@@ -107,9 +107,9 @@
         case MDModeProjectionDome230Upper:
         case MDModeProjectionStereoSphere:
             return [[StereoSphereProjection alloc] init];
-        case MDModeProjectionPlantFit:
-        case MDModeProjectionPlantCrop:
-        case MDModeProjectionPlantFull:
+        case MDModeProjectionPlaneFit:
+        case MDModeProjectionPlaneCrop:
+        case MDModeProjectionPlaneFull:
         case MDModeProjectionSphere: default:
             return [[SphereProjection alloc] init];
     }
@@ -133,7 +133,7 @@
 }
 
 - (NSArray*) createModes{
-    return [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:MDModeProjectionSphere], [NSNumber numberWithInt:MDModeProjectionDome180],[NSNumber numberWithInt:MDModeProjectionDome230], [NSNumber numberWithInt:MDModeProjectionDome180Upper],[NSNumber numberWithInt:MDModeProjectionDome230Upper],[NSNumber numberWithInt:MDModeProjectionStereoSphere],[NSNumber numberWithInt:MDModeProjectionPlantFit],[NSNumber numberWithInt:MDModeProjectionPlantCrop],[NSNumber numberWithInt:MDModeProjectionPlantFull],nil];
+    return [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:MDModeProjectionSphere], [NSNumber numberWithInt:MDModeProjectionDome180],[NSNumber numberWithInt:MDModeProjectionDome230], [NSNumber numberWithInt:MDModeProjectionDome180Upper],[NSNumber numberWithInt:MDModeProjectionDome230Upper],[NSNumber numberWithInt:MDModeProjectionStereoSphere],[NSNumber numberWithInt:MDModeProjectionPlaneFit],[NSNumber numberWithInt:MDModeProjectionPlaneCrop],[NSNumber numberWithInt:MDModeProjectionPlaneFull],nil];
 }
 
 - (MDAbsObject3D*) getObject3D{

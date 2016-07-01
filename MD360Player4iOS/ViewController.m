@@ -64,9 +64,9 @@
 }
 
 - (IBAction)onLocalButton:(id)sender {
-    //NSString *path = [[NSBundle mainBundle] pathForResource:@"skyrim360" ofType:@"mp4"];
-    NSURL* url = [NSURL URLWithString:@"http://192.168.5.106/vr/stereo.mp4"];
-    [self launchAsVideo:url];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"skyrim360" ofType:@"mp4"];
+    // NSURL* url = [NSURL URLWithString:@"http://192.168.5.106/vr/stereo.mp4"];
+    [self launchAsVideo:[NSURL fileURLWithPath:path]];
 }
 - (IBAction)onImageButton:(id)sender {
     

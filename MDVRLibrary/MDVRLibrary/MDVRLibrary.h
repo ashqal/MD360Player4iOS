@@ -30,9 +30,9 @@ typedef NS_ENUM(NSInteger, MDModeProjection) {
     MDModeProjectionDome180Upper,
     MDModeProjectionDome230Upper,
     MDModeProjectionStereoSphere,
-    MDModeProjectionPlantFit,
-    MDModeProjectionPlantCrop,
-    MDModeProjectionPlantFull,
+    MDModeProjectionPlaneFit,
+    MDModeProjectionPlaneCrop,
+    MDModeProjectionPlaneFull,
 };
 
 @class MDVRLibrary;

@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ActionSheetPicker-3.0.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MD360Player4iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>006D7AE1FE3C58CEE83AFC7B9720FD12</key>
+		<key>0336B362F788753931877FE132676A25</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>05D8A6A40EDCECDF9F8369CD81989C75</key>
+		<key>4C36B1F5D992ACDFD781AFC537E2D4B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>15E1A0FDDFC1A8DF17B1312DF2916FDD</key>
+		<key>4C5A09759CC05A9BE97E6CE9BE7AF39E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>928353533005A4198EBDA5B700D37B64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FBB99839D25B3C908E6E3256331939E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

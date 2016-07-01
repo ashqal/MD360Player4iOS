@@ -42,7 +42,6 @@
 }
 
 -(void)dealloc{
-    NSLog(@"MDVRLibrary dealloc");
     for(UIView* view in self.parentView.subviews){
         [view removeFromSuperview];
     }

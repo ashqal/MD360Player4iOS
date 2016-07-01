@@ -7,5 +7,6 @@ target 'MD360Player4iOS' do
 pod 'VIMVideoPlayer', '~> 6.0.1'
 pod 'AFNetworking', '~> 3.0'
 pod 'SDWebImage', '~>3.7'
+pod 'ActionSheetPicker-3.0'
 end
 
