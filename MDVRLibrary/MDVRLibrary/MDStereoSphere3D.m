@@ -39,8 +39,10 @@
 }
 
 
-- (void)loadObj{
+- (void)executeLoad{
     generateStereoSphere(18,64,self);
+    
+    [self markChanged];
 }
 
 - (void)setTextureBuffer2:(float*)buffer size:(int)size{

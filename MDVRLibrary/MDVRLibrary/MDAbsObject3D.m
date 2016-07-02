@@ -11,8 +11,6 @@
 
 static int sPositionDataSize = 3;
 @interface MDAbsObject3D(){
-    int positionHandle;
-    int textureCoordinateHandle;
     BOOL mVerticesChanged;
     BOOL mTexCoordinateChanged;
     
@@ -38,19 +36,6 @@ static int sPositionDataSize = 3;
     mVertexBuffer = NULL;
     mTextureBuffer = NULL;
     mIndicesBuffer = NULL;
-    /*
-    if (positionHandle != -1){
-        glDisableVertexAttribArray(positionHandle);
-        positionHandle = -1;
-    }
-    
-    if (textureCoordinateHandle != -1){
-        glDisableVertexAttribArray(textureCoordinateHandle);
-        textureCoordinateHandle = -1;
-    }
-     */
-    
-    
 }
 
 - (float*)getVertexBuffer:(int)index{
@@ -88,7 +73,7 @@ static int sPositionDataSize = 3;
     _mNumIndices = value;
 }
 
-- (void)loadObj{
+- (void)executeLoad{
     NSString* obj3dPath = [self obtainObjPath];
     if (obj3dPath == nil) {
         NSLog(@"obj3dPath can't be null");
@@ -113,26 +98,32 @@ static int sPositionDataSize = 3;
 
 - (void)uploadVerticesBufferIfNeed:(MD360Program*) program index:(int)index{
     float* pointer = [self getVertexBuffer:index];
-    if (pointer == NULL) return;
-    
-    if(mVerticesChanged){
-        positionHandle = program.mPositionHandle;
-        glEnableVertexAttribArray(positionHandle);
-        glVertexAttribPointer(positionHandle, sPositionDataSize, GL_FLOAT, 0, 0, pointer);
-        mVerticesChanged = NO;
+    if (pointer == NULL){
+        glDisableVertexAttribArray(program.mPositionHandle);
+    } else {
+        if(mVerticesChanged){
+            glEnableVertexAttribArray(program.mPositionHandle);
+            glVertexAttribPointer(program.mPositionHandle, sPositionDataSize, GL_FLOAT, 0, 0, pointer);
+            mVerticesChanged = NO;
+        }
     }
+    
+    
 }
 
 - (void)uploadTexCoordinateBufferIfNeed:(MD360Program*) program index:(int)index{
     float* pointer = [self getTextureBuffer:index];
-    if (pointer == NULL) return;
-    
-    if(mTexCoordinateChanged){
-        textureCoordinateHandle = program.mTextureCoordinateHandle;
-        glEnableVertexAttribArray(textureCoordinateHandle);
-        glVertexAttribPointer(textureCoordinateHandle, 2, GL_FLOAT, 0, 0, pointer);
-        mTexCoordinateChanged = NO;
+    if (pointer == NULL){
+        glDisableVertexAttribArray(program.mTextureCoordinateHandle);
+    } else {
+        if(mTexCoordinateChanged){
+            
+            glEnableVertexAttribArray(program.mTextureCoordinateHandle);
+            glVertexAttribPointer(program.mTextureCoordinateHandle, 2, GL_FLOAT, 0, 0, pointer);
+            mTexCoordinateChanged = NO;
+        }
     }
+    
 }
 
 - (void)onDraw{

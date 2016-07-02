@@ -15,8 +15,9 @@
     return nil;
 }
 
-- (void)loadObj{
+- (void)executeLoad{
     generateSphere(18,30,self);
+    [self markChanged];
 }
 
 #define ES_PI  (3.14159265f)
@@ -45,7 +46,7 @@ int generateSphere (float radius, int numSlices, MDAbsObject3D* object3D) {
                 vertices[vertex + 2] = radius * sinf ( angleStep * (float)i ) * cosf ( angleStep * (float)j );
             }
             
-            NSLog(@"%f %f %f",vertices[vertex + 0],vertices[vertex + 1],vertices[vertex + 2]);
+            // NSLog(@"%f %f %f",vertices[vertex + 0],vertices[vertex + 1],vertices[vertex + 2]);
             
             if (texCoords) {
                 int texIndex = ( i * (numSlices + 1) + j ) * 2;

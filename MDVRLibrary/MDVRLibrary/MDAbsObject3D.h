@@ -27,7 +27,7 @@
 
 - (void)setNumIndices:(int)value;
 - (void)onDraw;
-- (void)loadObj;
+- (void)executeLoad;
 - (void)uploadVerticesBufferIfNeed:(MD360Program*) program index:(int)index;
 - (void)uploadTexCoordinateBufferIfNeed:(MD360Program*) program index:(int)index;
 - (void)markChanged;

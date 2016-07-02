@@ -10,6 +10,7 @@
 #import "MD360Director.h"
 #import "MDVRLibrary.h"
 #import "MDVRHeader.h"
+#import "MDObject3DHelper.h"
 
 #pragma mark AbsProjectionMode
 @interface AbsProjectionMode : NSObject<IMDModeStrategy,IMDProjectionMode>
@@ -37,7 +38,7 @@
 
 - (void) on{
     self.object3D = [[MDSphere3D alloc]init];
-    [self.object3D loadObj];
+    [MDObject3DHelper loadObj:self.object3D];
 }
 
 - (MDAbsObject3D*) getObject3D{
@@ -56,7 +57,7 @@
 
 - (void) on{
     self.object3D = [[MDStereoSphere3D alloc]init];
-    [self.object3D loadObj];
+    [MDObject3DHelper loadObj:self.object3D];
 }
 
 
