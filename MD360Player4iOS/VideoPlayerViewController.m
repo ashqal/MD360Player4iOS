@@ -62,7 +62,7 @@
     [config setContainer:self view:self.view];
     
     // optional
-    [config projectionMode:MDModeProjectionDome180];
+    [config projectionMode:MDModeProjectionStereoSphere];
     [config displayMode:MDModeDisplayNormal];
     [config interactiveMode:MDModeInteractiveTouch];
     [config pinchEnabled:true];

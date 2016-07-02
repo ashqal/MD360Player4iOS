@@ -17,7 +17,6 @@
 @class MD360Renderer;
 @interface MD360RendererBuilder : NSObject
 - (void) setTexture:(MD360Texture*) texture;
-- (void) setObject3D:(MDAbsObject3D*) object3D;
 - (void) setDisplayStrategyManager:(MDDisplayStrategyManager*) displayStrategyManager;
 - (void) setProjectionStrategyManager:(MDProjectionStrategyManager*) projectionStrategyManager;
 - (MD360Renderer*) build;

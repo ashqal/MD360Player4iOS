@@ -155,7 +155,7 @@
 @property (nonatomic,readonly) NSArray* directors;
 @property (nonatomic,readonly) MD360Texture* texture;
 @property (nonatomic,weak) MDDisplayStrategyManager* displayStrategyManager;
-@property (nonatomic,weak) MDDisplayStrategyManager* projectionStrategyManager;
+@property (nonatomic,weak) MDProjectionStrategyManager* projectionStrategyManager;
 @end
 
 @implementation MD360RendererBuilder

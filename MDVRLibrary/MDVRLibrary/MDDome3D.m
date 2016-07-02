@@ -9,8 +9,8 @@
 #import "MDAbsObject3D.h"
 
 @interface MDDome3D(){
-    float degree;
-    BOOL isUpper;
+    float mDegree;
+    BOOL mIsUpper;
     float prevRatio;
     float* pScaledTexCoordinateBuffer;
     float* mScaledTexCoordinateBuffer;
@@ -27,8 +27,8 @@
     self = [super init];
     if (self) {
         self.sizeContext = sizeContext;
-        self->degree = degree;
-        self->isUpper = isUpper;
+        self->mDegree = degree;
+        self->mIsUpper = isUpper;
         self->prevRatio = 1.0f;
     }
     return self;
@@ -81,7 +81,7 @@
 int generateDome (float radius, int numSlices, MDDome3D* object3D) {
     int i;
     int j;
-    float percent = object3D->degree / 360.0f;
+    float percent = object3D->mDegree / 360.0f;
     int numParallels = numSlices >> 1;
     int numVertices = ( numParallels + 1 ) * ( numSlices + 1 );
     int numParallelActual = numParallels * percent;
@@ -92,7 +92,7 @@ int generateDome (float radius, int numSlices, MDDome3D* object3D) {
     float* texCoords = malloc ( sizeof(float) * 2 * numVertices );
     short* indices = malloc ( sizeof(short) * numIndices );
     
-    int upper = object3D->isUpper ? 1 : -1;
+    int upper = object3D->mIsUpper ? 1 : -1;
     
     for ( i = 0; i < numParallelActual + 1; i++ ) {
         for ( j = 0; j < numSlices + 1; j++ ) {

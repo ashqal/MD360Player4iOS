@@ -148,10 +148,10 @@
 				5E1EE71E1CBEA5ED004E0B79 /* MDAbsObject3D.m */,
 				5E59F6371D242A6B002DADC9 /* MDSphere3D.m */,
 				5E59F6391D242AFC002DADC9 /* MDStereoSphere3D.m */,
+				5E6151C21D277574008DAD4E /* MDDome3D.m */,
 				5E6151BF1D2768DD008DAD4E /* MDObject3DHelper.h */,
 				5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */,
 				5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */,
-				5E6151C21D277574008DAD4E /* MDDome3D.m */,
 			);
 			name = object3D;
 			sourceTree = "<group>";

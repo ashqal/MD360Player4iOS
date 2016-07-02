@@ -61,8 +61,10 @@
     [self switchMode:[nextMode intValue]];
 }
 
+
 #pragma mark abstract
 - (id) createStrategy:(int)mode{ return nil; }
+- (NSArray*) createModes{ return nil; }
 @end
 
 

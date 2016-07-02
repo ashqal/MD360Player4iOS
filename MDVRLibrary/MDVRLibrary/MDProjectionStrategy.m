@@ -91,8 +91,8 @@
 
 #pragma mark DomeProjection
 @interface DomeProjection : AbsProjectionMode{
-    float degree;
-    BOOL isUpper;
+    float mDegree;
+    BOOL mIsUpper;
 }
 @property (nonatomic,strong) MDAbsObject3D* object3D;
 @property (nonatomic,weak) MDSizeContext* sizeContext;
@@ -104,14 +104,14 @@
     self = [super init];
     if (self) {
         self.sizeContext = sizeContext;
-        self->degree = degree;
-        self->isUpper = isUpper;
+        self->mDegree = degree;
+        self->mIsUpper = isUpper;
     }
     return self;
 }
 
 - (void) on{
-    self.object3D = [[MDDome3D alloc]initWithSizeContext:self.sizeContext degree:self->degree isUpper:self->isUpper];
+    self.object3D = [[MDDome3D alloc]initWithSizeContext:self.sizeContext degree:self->mDegree isUpper:self->mIsUpper];
     [MDObject3DHelper loadObj:self.object3D];
 }
 
