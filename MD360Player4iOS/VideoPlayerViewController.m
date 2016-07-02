@@ -64,7 +64,7 @@
     // optional
     [config projectionMode:MDModeProjectionDome180];
     [config displayMode:MDModeDisplayNormal];
-    [config interactiveMode:MDModeInteractiveMotion];
+    [config interactiveMode:MDModeInteractiveTouch];
     [config pinchEnabled:true];
     [config setDirectorFactory:[[CustomDirectorFactory alloc]init]];
     

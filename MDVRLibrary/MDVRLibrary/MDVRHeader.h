@@ -34,8 +34,8 @@
 @interface MDSizeContext : NSObject
 - (void)updateTextureWidth:(float)width height:(float) height;
 - (void)updateViewportWidth:(float)width height:(float) height;
-- (float)getTextureRatio;
-- (float)getViewportRatio;
+- (float)getTextureRatioValue;
+- (float)getViewportRatioValue;
 @end
 
 #endif /* MDVRHeader_h */

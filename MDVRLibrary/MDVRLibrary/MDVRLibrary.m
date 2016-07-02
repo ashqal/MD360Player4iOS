@@ -257,6 +257,15 @@
 @end
 
 @implementation MDSizeContext
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        [self updateTextureWidth:3 height:2];
+        [self updateViewportWidth:3 height:2];
+    }
+    return self;
+}
+
 - (void)updateTextureWidth:(float)width height:(float) height{
     textureWidth = width;
     textureHeight = height;
@@ -269,12 +278,17 @@
     viewportRatio = viewportWidth / viewportHeight;
 }
 
-- (float)getTextureRatio{
-    return textureRatio;
+- (float) getTextureRatioValue{
+    return self->textureRatio;
 }
 
-- (float)getViewportRatio{
-    return viewportRatio;
+- (float) getViewportRatioValue{
+    return self->viewportRatio;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%f %f %f %f,ratio1=%f,ratio2=%f", textureWidth,textureHeight,viewportWidth,viewportHeight,textureRatio,viewportRatio];
 }
 
 @end

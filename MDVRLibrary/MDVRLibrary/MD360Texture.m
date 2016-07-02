@@ -160,7 +160,7 @@
 - (BOOL) updateTexture:(EAGLContext*)context{
     if ([self.mDataAdatper respondsToSelector:@selector(copyPixelBuffer)]) {
         CVPixelBufferRef pixelBuffer = [self.mDataAdatper copyPixelBuffer];
-        if (pixelBuffer == NULL) return NO;
+        if (pixelBuffer == NULL) return YES;
         
         int bufferWidth = (int) CVPixelBufferGetWidth(pixelBuffer);
         int bufferHeight = (int) CVPixelBufferGetHeight(pixelBuffer);

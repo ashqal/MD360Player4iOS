@@ -22,7 +22,7 @@
                                 <rect key="frame" x="20" y="64" width="428" height="50"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <attributedString key="attributedText">
-                                    <fragment content="http://192.168.5.103/vr/halfdome.mp4">
+                                    <fragment content="http://192.168.5.106/vr/dome.mp4">
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <string key="NSLink">http://7575.hlsplay.aodianyun.com/vrlivedemo4/vrstream.m3u8</string>

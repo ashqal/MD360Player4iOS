@@ -11,6 +11,10 @@
 @interface MDDome3D(){
     float degree;
     BOOL isUpper;
+    float prevRatio;
+    float* pScaledTexCoordinateBuffer;
+    float* mScaledTexCoordinateBuffer;
+    int texCoordinateSize;
 }
 
 @property (nonatomic,weak) MDSizeContext* sizeContext;
@@ -25,12 +29,50 @@
         self.sizeContext = sizeContext;
         self->degree = degree;
         self->isUpper = isUpper;
+        self->prevRatio = 1.0f;
     }
     return self;
 }
 
+- (float*) getTextureBuffer:(int)index{
+    return pScaledTexCoordinateBuffer;
+}
+
+- (void) uploadTexCoordinateBufferIfNeed:(MD360Program *)program index:(int)index{
+    if ([super getTextureBuffer:index] == nil) {
+        return;
+    }
+    
+    float ratio = [self.sizeContext getTextureRatioValue];
+    
+    if (ratio == 1) {
+        pScaledTexCoordinateBuffer = [super getTextureBuffer:index];
+    } else if( ratio == prevRatio && mScaledTexCoordinateBuffer != NULL ){
+        pScaledTexCoordinateBuffer = mScaledTexCoordinateBuffer;
+    } else {
+        int size = texCoordinateSize;
+        if (self->mScaledTexCoordinateBuffer != NULL) {
+            free(self->mScaledTexCoordinateBuffer);
+            self->mScaledTexCoordinateBuffer = NULL;
+        }
+        
+        float* superBuffer = [super getTextureBuffer:index];
+        
+        self->mScaledTexCoordinateBuffer = malloc ( sizeof(float) * 2 * size );
+        for (int i = 0; i < size; i += 2){
+            self->mScaledTexCoordinateBuffer[i] = (superBuffer[i] - 0.5f)/ratio + 0.5f;
+            self->mScaledTexCoordinateBuffer[i+1] = superBuffer[i + 1];
+        }
+        self->pScaledTexCoordinateBuffer = mScaledTexCoordinateBuffer;
+        self->prevRatio = ratio;
+        [self markTexCoordinateChanged];
+    }
+    
+    [super uploadTexCoordinateBufferIfNeed:program index:index];
+}
+
 - (void) executeLoad {
-    generateDome(18, 96, self);
+    generateDome(18, 150, self);
 }
 
 #define ES_PI  (3.14159265f)
@@ -65,8 +107,8 @@ int generateDome (float radius, int numSlices, MDDome3D* object3D) {
             if (texCoords) {
                 // (Math.cos( 2 * PI * s * S) * r * R / percent)/2.0f + 0.5f;
                 int texIndex = ( i * (numSlices + 1) + j ) * 2;
-                float a = cosf((float) j * angleStep * 2) * (float)i / (numParallels + 1) / percent * 0.5f + 0.5f;
-                float b = sinf((float) j * angleStep * 2) * (float)i / (numParallels + 1) / percent * 0.5f + 0.5f;
+                float a = cosf((float) j * angleStep) * (float)i / (numParallels + 1) / percent * 0.5f + 0.5f;
+                float b = sinf((float) j * angleStep) * (float)i / (numParallels + 1) / percent * 0.5f + 0.5f;
                 
                 texCoords[texIndex + 0] = b;
                 texCoords[texIndex + 1] = a;
@@ -90,7 +132,7 @@ int generateDome (float radius, int numSlices, MDDome3D* object3D) {
         }
         
     }
-    
+    object3D->texCoordinateSize = 2 * numVertices;
     [object3D setIndicesBuffer:indices size:numIndices]; //object3D.setIndicesBuffer(indexBuffer);
     [object3D setTextureBuffer:texCoords size: 2 * numVertices]; //object3D.setTexCoordinateBuffer(texBuffer);
     [object3D setVertexBuffer:vertices size: 3 * numVertices]; //object3D.setVerticesBuffer(vertexBuffer);
@@ -103,7 +145,5 @@ int generateDome (float radius, int numSlices, MDDome3D* object3D) {
     
     return numIndices;
 }
-
-
 
 @end
