@@ -16,6 +16,7 @@
 #import "MDVideoDataAdatperAVPlayerImpl.h"
 #import "MDAbsObject3D.h"
 #import "MDProjectionStrategy.h"
+#import "MDVRHeader.h"
 
 @interface MDVRLibrary()<IAdvanceGestureListener>
 @property (nonatomic,strong) MD360Texture* texture;
@@ -24,6 +25,7 @@
 @property (nonatomic,strong) MDProjectionStrategyManager* projectionStrategyManager;
 @property (nonatomic,strong) MD360Renderer* renderer;
 @property (nonatomic,strong) MDTouchHelper* touchHelper;
+@property (nonatomic,strong) MDSizeContext* sizeContext;
 @property (nonatomic,weak) UIView* parentView;
 @end
 
@@ -37,6 +39,7 @@
     self = [super init];
     if (self) {
         self.touchHelper = [[MDTouchHelper alloc]init];
+        self.sizeContext = [[MDSizeContext alloc]init];
     }
     return self;
 }
@@ -210,24 +213,68 @@
     }
     
     MDVRLibrary* library = [[MDVRLibrary alloc]init];
+    
+    // texture
     library.texture = self.texture;
+    library.texture.sizeContext = library.sizeContext;
+    
+    // parent view
     library.parentView = self.view;
     
-    
+    // all strategy manager
     MDProjectionStrategyConfiguration* projectionConfig = [[MDProjectionStrategyConfiguration alloc]init];
     projectionConfig.directorFactory = self.directorFactory;
+    projectionConfig.sizeContext = library.sizeContext;
     library.projectionStrategyManager = [[MDProjectionStrategyManager alloc]initWithDefault:self.projectionMode config:projectionConfig];
-    
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
     library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];
     [library setupStrategyManager];
     
+    // touch
     library.touchHelper.pinchEnabled = self.pinchEnabled;
+    
+    // display
     [library setupDisplay:self.viewController view:self.view];
     
+    // last step
     [library setup];
      
     return library;
+}
+
+@end
+
+#pragma mark MDSizeContext
+@interface MDSizeContext(){
+    float textureWidth;
+    float textureHeight;
+    float textureRatio;
+    float viewportWidth;
+    float viewportHeight;
+    float viewportRatio;
+}
+
+@end
+
+@implementation MDSizeContext
+- (void)updateTextureWidth:(float)width height:(float) height{
+    textureWidth = width;
+    textureHeight = height;
+    textureRatio = textureWidth / textureHeight;
+}
+
+- (void)updateViewportWidth:(float)width height:(float) height{
+    viewportWidth = width;
+    viewportHeight = height;
+    viewportRatio = viewportWidth / viewportHeight;
+}
+
+- (float)getTextureRatio{
+    return textureRatio;
+}
+
+- (float)getViewportRatio{
+    return viewportRatio;
 }
 
 @end

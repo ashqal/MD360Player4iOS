@@ -13,12 +13,9 @@
 
 
 @interface MD360Texture : NSObject<IMDDestroyable>
-
-@property (nonatomic,readonly) int mWidth;
-@property (nonatomic,readonly) int mHeight;
-
+@property (nonatomic,weak) MDSizeContext* sizeContext;
 - (void) createTexture:(EAGLContext*)context;
-- (void) resize:(int)width height:(int)height;
+- (void) resizeViewport:(int)width height:(int)height;
 - (BOOL) updateTexture:(EAGLContext*)context;
 @end
 

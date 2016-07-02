@@ -18,10 +18,10 @@
 		5E0A0BC51CA8146E005F08CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E0A0BC31CA8146E005F08CC /* LaunchScreen.storyboard */; };
 		5E1EE73C1CBEA63C004E0B79 /* libMDVRLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E1EE73B1CBEA63C004E0B79 /* libMDVRLibrary.a */; };
 		5E1EE7461CBEAA44004E0B79 /* vrlibraw.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EE7451CBEAA44004E0B79 /* vrlibraw.bundle */; };
+		5E6151C51D278F7D008DAD4E /* dome_pic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E6151C41D278F7D008DAD4E /* dome_pic.jpg */; };
 		5E66D16D1CF044E20002415F /* BitmapPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E66D16C1CF044E20002415F /* BitmapPlayerViewController.m */; };
 		5E66D16F1CF049400002415F /* VideoPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E66D16E1CF049400002415F /* VideoPlayer.storyboard */; };
 		5E66D1721CF049670002415F /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E66D1711CF049670002415F /* VideoPlayerViewController.m */; };
-		5E9F91351CE07489002A5780 /* 570624aae1c52.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5E9F91341CE07489002A5780 /* 570624aae1c52.mp4 */; };
 		5EE78DBA1CB4D6E000A7A67D /* skyrim360.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DB91CB4D6E000A7A67D /* skyrim360.mp4 */; };
 		5EE78DE31CB6C89900A7A67D /* bitmap360.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EE78DE21CB6C89900A7A67D /* bitmap360.png */; };
 /* End PBXBuildFile section */
@@ -45,12 +45,12 @@
 		5E1EE73B1CBEA63C004E0B79 /* libMDVRLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMDVRLibrary.a; path = "MDVRLibrary/build/Debug-iphoneos/libMDVRLibrary.a"; sourceTree = "<group>"; };
 		5E1EE7421CBEA708004E0B79 /* MDVRLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDVRLibrary.h; path = MDVRLibrary/MDVRLibrary/MDVRLibrary.h; sourceTree = SOURCE_ROOT; };
 		5E1EE7451CBEAA44004E0B79 /* vrlibraw.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = vrlibraw.bundle; path = MDVRLibrary/MDVRLibrary/vrlibraw.bundle; sourceTree = "<group>"; };
+		5E6151C41D278F7D008DAD4E /* dome_pic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dome_pic.jpg; sourceTree = "<group>"; };
 		5E66D16B1CF044E20002415F /* BitmapPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapPlayerViewController.h; sourceTree = "<group>"; };
 		5E66D16C1CF044E20002415F /* BitmapPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapPlayerViewController.m; sourceTree = "<group>"; };
 		5E66D16E1CF049400002415F /* VideoPlayer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = VideoPlayer.storyboard; sourceTree = "<group>"; };
 		5E66D1701CF049670002415F /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		5E66D1711CF049670002415F /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
-		5E9F91341CE07489002A5780 /* 570624aae1c52.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 570624aae1c52.mp4; sourceTree = "<group>"; };
 		5EE78DB91CB4D6E000A7A67D /* skyrim360.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = skyrim360.mp4; sourceTree = "<group>"; };
 		5EE78DE21CB6C89900A7A67D /* bitmap360.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bitmap360.png; sourceTree = "<group>"; };
 		E4102F3553C15993DDCFAB3D /* Pods-MD360Player4iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MD360Player4iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MD360Player4iOS/Pods-MD360Player4iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		5E0A0BB41CA8146E005F08CC /* MD360Player4iOS */ = {
 			isa = PBXGroup;
 			children = (
-				5E9F91341CE07489002A5780 /* 570624aae1c52.mp4 */,
+				5E6151C41D278F7D008DAD4E /* dome_pic.jpg */,
 				5E1EE7421CBEA708004E0B79 /* MDVRLibrary.h */,
 				5EE78DB91CB4D6E000A7A67D /* skyrim360.mp4 */,
 				5EE78DE21CB6C89900A7A67D /* bitmap360.png */,
@@ -208,11 +208,11 @@
 				5EE78DBA1CB4D6E000A7A67D /* skyrim360.mp4 in Resources */,
 				5E66D16F1CF049400002415F /* VideoPlayer.storyboard in Resources */,
 				5E0A0BC51CA8146E005F08CC /* LaunchScreen.storyboard in Resources */,
-				5E9F91351CE07489002A5780 /* 570624aae1c52.mp4 in Resources */,
 				5E0A0BC21CA8146E005F08CC /* Assets.xcassets in Resources */,
 				5EE78DE31CB6C89900A7A67D /* bitmap360.png in Resources */,
 				5E0A0BC01CA8146E005F08CC /* Main.storyboard in Resources */,
 				5E1EE7461CBEAA44004E0B79 /* vrlibraw.bundle in Resources */,
+				5E6151C51D278F7D008DAD4E /* dome_pic.jpg in Resources */,
 				5E0386A61CBBF9CA0087D7AC /* BitmapPlayer.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

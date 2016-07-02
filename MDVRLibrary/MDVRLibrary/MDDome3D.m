@@ -1,55 +1,75 @@
 //
-//  MDSphere3D.m
+//  MDDome3D.m
 //  MDVRLibrary
 //
-//  Created by ashqal on 16/6/30.
+//  Created by ashqal on 16/7/2.
 //  Copyright © 2016年 asha. All rights reserved.
 //
 
 #import "MDAbsObject3D.h"
 
-#pragma mark MDSphere3D
-@implementation MDSphere3D
-
--(NSString*) obtainObjPath{
-    return nil;
+@interface MDDome3D(){
+    float degree;
+    BOOL isUpper;
 }
 
-- (void)executeLoad{
-    generateSphere(18,30,self);
-    [self markChanged];
+@property (nonatomic,weak) MDSizeContext* sizeContext;
+
+@end
+
+@implementation MDDome3D
+
+- (instancetype)initWithSizeContext:(MDSizeContext*) sizeContext degree:(float) degree isUpper:(BOOL) isUpper{
+    self = [super init];
+    if (self) {
+        self.sizeContext = sizeContext;
+        self->degree = degree;
+        self->isUpper = isUpper;
+    }
+    return self;
+}
+
+- (void) executeLoad {
+    generateDome(18, 96, self);
 }
 
 #define ES_PI  (3.14159265f)
 
 #pragma mark generate sphere
-int generateSphere (float radius, int numSlices, MDAbsObject3D* object3D) {
+int generateDome (float radius, int numSlices, MDDome3D* object3D) {
     int i;
     int j;
-    int numParallels = numSlices / 2;
+    float percent = object3D->degree / 360.0f;
+    int numParallels = numSlices >> 1;
     int numVertices = ( numParallels + 1 ) * ( numSlices + 1 );
-    int numIndices = numParallels * numSlices * 6;
+    int numParallelActual = numParallels * percent;
+    int numIndices = numParallelActual * numSlices * 6;
     float angleStep = (2.0f * ES_PI) / ((float) numSlices);
     
     float* vertices = malloc ( sizeof(float) * 3 * numVertices );
     float* texCoords = malloc ( sizeof(float) * 2 * numVertices );
     short* indices = malloc ( sizeof(short) * numIndices );
     
+    int upper = object3D->isUpper ? 1 : -1;
     
-    for ( i = 0; i < numParallels + 1; i++ ) {
+    for ( i = 0; i < numParallelActual + 1; i++ ) {
         for ( j = 0; j < numSlices + 1; j++ ) {
             int vertex = ( i * (numSlices + 1) + j ) * 3;
             
             if ( vertices ) {
-                vertices[vertex + 0] = - radius * sinf ( angleStep * (float)i ) * sinf ( angleStep * (float)j );
-                vertices[vertex + 1] = radius * sinf ( ES_PI/2 + angleStep * (float)i );
+                vertices[vertex + 0] = radius * sinf ( angleStep * (float)i ) * sinf ( angleStep * (float)j ) * upper;
+                vertices[vertex + 1] = radius * sinf ( ES_PI/2 + angleStep * (float)i ) * upper;
                 vertices[vertex + 2] = radius * sinf ( angleStep * (float)i ) * cosf ( angleStep * (float)j );
             }
             
             if (texCoords) {
+                // (Math.cos( 2 * PI * s * S) * r * R / percent)/2.0f + 0.5f;
                 int texIndex = ( i * (numSlices + 1) + j ) * 2;
-                texCoords[texIndex + 0] = (float) j / (float) numSlices;
-                texCoords[texIndex + 1] = ((float) i / (float) (numParallels));
+                float a = cosf((float) j * angleStep * 2) * (float)i / (numParallels + 1) / percent * 0.5f + 0.5f;
+                float b = sinf((float) j * angleStep * 2) * (float)i / (numParallels + 1) / percent * 0.5f + 0.5f;
+                
+                texCoords[texIndex + 0] = b;
+                texCoords[texIndex + 1] = a;
             }
         }
     }
@@ -57,7 +77,7 @@ int generateSphere (float radius, int numSlices, MDAbsObject3D* object3D) {
     // Generate the indices
     if ( indices != NULL ) {
         short* indexBuf = indices;
-        for ( i = 0; i < numParallels ; i++ ) {
+        for ( i = 0; i < numParallelActual ; i++ ) {
             for ( j = 0; j < numSlices; j++ ) {
                 *indexBuf++ = (short)(i * ( numSlices + 1 ) + j); // a
                 *indexBuf++ = (short)(( i + 1 ) * ( numSlices + 1 ) + j); // b
@@ -83,4 +103,7 @@ int generateSphere (float radius, int numSlices, MDAbsObject3D* object3D) {
     
     return numIndices;
 }
+
+
+
 @end

@@ -29,10 +29,11 @@
     /////////////////////////////////////////////////////// MDVRLibrary
     MDVRConfiguration* config = [MDVRLibrary createConfig];
     
-    [config displayMode:MDModeDisplayGlass];
-    [config interactiveMode:MDModeInteractiveMotion];
+    [config displayMode:MDModeDisplayNormal];
+    [config interactiveMode:MDModeInteractiveTouch];
+    [config projectionMode:MDModeProjectionDome180];
     [config asImage:self];
-    // [config asVideo:playerItem];
+    
     [config setContainer:self view:self.view];
     [config pinchEnabled:true];
     

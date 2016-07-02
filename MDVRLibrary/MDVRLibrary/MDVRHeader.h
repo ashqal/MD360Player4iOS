@@ -31,4 +31,11 @@
 -(void) onProvideImage:(id<TextureCallback>)callback;
 @end
 
+@interface MDSizeContext : NSObject
+- (void)updateTextureWidth:(float)width height:(float) height;
+- (void)updateViewportWidth:(float)width height:(float) height;
+- (float)getTextureRatio;
+- (float)getViewportRatio;
+@end
+
 #endif /* MDVRHeader_h */

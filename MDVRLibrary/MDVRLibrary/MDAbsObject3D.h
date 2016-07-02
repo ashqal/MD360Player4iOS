@@ -49,17 +49,8 @@
 
 @end
 
-/*
-#pragma mark MDSphere3D48
-@interface MDSphere3D48 : MDAbsObject3D
-
-@end
-
-#pragma mark MDDome3D
 @interface MDDome3D : MDAbsObject3D
-
+- (instancetype)initWithSizeContext:(MDSizeContext*) sizeContext degree:(float) degree isUpper:(BOOL) isUpper;
 @end
- */
-
 
 

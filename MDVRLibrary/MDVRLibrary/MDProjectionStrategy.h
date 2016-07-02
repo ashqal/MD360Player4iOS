@@ -17,7 +17,8 @@
 @end
 
 @interface MDProjectionStrategyConfiguration : NSObject
-@property(nonatomic,strong) id<MD360DirectorFactory> directorFactory;
+@property (nonatomic,strong) id<MD360DirectorFactory> directorFactory;
+@property (nonatomic,weak) MDSizeContext* sizeContext;
 @end
 
 

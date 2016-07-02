@@ -25,6 +25,7 @@
 		5E59F6381D242A6B002DADC9 /* MDSphere3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E59F6371D242A6B002DADC9 /* MDSphere3D.m */; };
 		5E59F63A1D242AFC002DADC9 /* MDStereoSphere3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E59F6391D242AFC002DADC9 /* MDStereoSphere3D.m */; };
 		5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */; };
+		5E6151C31D277574008DAD4E /* MDDome3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6151C21D277574008DAD4E /* MDDome3D.m */; };
 		5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		5E59F6391D242AFC002DADC9 /* MDStereoSphere3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDStereoSphere3D.m; sourceTree = "<group>"; };
 		5E6151BF1D2768DD008DAD4E /* MDObject3DHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDObject3DHelper.h; sourceTree = "<group>"; };
 		5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDObject3DHelper.m; sourceTree = "<group>"; };
+		5E6151C21D277574008DAD4E /* MDDome3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDome3D.m; sourceTree = "<group>"; };
 		5ECD55C21D229B5900C01046 /* MDProjectionStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDProjectionStrategy.h; sourceTree = "<group>"; };
 		5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDProjectionStrategy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,9 +116,9 @@
 			children = (
 				5E59F63B1D242EB5002DADC9 /* strategy */,
 				5E59F6361D242A2D002DADC9 /* object3D */,
-				5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */,
 				5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */,
 				5E1EE6DC1CBEA56B004E0B79 /* MDVRLibrary.m */,
+				5E18034B1D16FEEC00E579FD /* MDVRHeader.h */,
 				5E1EE7131CBEA5ED004E0B79 /* GLUtil.h */,
 				5E1EE7141CBEA5ED004E0B79 /* GLUtil.m */,
 				5E1EE7151CBEA5ED004E0B79 /* MD360Director.h */,
@@ -135,7 +137,6 @@
 				5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */,
 				5E2BBA6F1CE8BA5F00530898 /* MDTouchHelper.h */,
 				5E2BBA701CE8BA5F00530898 /* MDTouchHelper.m */,
-				5E18034B1D16FEEC00E579FD /* MDVRHeader.h */,
 			);
 			path = MDVRLibrary;
 			sourceTree = "<group>";
@@ -148,7 +149,9 @@
 				5E59F6371D242A6B002DADC9 /* MDSphere3D.m */,
 				5E59F6391D242AFC002DADC9 /* MDStereoSphere3D.m */,
 				5E6151BF1D2768DD008DAD4E /* MDObject3DHelper.h */,
+				5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */,
 				5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */,
+				5E6151C21D277574008DAD4E /* MDDome3D.m */,
 			);
 			name = object3D;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */,
 				5E1EE6DD1CBEA56B004E0B79 /* MDVRLibrary.m in Sources */,
 				5E1EE7341CBEA5ED004E0B79 /* MDAbsObject3D.m in Sources */,
+				5E6151C31D277574008DAD4E /* MDDome3D.m in Sources */,
 				5E1EE7311CBEA5ED004E0B79 /* MD360Program.m in Sources */,
 				5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */,
 				5E2BBA711CE8BA5F00530898 /* MDTouchHelper.m in Sources */,

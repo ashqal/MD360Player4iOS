@@ -58,7 +58,7 @@
 
 - (void) rendererOnChanged:(EAGLContext*)context width:(int)width height:(int)height{
     // update surface
-    [self.mTexture resize:width height:height];
+    [self.mTexture resizeViewport:width height:height];
 }
 
 - (void) rendererOnDrawFrame:(EAGLContext*)context width:(int)width height:(int)height{

@@ -22,9 +22,8 @@
 
 - (void) destroy {}
 
-- (void) resize:(int)width height:(int)height{
-    _mWidth = width;
-    _mHeight = height;
+- (void) resizeViewport:(int)width height:(int)height{
+    [self.sizeContext updateViewportWidth:width height:height];
 }
 
 - (BOOL) updateTexture:(EAGLContext*)context{
@@ -110,6 +109,11 @@
     NSLog(@"texture:%@",image);
     if(image == nil) return;
     self.pendingImage = image;
+    
+    GLuint width = (GLuint)CGImageGetWidth(image.CGImage);
+    GLuint height = (GLuint)CGImageGetHeight(image.CGImage);
+    [self.sizeContext updateTextureWidth:width height:height];
+    
 }
 
 @end
@@ -158,8 +162,10 @@
         CVPixelBufferRef pixelBuffer = [self.mDataAdatper copyPixelBuffer];
         if (pixelBuffer == NULL) return NO;
         
-        int bufferHeight = (int) CVPixelBufferGetHeight(pixelBuffer);
         int bufferWidth = (int) CVPixelBufferGetWidth(pixelBuffer);
+        int bufferHeight = (int) CVPixelBufferGetHeight(pixelBuffer);
+        [self.sizeContext updateTextureWidth:bufferWidth height:bufferHeight];
+        
         CVOpenGLESTextureCacheRef textureCache = [self textureCache:context];
         CVOpenGLESTextureRef texture = NULL;
         

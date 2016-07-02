@@ -12,6 +12,16 @@
 #import "MDVRHeader.h"
 #import "MDObject3DHelper.h"
 
+#pragma mark MDProjectionStrategyConfiguration
+@implementation MDProjectionStrategyConfiguration
+
+@end
+
+@interface MDProjectionStrategyManager()
+@property (nonatomic,strong) NSMutableArray* directors;
+@property (nonatomic,strong) MDProjectionStrategyConfiguration* configuration;
+@end
+
 #pragma mark AbsProjectionMode
 @interface AbsProjectionMode : NSObject<IMDModeStrategy,IMDProjectionMode>
 
@@ -78,15 +88,39 @@
 
 @end
 
-#pragma mark MDProjectionStrategyConfiguration
-@implementation MDProjectionStrategyConfiguration
+
+#pragma mark DomeProjection
+@interface DomeProjection : AbsProjectionMode{
+    float degree;
+    BOOL isUpper;
+}
+@property (nonatomic,strong) MDAbsObject3D* object3D;
+@property (nonatomic,weak) MDSizeContext* sizeContext;
+@end
+
+@implementation DomeProjection
+
+- (instancetype)initWithSizeContext:(MDSizeContext*) sizeContext degree:(float)degree isUpper:(BOOL)isUpper{
+    self = [super init];
+    if (self) {
+        self.sizeContext = sizeContext;
+        self->degree = degree;
+        self->isUpper = isUpper;
+    }
+    return self;
+}
+
+- (void) on{
+    self.object3D = [[MDDome3D alloc]initWithSizeContext:self.sizeContext degree:self->degree isUpper:self->isUpper];
+    [MDObject3DHelper loadObj:self.object3D];
+}
+
+- (MDAbsObject3D*) getObject3D{
+    return self.object3D;
+}
 
 @end
 
-@interface MDProjectionStrategyManager()
-@property (nonatomic,strong) NSMutableArray* directors;
-@property (nonatomic,strong) MDProjectionStrategyConfiguration* configuration;
-@end
 
 #pragma mark MDProjectionStrategyManager
 @implementation MDProjectionStrategyManager
@@ -103,9 +137,13 @@
 - (id) createStrategy:(int)mode{
     switch (mode) {
         case MDModeProjectionDome180:
+            return [[DomeProjection alloc] initWithSizeContext:self.configuration.sizeContext degree:180 isUpper:NO];
         case MDModeProjectionDome230:
+            return [[DomeProjection alloc] initWithSizeContext:self.configuration.sizeContext degree:230 isUpper:NO];
         case MDModeProjectionDome180Upper:
+            return [[DomeProjection alloc] initWithSizeContext:self.configuration.sizeContext degree:180 isUpper:YES];
         case MDModeProjectionDome230Upper:
+            return [[DomeProjection alloc] initWithSizeContext:self.configuration.sizeContext degree:230 isUpper:YES];
         case MDModeProjectionStereoSphere:
             return [[StereoSphereProjection alloc] init];
         case MDModeProjectionPlaneFit:

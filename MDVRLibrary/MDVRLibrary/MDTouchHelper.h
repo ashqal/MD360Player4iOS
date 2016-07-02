@@ -10,16 +10,6 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-/*
-#pragma mark MDTouchDelegate
-@protocol MDTouchDelegate <NSObject>
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event;
-@end
- */
-
 #pragma mark IAdvanceGestureListener
 @protocol IAdvanceGestureListener <NSObject>
 - (void) onDragDistanceX:(float)distanceX distanceY:(float)distanceY;
