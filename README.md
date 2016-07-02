@@ -9,10 +9,17 @@ It is a lite library to render 360 degree panorama video for iOS.
 
 ## Pod
 ```
-pod 'MD360Player4iOS', '~> 0.3.1'
+pod 'MD360Player4iOS', '~> 1.0.0'
 ```
 
 ## Release Node
+**1.0.0**
+* make the switch mode public. switchInteractiveMode:(MDModeInteractive)interactiveMode and switchDisplayMode:(MDModeDisplay)displayMode and switchProjectionMode:(MDModeProjection)projectionMode
+* add dome support.
+* add stereo support.
+* add plane support.
+* switch projection in runtime support.
+
 **0.3.0**
 * Fix crucial bug(e.g. crash, black screen).
 * Custom director factory support.
