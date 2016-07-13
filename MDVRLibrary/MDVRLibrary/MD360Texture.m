@@ -15,6 +15,7 @@
     GLuint glTextureId;
 }
 @property (nonatomic,strong) MDTextureCommitter* committer;
+@property (nonatomic,strong) MD360Program* program;
 
 @end
 @implementation MD360Texture
@@ -24,7 +25,10 @@
     [self.committer setup:context];
 }
 
-- (void) createTexture:(EAGLContext*)context{}
+- (void) createTexture:(EAGLContext*)context program:(MD360Program*) program{
+    [self createCommitter:context];
+    self.program = program;
+}
 
 - (void) destroy {}
 
@@ -62,7 +66,8 @@
     }
 }
 
-- (void) createTexture:(EAGLContext*)context{
+- (void) createTexture:(EAGLContext*)context program:(MD360Program*) program{
+    [super createTexture:context program:program];
     if (context == NULL) return;
     
     self.textureId = [self createTextureId];
@@ -102,6 +107,8 @@
     
     // Load the bitmap into the bound texture.
     [GLUtil texImage2D:image];
+    
+    //glUniform1i(self.program.mTextureUniformHandle[0], 0);
     
     GLuint width = (GLuint)CGImageGetWidth(image.CGImage);
     GLuint height = (GLuint)CGImageGetHeight(image.CGImage);

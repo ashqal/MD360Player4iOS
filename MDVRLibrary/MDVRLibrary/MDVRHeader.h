@@ -43,6 +43,11 @@
 -(void) onProvideImage:(MDTextureCommitter*)committer callback:(id<TextureCallback>)callback;
 @end
 
+@protocol IMDBufferProvider <NSObject>
+@required
+-(void) onProvideBuffer:(MDTextureCommitter*)committer callback:(id<TextureCallback>)callback;
+@end
+
 @interface MDSizeContext : NSObject
 - (void)updateTextureWidth:(float)width height:(float) height;
 - (void)updateViewportWidth:(float)width height:(float) height;

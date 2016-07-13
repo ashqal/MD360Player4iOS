@@ -20,6 +20,7 @@
 
 @interface MDVRLibrary()<IAdvanceGestureListener>
 @property (nonatomic,strong) MD360Texture* texture;
+@property (nonatomic,strong) MD360Program* program;
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
 @property (nonatomic,strong) MDDisplayStrategyManager* displayStrategyManager;
 @property (nonatomic,strong) MDProjectionStrategyManager* projectionStrategyManager;
@@ -69,6 +70,7 @@
     // renderer
     MD360RendererBuilder* builder = [MD360Renderer builder];
     [builder setTexture:self.texture];
+    [builder setProgram:self.program];
     [builder setDisplayStrategyManager:self.displayStrategyManager];
     [builder setProjectionStrategyManager:self.projectionStrategyManager];
     self.renderer = [builder build];
@@ -142,6 +144,7 @@
 @interface MDVRConfiguration()
 
 @property (nonatomic,readonly) MD360Texture* texture;
+@property (nonatomic,readonly) MD360Program* program;
 @property (nonatomic,readonly) UIViewController* viewController;
 @property (nonatomic,readonly) UIView* view;
 @property (nonatomic,readonly) MDModeInteractive interactiveMode;
@@ -166,15 +169,18 @@
 - (void) asVideo:(AVPlayerItem*)playerItem{
     MDVideoDataAdatperAVPlayerImpl* adapter = [[MDVideoDataAdatperAVPlayerImpl alloc]initWithPlayerItem:playerItem];
     _texture = [MD360VideoTexture createWithDataAdapter:adapter];
+    _program = [[MDRGBAProgram alloc] init];
 }
 
 - (void) asVideoWithDataAdatper:(id<MDVideoDataAdapter>)adapter{
     _texture = [MD360VideoTexture createWithDataAdapter:adapter];
+    _program = [[MDRGBAProgram alloc] init];
 }
 
 - (void) asImage:(id<IMDImageProvider>)data{
     // nop
     _texture = [MD360BitmapTexture createWithProvider:data];
+    _program = [[MDRGBAProgram alloc] init];
 }
 
 - (void) interactiveMode:(MDModeInteractive)interactiveMode{
@@ -217,6 +223,8 @@
     // texture
     library.texture = self.texture;
     library.texture.sizeContext = library.sizeContext;
+    
+    library.program = self.program;
     
     // parent view
     library.parentView = self.view;

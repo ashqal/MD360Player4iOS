@@ -27,6 +27,7 @@
 		5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */; };
 		5E6151C31D277574008DAD4E /* MDDome3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6151C21D277574008DAD4E /* MDDome3D.m */; };
 		5E6A43AF1D366C9D00E6BA74 /* MDTextureCommitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43AE1D366C9D00E6BA74 /* MDTextureCommitter.m */; };
+		5E6A43B81D369F1700E6BA74 /* MDRGBAProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43B71D369F1700E6BA74 /* MDRGBAProgram.m */; };
 		5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 		5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDObject3DHelper.m; sourceTree = "<group>"; };
 		5E6151C21D277574008DAD4E /* MDDome3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDome3D.m; sourceTree = "<group>"; };
 		5E6A43AE1D366C9D00E6BA74 /* MDTextureCommitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDTextureCommitter.m; sourceTree = "<group>"; };
+		5E6A43B71D369F1700E6BA74 /* MDRGBAProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRGBAProgram.m; sourceTree = "<group>"; };
 		5ECD55C21D229B5900C01046 /* MDProjectionStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDProjectionStrategy.h; sourceTree = "<group>"; };
 		5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDProjectionStrategy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +118,7 @@
 		5E1EE6D91CBEA56B004E0B79 /* MDVRLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				5E6A43B51D369ECC00E6BA74 /* program */,
 				5E59F63B1D242EB5002DADC9 /* strategy */,
 				5E59F6361D242A2D002DADC9 /* object3D */,
 				5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */,
@@ -125,8 +128,6 @@
 				5E1EE7141CBEA5ED004E0B79 /* GLUtil.m */,
 				5E1EE7151CBEA5ED004E0B79 /* MD360Director.h */,
 				5E1EE7161CBEA5ED004E0B79 /* MD360Director.m */,
-				5E1EE7171CBEA5ED004E0B79 /* MD360Program.h */,
-				5E1EE7181CBEA5ED004E0B79 /* MD360Program.m */,
 				5E1EE7191CBEA5ED004E0B79 /* MD360Renderer.h */,
 				5E1EE71A1CBEA5ED004E0B79 /* MD360Renderer.m */,
 				5E1EE71B1CBEA5ED004E0B79 /* MD360Texture.h */,
@@ -172,6 +173,16 @@
 				5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */,
 			);
 			name = strategy;
+			sourceTree = "<group>";
+		};
+		5E6A43B51D369ECC00E6BA74 /* program */ = {
+			isa = PBXGroup;
+			children = (
+				5E1EE7171CBEA5ED004E0B79 /* MD360Program.h */,
+				5E1EE7181CBEA5ED004E0B79 /* MD360Program.m */,
+				5E6A43B71D369F1700E6BA74 /* MDRGBAProgram.m */,
+			);
+			name = program;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E1EE7351CBEA5ED004E0B79 /* MDDisplayStrategy.m in Sources */,
+				5E6A43B81D369F1700E6BA74 /* MDRGBAProgram.m in Sources */,
 				5E1EE7331CBEA5ED004E0B79 /* MD360Texture.m in Sources */,
 				5E1EE72F1CBEA5ED004E0B79 /* GLUtil.m in Sources */,
 				5E1EE7301CBEA5ED004E0B79 /* MD360Director.m in Sources */,

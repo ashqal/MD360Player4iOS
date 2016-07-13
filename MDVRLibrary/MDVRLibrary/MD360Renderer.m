@@ -38,7 +38,7 @@
 }
 
 - (void) setup{
-    self.mProgram = [[MD360Program alloc]init];
+    // nop
 }
 
 - (void) rendererOnCreated:(EAGLContext*)context{
@@ -116,10 +116,6 @@
         [direcotr shot:self.mProgram];
         [GLUtil glCheck:@"shot"];
         
-        // Tell the texture uniform sampler to use this texture in the shader by binding to texture unit 0.
-        glUniform1i(self.mProgram.mTextureUniformHandle, 0);
-        [GLUtil glCheck:@"glUniform1i mTextureUniformHandle"];
-        
         [object3D onDraw];
     }
 }
@@ -129,8 +125,7 @@
 }
 
 - (void) initTexture:(EAGLContext*)context {
-    [self.mTexture createCommitter:context];
-    [self.mTexture createTexture:context];
+    [self.mTexture createTexture:context program:self.mProgram];
 }
 
 - (void) initObject3D {
@@ -155,6 +150,7 @@
 @interface MD360RendererBuilder()
 @property (nonatomic,readonly) NSArray* directors;
 @property (nonatomic,readonly) MD360Texture* texture;
+@property (nonatomic,readonly) MD360Program* program;
 @property (nonatomic,weak) MDDisplayStrategyManager* displayStrategyManager;
 @property (nonatomic,weak) MDProjectionStrategyManager* projectionStrategyManager;
 @end
@@ -169,6 +165,10 @@
     _texture = texture;
 }
 
+- (void) setProgram:(MD360Program*) program{
+    _program = program;
+}
+
 - (void) setDisplayStrategyManager:(MDDisplayStrategyManager*) displayStrategyManager{
     _displayStrategyManager = displayStrategyManager;
 }
@@ -180,6 +180,7 @@
 - (MD360Renderer*) build{
     MD360Renderer* renderer = [[MD360Renderer alloc]init];
     renderer.mTexture = self.texture;
+    renderer.mProgram = self.program;
     renderer.mProjectionStrategyManager = self.projectionStrategyManager;
     renderer.mDisplayStrategyManager = self.displayStrategyManager;
     return renderer;

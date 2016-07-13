@@ -15,8 +15,7 @@
 @interface MD360Texture : NSObject<IMDDestroyable>
 @property (nonatomic,weak) MDSizeContext* sizeContext;
 
-- (void) createCommitter:(EAGLContext*)context;
-- (void) createTexture:(EAGLContext*)context;
+- (void) createTexture:(EAGLContext*)context program:(MD360Program*) program;
 - (void) resizeViewport:(int)width height:(int)height;
 - (BOOL) updateTexture:(EAGLContext*)context;
 @end
@@ -27,4 +26,8 @@
 
 @interface MD360VideoTexture : MD360Texture
 + (MD360Texture*) createWithDataAdapter:(id<MDVideoDataAdapter>) adapter;
+@end
+
+@interface MDDirectlyTexture : MD360Texture
+
 @end

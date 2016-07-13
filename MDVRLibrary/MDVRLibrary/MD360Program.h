@@ -9,14 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "MDVRHeader.h"
 
-@interface MD360Program : NSObject<IMDDestroyable>
-@property (nonatomic,readonly) int mMVPMatrixHandle;
-@property (nonatomic,readonly) int mMVMatrixHandle;
-@property (nonatomic,readonly) int mTextureUniformHandle;
-@property (nonatomic,readonly) int mPositionHandle;
-@property (nonatomic,readonly) int mTextureCoordinateHandle;
-@property (nonatomic,readonly) int mProgramHandle;
-@property (nonatomic,readonly) int mContentType;
+@interface MD360Program : NSObject<IMDDestroyable>{
+    GLuint vertexShaderHandle,fragmentShaderHandle;
+    
+}
+@property (nonatomic) int mMVPMatrixHandle;
+@property (nonatomic) int mMVMatrixHandle;
+@property (nonatomic) int mPositionHandle;
+@property (nonatomic) int mTextureCoordinateHandle;
+@property (nonatomic) int mProgramHandle;
+@property (nonatomic) int mContentType;
+@property (nonatomic) int* mTextureUniformHandle;
 - (void) build;
 - (void) use;
+- (int) getTextureUniformSize;
+@end
+
+@interface MDRGBAProgram : MD360Program
+
 @end
