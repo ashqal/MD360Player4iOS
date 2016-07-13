@@ -129,6 +129,7 @@
 }
 
 - (void) initTexture:(EAGLContext*)context {
+    [self.mTexture createCommitter:context];
     [self.mTexture createTexture:context];
 }
 

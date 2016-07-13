@@ -26,6 +26,7 @@
 		5E59F63A1D242AFC002DADC9 /* MDStereoSphere3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E59F6391D242AFC002DADC9 /* MDStereoSphere3D.m */; };
 		5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */; };
 		5E6151C31D277574008DAD4E /* MDDome3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6151C21D277574008DAD4E /* MDDome3D.m */; };
+		5E6A43AF1D366C9D00E6BA74 /* MDTextureCommitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43AE1D366C9D00E6BA74 /* MDTextureCommitter.m */; };
 		5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		5E6151BF1D2768DD008DAD4E /* MDObject3DHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDObject3DHelper.h; sourceTree = "<group>"; };
 		5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDObject3DHelper.m; sourceTree = "<group>"; };
 		5E6151C21D277574008DAD4E /* MDDome3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDome3D.m; sourceTree = "<group>"; };
+		5E6A43AE1D366C9D00E6BA74 /* MDTextureCommitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDTextureCommitter.m; sourceTree = "<group>"; };
 		5ECD55C21D229B5900C01046 /* MDProjectionStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDProjectionStrategy.h; sourceTree = "<group>"; };
 		5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDProjectionStrategy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +139,7 @@
 				5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */,
 				5E2BBA6F1CE8BA5F00530898 /* MDTouchHelper.h */,
 				5E2BBA701CE8BA5F00530898 /* MDTouchHelper.m */,
+				5E6A43AE1D366C9D00E6BA74 /* MDTextureCommitter.m */,
 			);
 			path = MDVRLibrary;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				5E1EE7361CBEA5ED004E0B79 /* MDGLKViewController.m in Sources */,
 				5E1EE7391CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m in Sources */,
 				5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */,
+				5E6A43AF1D366C9D00E6BA74 /* MDTextureCommitter.m in Sources */,
 				5E1EE6DD1CBEA56B004E0B79 /* MDVRLibrary.m in Sources */,
 				5E1EE7341CBEA5ED004E0B79 /* MDAbsObject3D.m in Sources */,
 				5E6151C31D277574008DAD4E /* MDDome3D.m in Sources */,

@@ -17,6 +17,18 @@
 
 #import <UIKit/UIKit.h>
 
+@interface MDTextureCommitter : NSObject
+
+- (void)setup:(EAGLContext*)context;
+
+- (void)teardown;
+
+- (BOOL) begin;
+
+- (void) commit;
+
+@end
+
 @protocol TextureCallback <NSObject>
 @required
 -(void) texture:(UIImage*)image;
@@ -28,7 +40,7 @@
 
 @protocol IMDImageProvider <NSObject>
 @required
--(void) onProvideImage:(id<TextureCallback>)callback;
+-(void) onProvideImage:(MDTextureCommitter*)committer callback:(id<TextureCallback>)callback;
 @end
 
 @interface MDSizeContext : NSObject

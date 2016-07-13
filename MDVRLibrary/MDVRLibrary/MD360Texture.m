@@ -14,9 +14,15 @@
 @interface MD360Texture(){
     GLuint glTextureId;
 }
+@property (nonatomic,strong) MDTextureCommitter* committer;
 
 @end
 @implementation MD360Texture
+
+- (void) createCommitter:(EAGLContext*)context{
+    self.committer = [[MDTextureCommitter alloc] init];
+    [self.committer setup:context];
+}
 
 - (void) createTexture:(EAGLContext*)context{}
 
@@ -38,7 +44,6 @@
 #pragma mark MD360BitmapTexture
 
 @interface MD360BitmapTexture()
-@property(nonatomic,strong) UIImage* pendingImage;
 @property (nonatomic) GLuint textureId;
 @property(nonatomic,weak) id<IMDImageProvider> provider;
 @end
@@ -48,14 +53,12 @@
 + (MD360Texture*) createWithProvider:(id<IMDImageProvider>) provider{
     MD360BitmapTexture* texture = [[MD360BitmapTexture alloc]init];
     texture.provider = provider;
-    [texture load];
     return texture;
 }
 
-- (void)load {
-
-    if ([self.provider respondsToSelector:@selector(onProvideImage:)]) {
-        [self.provider onProvideImage:self];
+- (void) load {
+    if ([self.provider respondsToSelector:@selector(onProvideImage:callback:)]) {
+        [self.provider onProvideImage:self.committer callback:self];
     }
 }
 
@@ -63,6 +66,8 @@
     if (context == NULL) return;
     
     self.textureId = [self createTextureId];
+    [self load];
+    
 }
 
 - (GLuint) createTextureId {
@@ -73,21 +78,18 @@
 }
 
 - (BOOL) updateTexture:(EAGLContext*)context{
-    if (context == NULL) return NO;
-    if (self.pendingImage != nil) {
-        [self textureInThread:self.textureId];
-    }
-    
     return YES;
-    
 }
 
-- (void) textureInThread:(int)textureId {
-    if (self.pendingImage == nil) return;
+-(void) texture:(UIImage*)image{
+    NSLog(@"texture:%@",image);
+    if (image == nil) {
+        return;
+    }
     
     // Bind to the texture in OpenGL
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureId);
+    glBindTexture(GL_TEXTURE_2D, self.textureId);
     
     
     // Set filtering
@@ -99,16 +101,7 @@
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
     // Load the bitmap into the bound texture.
-    [GLUtil texImage2D:self.pendingImage];
-    
-    self.pendingImage = nil;
-}
-
-
--(void) texture:(UIImage*)image{
-    NSLog(@"texture:%@",image);
-    if(image == nil) return;
-    self.pendingImage = image;
+    [GLUtil texImage2D:image];
     
     GLuint width = (GLuint)CGImageGetWidth(image.CGImage);
     GLuint height = (GLuint)CGImageGetHeight(image.CGImage);
