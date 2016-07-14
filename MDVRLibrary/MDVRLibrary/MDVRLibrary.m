@@ -168,18 +168,23 @@
 }
 - (void) asVideo:(AVPlayerItem*)playerItem{
     MDVideoDataAdatperAVPlayerImpl* adapter = [[MDVideoDataAdatperAVPlayerImpl alloc]initWithPlayerItem:playerItem];
-    _texture = [MD360VideoTexture createWithDataAdapter:adapter];
+    _texture = [MDRGBAVideoTexture createWithDataAdapter:adapter];
     _program = [[MDRGBAProgram alloc] init];
 }
 
 - (void) asVideoWithDataAdatper:(id<MDVideoDataAdapter>)adapter{
-    _texture = [MD360VideoTexture createWithDataAdapter:adapter];
+    _texture = [MDRGBAVideoTexture createWithDataAdapter:adapter];
     _program = [[MDRGBAProgram alloc] init];
+}
+
+- (void) asVideoWithYUV420PProvider:(id<IMDYUV420PProvider>)provider{
+    _texture = [MDYUV420PVideoTexture createWithProvider:provider];
+    _program = [[MDYUV420PProgram alloc] init];
 }
 
 - (void) asImage:(id<IMDImageProvider>)data{
     // nop
-    _texture = [MD360BitmapTexture createWithProvider:data];
+    _texture = [MDRGBABitmapTexture createWithProvider:data];
     _program = [[MDRGBAProgram alloc] init];
 }
 

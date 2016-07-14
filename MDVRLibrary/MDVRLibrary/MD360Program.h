@@ -28,3 +28,7 @@
 @interface MDRGBAProgram : MD360Program
 
 @end
+
+@interface MDYUV420PProgram : MD360Program
+
+@end

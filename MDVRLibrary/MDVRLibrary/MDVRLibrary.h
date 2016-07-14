@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger, MDModeProjection) {
 - (void) asVideo:(AVPlayerItem*)playerItem;
 - (void) asVideoWithDataAdatper:(id<MDVideoDataAdapter>)adapter;
 - (void) asImage:(id<IMDImageProvider>)data;
+- (void) asVideoWithYUV420PProvider:(id<IMDYUV420PProvider>)provider;
 
 - (void) interactiveMode:(MDModeInteractive)interactiveMode;
 - (void) displayMode:(MDModeDisplay)displayMode;
