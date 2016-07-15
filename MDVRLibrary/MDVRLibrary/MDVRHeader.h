@@ -16,15 +16,8 @@
 #define MULTI_SCREEN_SIZE 2
 
 #import <UIKit/UIKit.h>
-typedef struct MDVideoFrame MDVideoFrame;
-struct MDVideoFrame {
-    int w; /**< Read-only */
-    int h; /**< Read-only */
-    UInt32 format; /**< Read-only */
-    int planes; /**< Read-only */
-    UInt16 *pitches; /**< in bytes, Read-only */
-    UInt8 **pixels; /**< Read-write */
-};
+#import "MDExt.h"
+
 
 @interface MDTextureCommitter : NSObject
 
@@ -61,6 +54,17 @@ struct MDVideoFrame {
 @protocol IMDYUV420PProvider <NSObject>
 @required
 -(void) onProvideBuffer:(MDTextureCommitter*)committer callback:(id<YUV420PTextureCallback>)callback;
+@end
+
+#pragma mark MDVideoFrameAdapter
+@interface MDVideoFrameAdapter : NSObject<IMDYUV420PProvider,MDVideoFrameCallback>
+
+@end
+
+@interface MDIJKAdapter : MDVideoFrameAdapter
+
++ (MDVideoFrameAdapter*) wrap:(id)ijk_sdl_view;
+
 @end
 
 @interface MDSizeContext : NSObject

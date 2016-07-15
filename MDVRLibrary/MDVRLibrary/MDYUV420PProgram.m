@@ -8,6 +8,10 @@
 
 #import "MD360Program.h"
 #import "GLUtil.h"
+
+
+
+
 static const GLfloat g_md_bt709[] = {
     1.164,  1.164,  1.164,
     0.0,   -0.213,  2.112,
@@ -19,8 +23,8 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt709()
     return g_md_bt709;
 }
 
+
 @interface MDYUV420PProgram()
-@property (nonatomic) int mColorConversionHandle;
 
 @end
 
@@ -49,7 +53,6 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt709()
     self.mTextureUniformHandle[2] = glGetUniformLocation(self.mProgramHandle, "u_TextureZ");
     
     self.mColorConversionHandle = glGetUniformLocation(self.mProgramHandle, "u_ColorConversion");
-    
     self.mPositionHandle = glGetAttribLocation(self.mProgramHandle, "a_Position");
     self.mTextureCoordinateHandle = glGetAttribLocation(self.mProgramHandle, "a_TexCoordinate");
 }

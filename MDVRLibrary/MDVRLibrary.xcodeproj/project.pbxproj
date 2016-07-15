@@ -33,6 +33,8 @@
 		5E6A43C01D3765E700E6BA74 /* MDRGBABitmapTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43BF1D3765E700E6BA74 /* MDRGBABitmapTexture.m */; };
 		5E6A43C21D37666500E6BA74 /* MDYUV420PVideoTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43C11D37666500E6BA74 /* MDYUV420PVideoTexture.m */; };
 		5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */; };
+		5EF64E151D393D6F00F11A08 /* MDVideoFrameAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF64E141D393D6F00F11A08 /* MDVideoFrameAdapter.m */; };
+		5EF64E171D39421800F11A08 /* MDIJKAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF64E161D39421800F11A08 /* MDIJKAdapter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -94,6 +96,9 @@
 		5E6A43C11D37666500E6BA74 /* MDYUV420PVideoTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDYUV420PVideoTexture.m; sourceTree = "<group>"; };
 		5ECD55C21D229B5900C01046 /* MDProjectionStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDProjectionStrategy.h; sourceTree = "<group>"; };
 		5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDProjectionStrategy.m; sourceTree = "<group>"; };
+		5EF64E121D393C4E00F11A08 /* MDExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDExt.h; sourceTree = "<group>"; };
+		5EF64E141D393D6F00F11A08 /* MDVideoFrameAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDVideoFrameAdapter.m; sourceTree = "<group>"; };
+		5EF64E161D39421800F11A08 /* MDIJKAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDIJKAdapter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,13 +131,15 @@
 		5E1EE6D91CBEA56B004E0B79 /* MDVRLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				5EF64E181D3944F400F11A08 /* videoadapter */,
 				5E6A43BC1D37655100E6BA74 /* texture */,
 				5E6A43B51D369ECC00E6BA74 /* program */,
 				5E59F63B1D242EB5002DADC9 /* strategy */,
 				5E59F6361D242A2D002DADC9 /* object3D */,
+				5EF64E121D393C4E00F11A08 /* MDExt.h */,
+				5E18034B1D16FEEC00E579FD /* MDVRHeader.h */,
 				5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */,
 				5E1EE6DC1CBEA56B004E0B79 /* MDVRLibrary.m */,
-				5E18034B1D16FEEC00E579FD /* MDVRHeader.h */,
 				5E1EE7131CBEA5ED004E0B79 /* GLUtil.h */,
 				5E1EE7141CBEA5ED004E0B79 /* GLUtil.m */,
 				5E1EE7151CBEA5ED004E0B79 /* MD360Director.h */,
@@ -143,8 +150,6 @@
 				5E1EE7221CBEA5ED004E0B79 /* MDGLKViewController.m */,
 				5E1EE7231CBEA5ED004E0B79 /* MDGLRendererDelegate.h */,
 				5E1EE7281CBEA5ED004E0B79 /* MDVideoDataAdapter.h */,
-				5E1EE7291CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.h */,
-				5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */,
 				5E2BBA6F1CE8BA5F00530898 /* MDTouchHelper.h */,
 				5E2BBA701CE8BA5F00530898 /* MDTouchHelper.m */,
 				5E6A43AE1D366C9D00E6BA74 /* MDTextureCommitter.m */,
@@ -203,6 +208,17 @@
 				5E6A43C11D37666500E6BA74 /* MDYUV420PVideoTexture.m */,
 			);
 			name = texture;
+			sourceTree = "<group>";
+		};
+		5EF64E181D3944F400F11A08 /* videoadapter */ = {
+			isa = PBXGroup;
+			children = (
+				5E1EE7291CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.h */,
+				5E1EE72A1CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m */,
+				5EF64E141D393D6F00F11A08 /* MDVideoFrameAdapter.m */,
+				5EF64E161D39421800F11A08 /* MDIJKAdapter.m */,
+			);
+			name = videoadapter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +284,7 @@
 				5E6A43BE1D37657C00E6BA74 /* MDRGBAVideoTexture.m in Sources */,
 				5E1EE72F1CBEA5ED004E0B79 /* GLUtil.m in Sources */,
 				5E1EE7301CBEA5ED004E0B79 /* MD360Director.m in Sources */,
+				5EF64E151D393D6F00F11A08 /* MDVideoFrameAdapter.m in Sources */,
 				5E1EE7371CBEA5ED004E0B79 /* MDInteractiveStrategy.m in Sources */,
 				5E1EE7381CBEA5ED004E0B79 /* MDModeStrategy.m in Sources */,
 				5E6A43C01D3765E700E6BA74 /* MDRGBABitmapTexture.m in Sources */,
@@ -277,6 +294,7 @@
 				5E6A43C21D37666500E6BA74 /* MDYUV420PVideoTexture.m in Sources */,
 				5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */,
 				5E6A43AF1D366C9D00E6BA74 /* MDTextureCommitter.m in Sources */,
+				5EF64E171D39421800F11A08 /* MDIJKAdapter.m in Sources */,
 				5E1EE6DD1CBEA56B004E0B79 /* MDVRLibrary.m in Sources */,
 				5E1EE7341CBEA5ED004E0B79 /* MDAbsObject3D.m in Sources */,
 				5E6151C31D277574008DAD4E /* MDDome3D.m in Sources */,
@@ -377,6 +395,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -386,6 +405,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

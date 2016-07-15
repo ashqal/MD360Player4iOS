@@ -71,7 +71,7 @@
     // Load the bitmap into the bound texture.
     [GLUtil texImage2D:image];
     
-    //glUniform1i(self.program.mTextureUniformHandle[0], 0);
+    glUniform1i(self.program.mTextureUniformHandle[0], 0);
     
     GLuint width = (GLuint)CGImageGetWidth(image.CGImage);
     GLuint height = (GLuint)CGImageGetHeight(image.CGImage);

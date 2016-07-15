@@ -47,8 +47,8 @@
 #define SDL_FCC_UNDF    SDL_FOURCC('U', 'N', 'D', 'F')    /**< undefined */
 
 @interface MDYUV420PVideoTexture()<YUV420PTextureCallback>
-@property (nonatomic,weak) id<IMDYUV420PProvider> mProvider;
-@property (nonatomic) int* textures;
+@property (nonatomic,strong) id<IMDYUV420PProvider> mProvider;
+@property (nonatomic) GLuint* textures;
 
 @end
 
@@ -67,6 +67,7 @@
     [super createTexture:context program:program];
     
     if (0 == self.textures){
+        self.textures = malloc(sizeof(GLuint) * 3);
         glGenTextures(3, self.textures);
     }
     
@@ -95,9 +96,13 @@
     
     for (int i = 0; i < 3; ++i) {
         int plane = planes[i];
-        
+        glActiveTexture(GL_TEXTURE0 + i);
         glBindTexture(GL_TEXTURE_2D, self.program.mTextureUniformHandle[i]);
-        
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
         glTexImage2D(GL_TEXTURE_2D,
                      0,
                      GL_LUMINANCE,
@@ -107,12 +112,17 @@
                      GL_LUMINANCE,
                      GL_UNSIGNED_BYTE,
                      pixels[plane]);
+        
+        glUniform1i(self.program.mTextureUniformHandle[i], i);
     }
+    
+    // [self.sizeContext updateTextureWidth:1000 height:600];
 
 }
 
-- (void)dealloc{
-    
+- (void)destroy{
+    [super destroy];
+    self.mProvider = nil;
 }
 
 - (BOOL) updateTexture:(EAGLContext*)context{

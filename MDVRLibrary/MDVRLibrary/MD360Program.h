@@ -20,6 +20,7 @@
 @property (nonatomic) int mProgramHandle;
 @property (nonatomic) int mContentType;
 @property (nonatomic) int* mTextureUniformHandle;
+@property (nonatomic) int mColorConversionHandle;
 - (void) build;
 - (void) use;
 - (int) getTextureUniformSize;

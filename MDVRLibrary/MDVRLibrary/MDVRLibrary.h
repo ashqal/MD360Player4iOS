@@ -11,6 +11,8 @@
 #import <UIKit/UIKit.h>
 #import "MD360Director.h"
 #import "MDVideoDataAdapter.h"
+#import "MDExt.h"
+#import "MDVRHeader.h"
 
 typedef NS_ENUM(NSInteger, MDModeInteractive) {
     MDModeInteractiveTouch,
@@ -40,8 +42,9 @@ typedef NS_ENUM(NSInteger, MDModeProjection) {
 @interface MDVRConfiguration : NSObject
 - (void) asVideo:(AVPlayerItem*)playerItem;
 - (void) asVideoWithDataAdatper:(id<MDVideoDataAdapter>)adapter;
-- (void) asImage:(id<IMDImageProvider>)data;
 - (void) asVideoWithYUV420PProvider:(id<IMDYUV420PProvider>)provider;
+
+- (void) asImage:(id<IMDImageProvider>)data;
 
 - (void) interactiveMode:(MDModeInteractive)interactiveMode;
 - (void) displayMode:(MDModeDisplay)displayMode;
