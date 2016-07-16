@@ -42,7 +42,7 @@
    
 }
 
--(void) onProvideImage:(MDTextureCommitter*)committer callback:(id<TextureCallback>)callback {
+-(void) onProvideImage:(id<TextureCallback>)callback {
     //
     SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
     [downloader downloadImageWithURL:self.mURL options:0
@@ -54,10 +54,10 @@
                                if ( image && finished) {
                                    // do something with image
                                    if ([callback respondsToSelector:@selector(texture:)]) {
-                                       if ([committer begin]) {
-                                           [callback texture:image];
-                                           [committer commit];
-                                       }
+                                       
+                                        [callback texture:image];
+                    
+                                       
                                    }
                                }
                            }];

@@ -26,7 +26,6 @@
 		5E59F63A1D242AFC002DADC9 /* MDStereoSphere3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E59F6391D242AFC002DADC9 /* MDStereoSphere3D.m */; };
 		5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */; };
 		5E6151C31D277574008DAD4E /* MDDome3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6151C21D277574008DAD4E /* MDDome3D.m */; };
-		5E6A43AF1D366C9D00E6BA74 /* MDTextureCommitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43AE1D366C9D00E6BA74 /* MDTextureCommitter.m */; };
 		5E6A43B81D369F1700E6BA74 /* MDRGBAProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43B71D369F1700E6BA74 /* MDRGBAProgram.m */; };
 		5E6A43BB1D36A8C900E6BA74 /* MDYUV420PProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43BA1D36A8C900E6BA74 /* MDYUV420PProgram.m */; };
 		5E6A43BE1D37657C00E6BA74 /* MDRGBAVideoTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43BD1D37657C00E6BA74 /* MDRGBAVideoTexture.m */; };
@@ -88,7 +87,6 @@
 		5E6151BF1D2768DD008DAD4E /* MDObject3DHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDObject3DHelper.h; sourceTree = "<group>"; };
 		5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDObject3DHelper.m; sourceTree = "<group>"; };
 		5E6151C21D277574008DAD4E /* MDDome3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDome3D.m; sourceTree = "<group>"; };
-		5E6A43AE1D366C9D00E6BA74 /* MDTextureCommitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDTextureCommitter.m; sourceTree = "<group>"; };
 		5E6A43B71D369F1700E6BA74 /* MDRGBAProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRGBAProgram.m; sourceTree = "<group>"; };
 		5E6A43BA1D36A8C900E6BA74 /* MDYUV420PProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDYUV420PProgram.m; sourceTree = "<group>"; };
 		5E6A43BD1D37657C00E6BA74 /* MDRGBAVideoTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRGBAVideoTexture.m; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 				5E1EE7281CBEA5ED004E0B79 /* MDVideoDataAdapter.h */,
 				5E2BBA6F1CE8BA5F00530898 /* MDTouchHelper.h */,
 				5E2BBA701CE8BA5F00530898 /* MDTouchHelper.m */,
-				5E6A43AE1D366C9D00E6BA74 /* MDTextureCommitter.m */,
 			);
 			path = MDVRLibrary;
 			sourceTree = "<group>";
@@ -293,7 +290,6 @@
 				5E1EE7391CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m in Sources */,
 				5E6A43C21D37666500E6BA74 /* MDYUV420PVideoTexture.m in Sources */,
 				5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */,
-				5E6A43AF1D366C9D00E6BA74 /* MDTextureCommitter.m in Sources */,
 				5EF64E171D39421800F11A08 /* MDIJKAdapter.m in Sources */,
 				5E1EE6DD1CBEA56B004E0B79 /* MDVRLibrary.m in Sources */,
 				5E1EE7341CBEA5ED004E0B79 /* MDAbsObject3D.m in Sources */,

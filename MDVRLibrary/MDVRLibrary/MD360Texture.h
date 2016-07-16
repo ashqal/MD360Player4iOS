@@ -14,12 +14,15 @@
 
 @interface MD360Texture : NSObject<IMDDestroyable>
 @property (nonatomic,weak) MDSizeContext* sizeContext;
-@property (nonatomic,strong) MDTextureCommitter* committer;
+@property (nonatomic,weak) EAGLContext* context;
 @property (nonatomic,strong) MD360Program* program;
 
 - (void) createTexture:(EAGLContext*)context program:(MD360Program*) program;
 - (void) resizeViewport:(int)width height:(int)height;
 - (BOOL) updateTexture:(EAGLContext*)context;
+
+- (BOOL) beginCommit;
+- (void) postCommit;
 @end
 
 @interface MDRGBABitmapTexture : MD360Texture<TextureCallback>

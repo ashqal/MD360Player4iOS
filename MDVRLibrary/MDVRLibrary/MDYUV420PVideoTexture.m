@@ -74,7 +74,7 @@
     }
     
     if ([self.mProvider respondsToSelector:@selector(onProvideBuffer:callback:)]) {
-        [self.mProvider onProvideBuffer:self.committer callback:self];
+        [self.mProvider onProvideBuffer:self];
     }
 }
 
@@ -96,6 +96,8 @@
             return;
     }
     
+    [self beginCommit];
+    
     for (int i = 0; i < 3; ++i) {
         int plane = planes[i];
         glBindTexture(GL_TEXTURE_2D, self.program.mTextureUniformHandle[i]);
@@ -112,6 +114,7 @@
     self.mRendererBegin = YES;
     int width = frame->pitches[0] / 1;
     [self.sizeContext updateTextureWidth:width height:frame->h];
+    [self postCommit];
 
 }
 

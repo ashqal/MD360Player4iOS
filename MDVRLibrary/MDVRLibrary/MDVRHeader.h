@@ -18,19 +18,6 @@
 #import <UIKit/UIKit.h>
 #import "MDExt.h"
 
-
-@interface MDTextureCommitter : NSObject
-
-- (void)setup:(EAGLContext*)context;
-
-- (void)teardown;
-
-- (BOOL) begin;
-
-- (void) commit;
-
-@end
-
 @protocol TextureCallback <NSObject>
 @required
 -(void) texture:(UIImage*)image;
@@ -48,12 +35,12 @@
 
 @protocol IMDImageProvider <NSObject>
 @required
--(void) onProvideImage:(MDTextureCommitter*)committer callback:(id<TextureCallback>)callback;
+-(void) onProvideImage:(id<TextureCallback>)callback;
 @end
 
 @protocol IMDYUV420PProvider <NSObject>
 @required
--(void) onProvideBuffer:(MDTextureCommitter*)committer callback:(id<YUV420PTextureCallback>)callback;
+-(void) onProvideBuffer:(id<YUV420PTextureCallback>)callback;
 @end
 
 #pragma mark MDVideoFrameAdapter

@@ -11,7 +11,6 @@
 
 @interface MDVideoFrameAdapter()
 
-@property (nonatomic,weak) MDTextureCommitter* committer;
 @property (nonatomic,weak) id<YUV420PTextureCallback> callback;
 
 @end
@@ -20,17 +19,11 @@
 
 - (void) onFrameAvailable:(MDVideoFrame*) frame{
     //
-    if (self.committer != nil) {
-        if ([self.committer respondsToSelector:@selector(begin)]) {
-            [self.committer begin];
-            [self.callback texture:(MDVideoFrame*)frame];
-            [self.committer commit];
-        }
-    }
+   
+    [self.callback texture:(MDVideoFrame*)frame];
 }
 
--(void) onProvideBuffer:(MDTextureCommitter*)committer callback:(id<YUV420PTextureCallback>)callback{
-    self.committer = committer;
+-(void) onProvideBuffer:(id<YUV420PTextureCallback>)callback{
     self.callback = callback;
 }
 

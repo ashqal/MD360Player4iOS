@@ -24,8 +24,8 @@
 }
 
 - (void) load {
-    if ([self.provider respondsToSelector:@selector(onProvideImage:callback:)]) {
-        [self.provider onProvideImage:self.committer callback:self];
+    if ([self.provider respondsToSelector:@selector(onProvideImage:)]) {
+        [self.provider onProvideImage:self];
     }
 }
 
@@ -50,10 +50,12 @@
 }
 
 -(void) texture:(UIImage*)image{
-    NSLog(@"texture:%@",image);
+    
     if (image == nil) {
         return;
     }
+    
+    [self beginCommit];
     
     // Bind to the texture in OpenGL
     glActiveTexture(GL_TEXTURE0);
@@ -76,6 +78,8 @@
     GLuint width = (GLuint)CGImageGetWidth(image.CGImage);
     GLuint height = (GLuint)CGImageGetHeight(image.CGImage);
     [self.sizeContext updateTextureWidth:width height:height];
+    
+    [self postCommit];
     
 }
 

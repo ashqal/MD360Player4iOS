@@ -18,13 +18,8 @@
 @end
 @implementation MD360Texture
 
-- (void) createCommitter:(EAGLContext*)context{
-    self.committer = [[MDTextureCommitter alloc] init];
-    [self.committer setup:context];
-}
-
 - (void) createTexture:(EAGLContext*)context program:(MD360Program*) program{
-    [self createCommitter:context];
+    self.context = context;
     self.program = program;
 }
 
@@ -36,6 +31,22 @@
 
 - (BOOL) updateTexture:(EAGLContext*)context{
     return NO;
+}
+
+- (BOOL) beginCommit{
+    if (self.context) {
+        if( self.context == [EAGLContext currentContext]){
+            return YES;
+        }
+        if ([EAGLContext setCurrentContext:self.context]){
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void) postCommit{
+    // nop
 }
 
 - (void)dealloc {
