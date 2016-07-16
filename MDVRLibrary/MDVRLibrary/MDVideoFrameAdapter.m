@@ -18,9 +18,9 @@
 @implementation MDVideoFrameAdapter
 
 - (void) onFrameAvailable:(MDVideoFrame*) frame{
-    //
-   
-    [self.callback texture:(MDVideoFrame*)frame];
+    if (self.callback != nil) {
+        [self.callback texture:(MDVideoFrame*)frame];
+    }
 }
 
 -(void) onProvideBuffer:(id<YUV420PTextureCallback>)callback{

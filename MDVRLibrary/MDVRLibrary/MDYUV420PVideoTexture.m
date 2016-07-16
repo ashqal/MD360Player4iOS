@@ -73,7 +73,7 @@
         glGenTextures(3, self.textures);
     }
     
-    if ([self.mProvider respondsToSelector:@selector(onProvideBuffer:callback:)]) {
+    if ([self.mProvider respondsToSelector:@selector(onProvideBuffer:)]) {
         [self.mProvider onProvideBuffer:self];
     }
 }
