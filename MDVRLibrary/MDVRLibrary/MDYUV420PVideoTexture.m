@@ -49,6 +49,7 @@
 @interface MDYUV420PVideoTexture()<YUV420PTextureCallback>
 @property (nonatomic,strong) id<IMDYUV420PProvider> mProvider;
 @property (nonatomic) GLuint* textures;
+@property (nonatomic) BOOL mRendererBegin;
 
 @end
 
@@ -59,6 +60,7 @@
     self = [super init];
     if (self) {
         self.mProvider = provider;
+        self.mRendererBegin = NO;
     }
     return self;
 }
@@ -96,13 +98,7 @@
     
     for (int i = 0; i < 3; ++i) {
         int plane = planes[i];
-        glActiveTexture(GL_TEXTURE0 + i);
         glBindTexture(GL_TEXTURE_2D, self.program.mTextureUniformHandle[i]);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
         glTexImage2D(GL_TEXTURE_2D,
                      0,
                      GL_LUMINANCE,
@@ -112,11 +108,10 @@
                      GL_LUMINANCE,
                      GL_UNSIGNED_BYTE,
                      pixels[plane]);
-        
-        glUniform1i(self.program.mTextureUniformHandle[i], i);
     }
-    
-    // [self.sizeContext updateTextureWidth:1000 height:600];
+    self.mRendererBegin = YES;
+    int width = frame->pitches[0] / 1;
+    [self.sizeContext updateTextureWidth:width height:frame->h];
 
 }
 
@@ -126,7 +121,7 @@
 }
 
 - (BOOL) updateTexture:(EAGLContext*)context{
-    return YES;
+    return self.mRendererBegin;
 }
 
 + (MD360Texture*) createWithProvider:(id<IMDYUV420PProvider>) provider{

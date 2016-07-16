@@ -131,6 +131,7 @@
 		5E1EE6D91CBEA56B004E0B79 /* MDVRLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */,
 				5EF64E181D3944F400F11A08 /* videoadapter */,
 				5E6A43BC1D37655100E6BA74 /* texture */,
 				5E6A43B51D369ECC00E6BA74 /* program */,
@@ -166,7 +167,6 @@
 				5E59F6391D242AFC002DADC9 /* MDStereoSphere3D.m */,
 				5E6151C21D277574008DAD4E /* MDDome3D.m */,
 				5E6151BF1D2768DD008DAD4E /* MDObject3DHelper.h */,
-				5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */,
 				5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */,
 			);
 			name = object3D;
