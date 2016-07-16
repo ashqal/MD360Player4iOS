@@ -61,7 +61,7 @@ static void *VideoPlayer_PlayerItemStatusContext = &VideoPlayer_PlayerItemStatus
 }
 
 - (void) setup{
-    NSDictionary *pixBuffAttributes = @{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_420YpCbCr8Planar)};
+    NSDictionary *pixBuffAttributes = @{(id)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};
     self.output = [[AVPlayerItemVideoOutput alloc] initWithPixelBufferAttributes:pixBuffAttributes];
     [self.playerItem addOutput:self.output];
 }
