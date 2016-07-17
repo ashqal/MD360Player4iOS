@@ -11,7 +11,7 @@
 
 
 #define MDVR_RAW_NAME @ "vrlibraw.bundle"
-#define MDVR_RAW_PATH [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: MDVR_RAW_NAME]
+#define MDVR_RAW_PATH [[[NSBundle bundleForClass: [self class]] resourcePath] stringByAppendingPathComponent: MDVR_RAW_NAME]
 #define MDVR_RAW [NSBundle bundleWithPath: MDVR_RAW_PATH]
 #define MULTI_SCREEN_SIZE 2
 
