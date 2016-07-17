@@ -13,6 +13,9 @@ pod 'MD360Player4iOS', '~> 1.0.0'
 ```
 
 ## Release Node
+**1.1.1.beta**
+* [Working-with-the-IJKPlayer-iOS-version](https://github.com/ashqal/MD360Player4iOS/wiki/Working-with-the-IJKPlayer-iOS-version)
+
 **1.0.0**
 * make the switch mode public. switchInteractiveMode:(MDModeInteractive)interactiveMode and switchDisplayMode:(MDModeDisplay)displayMode and switchProjectionMode:(MDModeProjection)projectionMode
 * add dome support.
