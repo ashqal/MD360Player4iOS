@@ -16,7 +16,7 @@
 }
 
 - (void)executeLoad{
-    generateSphere(18,30,self);
+    generateSphere(18,128,self);
     [self markChanged];
 }
 

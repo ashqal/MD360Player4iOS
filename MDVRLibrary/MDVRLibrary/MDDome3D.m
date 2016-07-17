@@ -72,7 +72,7 @@
 }
 
 - (void) executeLoad {
-    generateDome(18, 150, self);
+    generateDome(18, 128, self);
 }
 
 #define ES_PI  (3.14159265f)

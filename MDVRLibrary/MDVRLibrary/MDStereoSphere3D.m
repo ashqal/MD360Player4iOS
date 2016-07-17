@@ -40,7 +40,7 @@
 
 
 - (void)executeLoad{
-    generateStereoSphere(18,64,self);
+    generateStereoSphere(18,128,self);
     
     [self markChanged];
 }

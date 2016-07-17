@@ -79,43 +79,44 @@
 }
 
 - (void) texture:(MDVideoFrame*)frame{
-    int     planes[3]    = { 0, 1, 2 };
-    const GLsizei widths[3]    = { frame->pitches[0], frame->pitches[1], frame->pitches[2] };
-    const GLsizei heights[3]   = { frame->h,          frame->h / 2,      frame->h / 2 };
-    const GLubyte *pixels[3]   = { frame->pixels[0],  frame->pixels[1],  frame->pixels[2] };
-    
-    switch (frame->format) {
-        case SDL_FCC_I420:
-            break;
-        case SDL_FCC_YV12:
-            planes[1] = 2;
-            planes[2] = 1;
-            break;
-        default:
-            NSLog(@"[yuv420p] unexpected format %x\n", frame->format);
-            return;
-    }
-    
-    [self beginCommit];
-    
-    for (int i = 0; i < 3; ++i) {
-        int plane = planes[i];
-        glBindTexture(GL_TEXTURE_2D, self.program.mTextureUniformHandle[i]);
-        glTexImage2D(GL_TEXTURE_2D,
-                     0,
-                     GL_LUMINANCE,
-                     widths[plane],
-                     heights[plane],
-                     0,
-                     GL_LUMINANCE,
-                     GL_UNSIGNED_BYTE,
-                     pixels[plane]);
-    }
-    self.mRendererBegin = YES;
-    int width = frame->pitches[0] / 1;
-    [self.sizeContext updateTextureWidth:width height:frame->h];
-    [self postCommit];
-
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        int     planes[3]    = { 0, 1, 2 };
+        const GLsizei widths[3]    = { frame->pitches[0], frame->pitches[1], frame->pitches[2] };
+        const GLsizei heights[3]   = { frame->h,          frame->h / 2,      frame->h / 2 };
+        const GLubyte *pixels[3]   = { frame->pixels[0],  frame->pixels[1],  frame->pixels[2] };
+        
+        switch (frame->format) {
+            case SDL_FCC_I420:
+                break;
+            case SDL_FCC_YV12:
+                planes[1] = 2;
+                planes[2] = 1;
+                break;
+            default:
+                NSLog(@"[yuv420p] unexpected format %x\n", frame->format);
+                return;
+        }
+        
+        if ([self beginCommit]) {
+            for (int i = 0; i < 3; ++i) {
+                int plane = planes[i];
+                glBindTexture(GL_TEXTURE_2D, self.program.mTextureUniformHandle[i]);
+                glTexImage2D(GL_TEXTURE_2D,
+                             0,
+                             GL_LUMINANCE,
+                             widths[plane],
+                             heights[plane],
+                             0,
+                             GL_LUMINANCE,
+                             GL_UNSIGNED_BYTE,
+                             pixels[plane]);
+            }
+            [self postCommit];
+            
+            self.mRendererBegin = YES;
+            [self.sizeContext updateTextureWidth:frame->w height:frame->h];
+        }
+    });
 }
 
 - (void)destroy{

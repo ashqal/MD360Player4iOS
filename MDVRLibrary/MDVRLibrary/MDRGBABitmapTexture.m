@@ -55,32 +55,34 @@
         return;
     }
     
-    [self beginCommit];
-    
-    // Bind to the texture in OpenGL
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, self.textureId);
-    
-    
-    // Set filtering
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    
-    // for not mipmap
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    
-    // Load the bitmap into the bound texture.
-    [GLUtil texImage2D:image];
-    
-    glUniform1i(self.program.mTextureUniformHandle[0], 0);
-    
-    GLuint width = (GLuint)CGImageGetWidth(image.CGImage);
-    GLuint height = (GLuint)CGImageGetHeight(image.CGImage);
-    [self.sizeContext updateTextureWidth:width height:height];
-    
-    [self postCommit];
-    
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        
+        [self beginCommit];
+        
+        // Bind to the texture in OpenGL
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, self.textureId);
+        
+        
+        // Set filtering
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        
+        // for not mipmap
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        
+        // Load the bitmap into the bound texture.
+        [GLUtil texImage2D:image];
+        
+        glUniform1i(self.program.mTextureUniformHandle[0], 0);
+        
+        GLuint width = (GLuint)CGImageGetWidth(image.CGImage);
+        GLuint height = (GLuint)CGImageGetHeight(image.CGImage);
+        [self.sizeContext updateTextureWidth:width height:height];
+        
+        [self postCommit];
+    });
 }
 
 @end

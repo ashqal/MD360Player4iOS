@@ -154,26 +154,3 @@ static int sPositionDataSize = 3;
     return result;
 }
 @end
-
-/*
-#pragma mark MDSphere3D48
-@implementation MDSphere3D48
-
--(NSString*) obtainObjPath{
-    //return [MDVR_RAW pathForResource:@"sphere48" ofType:@"obj"];
-    return nil;
-}
-
-@end
-
-
-
-#pragma mark MDDome3D
-@implementation MDDome3D
-
--(NSString*) obtainObjPath{
-    return [MDVR_RAW pathForResource:@"dome" ofType:@"obj"];
-}
-
-@end
- */
