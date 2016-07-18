@@ -93,23 +93,12 @@ self.vrLibrary = [config build];
 
 ## Custom Director Factory
 ```objc
-@interface VideoPlayerViewController ()<MD360DirectorFactory>
+
+@interface CustomDirectorFactory : NSObject<MD360DirectorFactory>
 @end
 
-@implementation VideoPlayerViewController
-...
-- (void) initPlayer{
-   	...
-    /////////////////////////////////////////////////////// MDVRLibrary
-    MDVRConfiguration* config = [MDVRLibrary createConfig];
-   	...
-    [config setDirectorFactory:self]; // pass in the custom factory
-    ...
-    self.vrLibrary = [config build];
-    /////////////////////////////////////////////////////// MDVRLibrary
-}
+@implementation CustomDirectorFactory
 
-// implement the MD360DirectorFactory protocol here.
 - (MD360Director*) createDirector:(int) index{
     MD360Director* director = [[MD360Director alloc]init];
     switch (index) {
@@ -122,7 +111,22 @@ self.vrLibrary = [config build];
     }
     return director;
 }
+
+@end
+
+@implementation VideoPlayerViewController
 ...
+- (void) initPlayer{
+   	...
+    /////////////////////////////////////////////////////// MDVRLibrary
+    MDVRConfiguration* config = [MDVRLibrary createConfig];
+   	...
+    [config [[CustomDirectorFactory alloc]init]]; // pass in the custom factory
+    ...
+    self.vrLibrary = [config build];
+    /////////////////////////////////////////////////////// MDVRLibrary
+}
+
 @end
 
 ```
