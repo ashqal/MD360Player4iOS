@@ -122,6 +122,102 @@
 @end
 
 
+#pragma mark PlaneProjection
+
+@interface MDOrthogonalDirector : MD360Director
+
+@property (nonatomic,weak) MDPlaneScaleCalculator* calculator;
+
+@end
+
+@implementation MDOrthogonalDirector
+
+- (void) updateTouch:(float)distX distY:(int)distY{
+    // nop
+}
+
+- (void) updateSensorMatrix:(GLKMatrix4)sensor{
+    // nop
+}
+
+- (void) updateProjectionNearScale:(float)scale{
+    // nop
+}
+
+- (void) updateProjection{
+    [self.calculator setViewportRatio:[self getRatio]];
+    [self.calculator calculate];
+    
+    float left = - [self.calculator getViewportWidth];
+    float right = [self.calculator getViewportWidth];
+    float bottom = - [self.calculator getViewportHeight];
+    float top = [self.calculator getViewportHeight];
+    float far = 500;
+    
+    // NSLog(@"updateProjection: %f %f %f %f:",left,right,bottom,top);
+    GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(left, right, bottom, top, [self getNear], far);
+    [self setProjection:projectionMatrix];
+    
+}
+
+@end
+
+@interface MDOrthogonalDirectorFactory:NSObject<MD360DirectorFactory>
+
+@property (nonatomic,weak) MDPlaneScaleCalculator* calculator;
+
+@end
+
+@implementation MDOrthogonalDirectorFactory
+
+- (MD360Director*) createDirector:(int) index{
+    MDOrthogonalDirector* director = [[MDOrthogonalDirector alloc]init];
+    director.calculator = self.calculator;
+    [director setup];
+    return director;
+}
+
+- (instancetype)initWith:(MDPlaneScaleCalculator*) calculator{
+    self = [super init];
+    if (self) {
+        self.calculator = calculator;
+    }
+    return self;
+}
+
+@end
+
+@interface PlaneProjection : AbsProjectionMode<MD360DirectorFactory>
+@property (nonatomic,strong) MDAbsObject3D* object3D;
+@property (nonatomic,strong) MDPlaneScaleCalculator* calculator;
+@end
+
+@implementation PlaneProjection
+
+- (void) on{
+    self.object3D = [[MDPlane alloc]initWithCalculator:self.calculator];
+    [MDObject3DHelper loadObj:self.object3D];
+}
+
+- (MDAbsObject3D*) getObject3D{
+    return self.object3D;
+}
+
+- (id<MD360DirectorFactory>) hijackDirectorFactory{
+    // hijack by self
+    return [[MDOrthogonalDirectorFactory alloc] initWith:self.calculator];
+}
+
++ (PlaneProjection*) create:(MDModeProjection) projection sizeContext:(MDSizeContext*) sizeContext{
+    MDPlaneScaleCalculator* cal = [[MDPlaneScaleCalculator alloc] initWithScale:projection sizeContext:sizeContext];
+    PlaneProjection* planeProjection = [PlaneProjection alloc];
+    planeProjection.calculator = cal;
+    return planeProjection;
+}
+
+@end
+
+
 #pragma mark MDProjectionStrategyManager
 @implementation MDProjectionStrategyManager
 
@@ -149,6 +245,7 @@
         case MDModeProjectionPlaneFit:
         case MDModeProjectionPlaneCrop:
         case MDModeProjectionPlaneFull:
+            return [PlaneProjection create:mode sizeContext:self.configuration.sizeContext];
         case MDModeProjectionSphere: default:
             return [[SphereProjection alloc] init];
     }
@@ -182,7 +279,5 @@
 - (NSArray*) getDirectors{
     return self.directors;
 }
-
-
 
 @end

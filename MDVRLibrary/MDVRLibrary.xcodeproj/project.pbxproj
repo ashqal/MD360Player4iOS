@@ -32,6 +32,8 @@
 		5E6A43C01D3765E700E6BA74 /* MDRGBABitmapTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43BF1D3765E700E6BA74 /* MDRGBABitmapTexture.m */; };
 		5E6A43C21D37666500E6BA74 /* MDYUV420PVideoTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43C11D37666500E6BA74 /* MDYUV420PVideoTexture.m */; };
 		5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */; };
+		5EF561C01D44FDCB0023A3DF /* MDPlaneScaleCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF561BF1D44FDCB0023A3DF /* MDPlaneScaleCalculator.m */; };
+		5EF561C21D44FFF60023A3DF /* MDPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF561C11D44FFF60023A3DF /* MDPlane.m */; };
 		5EF64E151D393D6F00F11A08 /* MDVideoFrameAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF64E141D393D6F00F11A08 /* MDVideoFrameAdapter.m */; };
 		5EF64E171D39421800F11A08 /* MDIJKAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF64E161D39421800F11A08 /* MDIJKAdapter.m */; };
 /* End PBXBuildFile section */
@@ -94,6 +96,9 @@
 		5E6A43C11D37666500E6BA74 /* MDYUV420PVideoTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDYUV420PVideoTexture.m; sourceTree = "<group>"; };
 		5ECD55C21D229B5900C01046 /* MDProjectionStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDProjectionStrategy.h; sourceTree = "<group>"; };
 		5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDProjectionStrategy.m; sourceTree = "<group>"; };
+		5EF561BE1D44FDCB0023A3DF /* MDPlaneScaleCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDPlaneScaleCalculator.h; sourceTree = "<group>"; };
+		5EF561BF1D44FDCB0023A3DF /* MDPlaneScaleCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDPlaneScaleCalculator.m; sourceTree = "<group>"; };
+		5EF561C11D44FFF60023A3DF /* MDPlane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDPlane.m; sourceTree = "<group>"; };
 		5EF64E121D393C4E00F11A08 /* MDExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDExt.h; sourceTree = "<group>"; };
 		5EF64E141D393D6F00F11A08 /* MDVideoFrameAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDVideoFrameAdapter.m; sourceTree = "<group>"; };
 		5EF64E161D39421800F11A08 /* MDIJKAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDIJKAdapter.m; sourceTree = "<group>"; };
@@ -163,8 +168,11 @@
 				5E59F6371D242A6B002DADC9 /* MDSphere3D.m */,
 				5E59F6391D242AFC002DADC9 /* MDStereoSphere3D.m */,
 				5E6151C21D277574008DAD4E /* MDDome3D.m */,
+				5EF561C11D44FFF60023A3DF /* MDPlane.m */,
 				5E6151BF1D2768DD008DAD4E /* MDObject3DHelper.h */,
 				5E6151C01D2768DD008DAD4E /* MDObject3DHelper.m */,
+				5EF561BE1D44FDCB0023A3DF /* MDPlaneScaleCalculator.h */,
+				5EF561BF1D44FDCB0023A3DF /* MDPlaneScaleCalculator.m */,
 			);
 			name = object3D;
 			sourceTree = "<group>";
@@ -284,9 +292,11 @@
 				5EF64E151D393D6F00F11A08 /* MDVideoFrameAdapter.m in Sources */,
 				5E1EE7371CBEA5ED004E0B79 /* MDInteractiveStrategy.m in Sources */,
 				5E1EE7381CBEA5ED004E0B79 /* MDModeStrategy.m in Sources */,
+				5EF561C01D44FDCB0023A3DF /* MDPlaneScaleCalculator.m in Sources */,
 				5E6A43C01D3765E700E6BA74 /* MDRGBABitmapTexture.m in Sources */,
 				5E1EE7321CBEA5ED004E0B79 /* MD360Renderer.m in Sources */,
 				5E1EE7361CBEA5ED004E0B79 /* MDGLKViewController.m in Sources */,
+				5EF561C21D44FFF60023A3DF /* MDPlane.m in Sources */,
 				5E1EE7391CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m in Sources */,
 				5E6A43C21D37666500E6BA74 /* MDYUV420PVideoTexture.m in Sources */,
 				5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */,

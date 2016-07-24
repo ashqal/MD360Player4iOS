@@ -112,9 +112,9 @@ typedef void(^PickerDoneBlock)(int key);
                                    @"DOME180_UPPER",[NSNumber numberWithInt:MDModeProjectionDome180Upper],
                                    @"DOME230_UPPER",[NSNumber numberWithInt:MDModeProjectionDome230Upper],
                                    @"STEREO",[NSNumber numberWithInt:MDModeProjectionStereoSphere],
-                                   //@"PLANE_FIT",[NSNumber numberWithInt:MDModeProjectionPlaneFit],
-                                   //@"PLANE_CROP",[NSNumber numberWithInt:MDModeProjectionPlaneCrop],
-                                   //@"PLANE_FULL",[NSNumber numberWithInt:MDModeProjectionPlaneFull],
+                                   @"PLANE_FIT",[NSNumber numberWithInt:MDModeProjectionPlaneFit],
+                                   @"PLANE_CROP",[NSNumber numberWithInt:MDModeProjectionPlaneCrop],
+                                   @"PLANE_FULL",[NSNumber numberWithInt:MDModeProjectionPlaneFull],
                                 nil];
     
     __block MDVRLibrary *blockVRLib = self.vrLibrary;

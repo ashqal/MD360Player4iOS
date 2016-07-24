@@ -132,17 +132,12 @@ static float sNear = 0.7f;
 
 - (void) updateProjection:(int)width height:(int)height{
     mRatio = width * 1.0f / height;
-    [self updateProjectionNearScale:mNearScale];
+    [self updateProjection];
 }
 
 - (void) updateProjectionNearScale:(float)scale{
     mNearScale = scale;
-    float left = -mRatio/2;
-    float right = mRatio/2;
-    float bottom = -0.5f;
-    float top = 0.5f;
-    float far = 500;
-    mProjectionMatrix = GLKMatrix4MakeFrustum(left, right, bottom, top, mNearScale * sNear, far);
+    [self updateProjection];
 }
 
 - (void) updateModelRotateAngleX:(float)angleX angleY:(float)angleY {
@@ -164,6 +159,15 @@ static float sNear = 0.7f;
     mViewMatrix = GLKMatrix4MakeLookAt(eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
 }
 
+- (void) updateProjection{
+    float left = -mRatio/2;
+    float right = mRatio/2;
+    float bottom = -0.5f;
+    float top = 0.5f;
+    float far = 500;
+    mProjectionMatrix = GLKMatrix4MakeFrustum(left, right, bottom, top, [self getNear], far);
+}
+
 - (void) updateSensorMatrix:(GLKMatrix4)sensor{
     mSensorMatrix = sensor;
 }
@@ -171,6 +175,10 @@ static float sNear = 0.7f;
 - (void) updateTouch:(float)distX distY:(int)distY{
     mDeltaX += distX;
     mDeltaY += distY;
+}
+
+- (void) setProjection:(GLKMatrix4)project{
+    mProjectionMatrix = project;
 }
 
 - (void) setLookX:(float)lookX{
@@ -187,6 +195,14 @@ static float sNear = 0.7f;
 
 - (void) setAngleY:(float)angleY{
     mAngleY = angleY;
+}
+
+- (float) getNear{
+    return mNearScale * sNear;
+}
+
+- (float) getRatio{
+    return mRatio;
 }
 
 @end

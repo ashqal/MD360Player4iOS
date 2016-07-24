@@ -18,10 +18,15 @@
 - (void) shot:(MD360Program*) program;
 - (void) reset;
 - (void) updateProjection:(int)width height:(int)height;
+- (void) updateProjectionNearScale:(float)scale;
+- (void) updateProjection;
 - (void) updateSensorMatrix:(GLKMatrix4)sensor;
 - (void) updateTouch:(float)distX distY:(int)distY;
-- (void) updateProjectionNearScale:(float)scale;
 
+- (float) getRatio;
+- (float) getNear;
+
+- (void) setProjection:(GLKMatrix4)project;
 - (void) setLookX:(float)lookX;
 - (void) setEyeX:(float)eyeX;
 - (void) setAngleX:(float)angleX;

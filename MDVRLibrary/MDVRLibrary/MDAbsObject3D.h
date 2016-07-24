@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MD360Program.h"
 #import "MDVRHeader.h"
+#import "MDPlaneScaleCalculator.h"
 
 @protocol MDAbsObject3DDelegate<NSObject>
 @optional
@@ -51,6 +52,10 @@
 
 @interface MDDome3D : MDAbsObject3D
 - (instancetype)initWithSizeContext:(MDSizeContext*) sizeContext degree:(float) degree isUpper:(BOOL) isUpper;
+@end
+
+@interface MDPlane : MDAbsObject3D
+- (instancetype)initWithCalculator:(MDPlaneScaleCalculator*) calculator;
 @end
 
 
