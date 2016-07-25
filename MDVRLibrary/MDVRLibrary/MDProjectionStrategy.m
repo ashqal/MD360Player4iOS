@@ -187,7 +187,7 @@
 
 @end
 
-@interface PlaneProjection : AbsProjectionMode<MD360DirectorFactory>
+@interface PlaneProjection : AbsProjectionMode
 @property (nonatomic,strong) MDAbsObject3D* object3D;
 @property (nonatomic,strong) MDPlaneScaleCalculator* calculator;
 @end

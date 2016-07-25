@@ -68,7 +68,7 @@ static const int sPlaneNumPoint = 6;
     return pScaledVerticesBuffer;
 }
 
-- (void) generatePlane:(MDStereoSphere3D*) object3D{
+- (void) generatePlane:(MDAbsObject3D*) object3D{
     int numPoint = sPlaneNumPoint;
     
     float* texcoords = [self generateTexcoords];
