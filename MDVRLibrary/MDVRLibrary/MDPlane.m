@@ -36,7 +36,6 @@ static const int sPlaneNumPoint = 6;
 
 - (void)executeLoad{
     [self generatePlane:self];
-    [self markChanged];
 }
 
 - (void) destroy{
@@ -58,7 +57,6 @@ static const int sPlaneNumPoint = 6;
     } else {
         mScaledVerticesBuffer = [self generateVertex];
         pScaledVerticesBuffer = mScaledVerticesBuffer;
-        [self markVerticesChanged];
     }
     
     [super uploadVerticesBufferIfNeed:program index:index];
@@ -74,8 +72,8 @@ static const int sPlaneNumPoint = 6;
     float* texcoords = [self generateTexcoords];
     float* vertexs = [self generateVertex];
     
-    [object3D setTextureBuffer:texcoords size: 2 * numPoint]; //object3D.setTexCoordinateBuffer(texBuffer);
-    [object3D setVertexBuffer:vertexs size: 3 * numPoint]; //object3D.setVerticesBuffer(vertexBuffer);
+    [object3D setTextureIndex:0 buffer:texcoords size: 2 * numPoint]; //object3D.setTexCoordinateBuffer(texBuffer);
+    [object3D setVertexIndex:0 buffer:vertexs size: 3 * numPoint]; //object3D.setVerticesBuffer(vertexBuffer);
     [object3D setNumIndices:numPoint];
     
     

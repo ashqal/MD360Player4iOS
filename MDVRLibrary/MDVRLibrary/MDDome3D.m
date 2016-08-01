@@ -65,20 +65,19 @@
         }
         self->pScaledTexCoordinateBuffer = mScaledTexCoordinateBuffer;
         self->prevRatio = ratio;
-        [self markTexCoordinateChanged];
     }
     
     [super uploadTexCoordinateBufferIfNeed:program index:index];
 }
 
 - (void) executeLoad {
-    generateDome(18, 128, self);
+    [MDDome3D generateDome:18 numSlices:128 object3D:self];
 }
 
 #define ES_PI  (3.14159265f)
 
 #pragma mark generate sphere
-int generateDome (float radius, int numSlices, MDDome3D* object3D) {
++(int) generateDome:(float)radius numSlices:(int)numSlices object3D:(MDDome3D*)object3D {
     int i;
     int j;
     float percent = object3D->mDegree / 360.0f;
@@ -134,8 +133,8 @@ int generateDome (float radius, int numSlices, MDDome3D* object3D) {
     }
     object3D->texCoordinateSize = 2 * numVertices;
     [object3D setIndicesBuffer:indices size:numIndices]; //object3D.setIndicesBuffer(indexBuffer);
-    [object3D setTextureBuffer:texCoords size: 2 * numVertices]; //object3D.setTexCoordinateBuffer(texBuffer);
-    [object3D setVertexBuffer:vertices size: 3 * numVertices]; //object3D.setVerticesBuffer(vertexBuffer);
+    [object3D setTextureIndex:0 buffer:texCoords size: 2 * numVertices]; //object3D.setTexCoordinateBuffer(texBuffer);
+    [object3D setVertexIndex:0 buffer:vertices size: 3 * numVertices]; //object3D.setVerticesBuffer(vertexBuffer);
     [object3D setNumIndices:numIndices];
     
     

@@ -31,6 +31,9 @@
 		5E6A43BE1D37657C00E6BA74 /* MDRGBAVideoTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43BD1D37657C00E6BA74 /* MDRGBAVideoTexture.m */; };
 		5E6A43C01D3765E700E6BA74 /* MDRGBABitmapTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43BF1D3765E700E6BA74 /* MDRGBABitmapTexture.m */; };
 		5E6A43C21D37666500E6BA74 /* MDYUV420PVideoTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E6A43C11D37666500E6BA74 /* MDYUV420PVideoTexture.m */; };
+		5EA133EA1D4E3B850090B8AB /* MDAbsPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA133E91D4E3B850090B8AB /* MDAbsPlugin.m */; };
+		5EA133ED1D4E3CB60090B8AB /* MDPluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA133EC1D4E3CB60090B8AB /* MDPluginManager.m */; };
+		5EA133EF1D4E3E8F0090B8AB /* MDPanoramaPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA133EE1D4E3E8F0090B8AB /* MDPanoramaPlugin.m */; };
 		5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */; };
 		5EF561C01D44FDCB0023A3DF /* MDPlaneScaleCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF561BF1D44FDCB0023A3DF /* MDPlaneScaleCalculator.m */; };
 		5EF561C21D44FFF60023A3DF /* MDPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF561C11D44FFF60023A3DF /* MDPlane.m */; };
@@ -94,6 +97,10 @@
 		5E6A43BD1D37657C00E6BA74 /* MDRGBAVideoTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRGBAVideoTexture.m; sourceTree = "<group>"; };
 		5E6A43BF1D3765E700E6BA74 /* MDRGBABitmapTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRGBABitmapTexture.m; sourceTree = "<group>"; };
 		5E6A43C11D37666500E6BA74 /* MDYUV420PVideoTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDYUV420PVideoTexture.m; sourceTree = "<group>"; };
+		5EA133E81D4E3B850090B8AB /* MDAbsPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDAbsPlugin.h; sourceTree = "<group>"; };
+		5EA133E91D4E3B850090B8AB /* MDAbsPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDAbsPlugin.m; sourceTree = "<group>"; };
+		5EA133EC1D4E3CB60090B8AB /* MDPluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDPluginManager.m; sourceTree = "<group>"; };
+		5EA133EE1D4E3E8F0090B8AB /* MDPanoramaPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDPanoramaPlugin.m; sourceTree = "<group>"; };
 		5ECD55C21D229B5900C01046 /* MDProjectionStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDProjectionStrategy.h; sourceTree = "<group>"; };
 		5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDProjectionStrategy.m; sourceTree = "<group>"; };
 		5EF561BE1D44FDCB0023A3DF /* MDPlaneScaleCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDPlaneScaleCalculator.h; sourceTree = "<group>"; };
@@ -136,6 +143,7 @@
 			children = (
 				5E1EE7431CBEA832004E0B79 /* vrlibraw.bundle */,
 				5EF64E181D3944F400F11A08 /* videoadapter */,
+				5EA133E71D4E3B1E0090B8AB /* plugins */,
 				5E6A43BC1D37655100E6BA74 /* texture */,
 				5E6A43B51D369ECC00E6BA74 /* program */,
 				5E59F63B1D242EB5002DADC9 /* strategy */,
@@ -215,6 +223,17 @@
 			name = texture;
 			sourceTree = "<group>";
 		};
+		5EA133E71D4E3B1E0090B8AB /* plugins */ = {
+			isa = PBXGroup;
+			children = (
+				5EA133E81D4E3B850090B8AB /* MDAbsPlugin.h */,
+				5EA133E91D4E3B850090B8AB /* MDAbsPlugin.m */,
+				5EA133EC1D4E3CB60090B8AB /* MDPluginManager.m */,
+				5EA133EE1D4E3E8F0090B8AB /* MDPanoramaPlugin.m */,
+			);
+			name = plugins;
+			sourceTree = "<group>";
+		};
 		5EF64E181D3944F400F11A08 /* videoadapter */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +303,7 @@
 			files = (
 				5E6A43BB1D36A8C900E6BA74 /* MDYUV420PProgram.m in Sources */,
 				5E1EE7351CBEA5ED004E0B79 /* MDDisplayStrategy.m in Sources */,
+				5EA133EA1D4E3B850090B8AB /* MDAbsPlugin.m in Sources */,
 				5E6A43B81D369F1700E6BA74 /* MDRGBAProgram.m in Sources */,
 				5E1EE7331CBEA5ED004E0B79 /* MD360Texture.m in Sources */,
 				5E6A43BE1D37657C00E6BA74 /* MDRGBAVideoTexture.m in Sources */,
@@ -294,6 +314,7 @@
 				5E1EE7381CBEA5ED004E0B79 /* MDModeStrategy.m in Sources */,
 				5EF561C01D44FDCB0023A3DF /* MDPlaneScaleCalculator.m in Sources */,
 				5E6A43C01D3765E700E6BA74 /* MDRGBABitmapTexture.m in Sources */,
+				5EA133ED1D4E3CB60090B8AB /* MDPluginManager.m in Sources */,
 				5E1EE7321CBEA5ED004E0B79 /* MD360Renderer.m in Sources */,
 				5E1EE7361CBEA5ED004E0B79 /* MDGLKViewController.m in Sources */,
 				5EF561C21D44FFF60023A3DF /* MDPlane.m in Sources */,
@@ -308,6 +329,7 @@
 				5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */,
 				5E2BBA711CE8BA5F00530898 /* MDTouchHelper.m in Sources */,
 				5E59F63A1D242AFC002DADC9 /* MDStereoSphere3D.m in Sources */,
+				5EA133EF1D4E3E8F0090B8AB /* MDPanoramaPlugin.m in Sources */,
 				5E59F6381D242A6B002DADC9 /* MDSphere3D.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

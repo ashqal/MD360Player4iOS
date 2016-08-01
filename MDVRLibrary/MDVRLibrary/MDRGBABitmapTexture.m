@@ -46,6 +46,11 @@
 }
 
 - (BOOL) updateTexture:(EAGLContext*)context{
+    if (self.textureId != 0) {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, self.textureId);
+        glUniform1i(self.program.mTextureUniformHandle[0], 0);
+    }
     return YES;
 }
 

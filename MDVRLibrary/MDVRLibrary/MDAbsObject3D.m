@@ -11,11 +11,10 @@
 
 static int sPositionDataSize = 3;
 @interface MDAbsObject3D(){
-    BOOL mVerticesChanged;
-    BOOL mTexCoordinateChanged;
-    
-    float* mVertexBuffer;
-    float* mTextureBuffer;
+    float* mVertexBuffer0;
+    float* mTextureBuffer0;
+    float* mVertexBuffer1;
+    float* mTextureBuffer1;
     short* mIndicesBuffer;
     int mVertexSize;
     int mTextureSize;
@@ -29,30 +28,60 @@ static int sPositionDataSize = 3;
 }
 
 - (void) destroy {
-    if (mVertexBuffer != NULL)  free(mVertexBuffer);
-    if (mTextureBuffer != NULL)  free(mTextureBuffer);
+    if (mVertexBuffer0 != NULL)  free(mVertexBuffer0);
+    if (mTextureBuffer0 != NULL)  free(mTextureBuffer0);
+    if (mVertexBuffer1 != NULL)  free(mVertexBuffer1);
+    if (mTextureBuffer1 != NULL)  free(mTextureBuffer1);
     if (mIndicesBuffer != NULL) free(mIndicesBuffer);
     
-    mVertexBuffer = NULL;
-    mTextureBuffer = NULL;
+    mVertexBuffer0 = NULL;
+    mTextureBuffer0 = NULL;
+    mVertexBuffer1 = NULL;
+    mTextureBuffer1 = NULL;
     mIndicesBuffer = NULL;
 }
 
 - (float*)getVertexBuffer:(int)index{
-    return mVertexBuffer;
+    if(index == 1 && mVertexBuffer1 != NULL){
+        return mVertexBuffer1;
+    }
+    return mVertexBuffer0;
 }
 
 - (float*)getTextureBuffer:(int)index{
-    return mTextureBuffer;
+    if(index == 1 && mTextureBuffer1 != NULL){
+        return mTextureBuffer1;
+    }
+    return mTextureBuffer0;
 }
 
-- (void)setVertexBuffer:(float*)buffer size:(int)size{
+- (void)setVertexIndex:(int)index buffer:(float*)buffer size:(int)size{
+    float* ptr;
     int size_t = sizeof(float)*size;
-    mVertexBuffer = malloc(size_t);
-    memcpy(mVertexBuffer, buffer, size_t);
+    ptr = malloc(size_t);
+    memcpy(ptr, buffer, size_t);
+    
+    if (index == 1) {
+        mVertexBuffer1 = ptr;
+    } else {
+        mVertexBuffer0 = ptr;
+    }
 }
 
-- (void)setIndicesBuffer:(short *)buffer size:(int)size{
+- (void)setTextureIndex:(int)index buffer:(float*)buffer size:(int)size{
+    float* ptr;
+    int size_t = sizeof(float)*size;
+    ptr = malloc(size_t);
+    memcpy(ptr, buffer, size_t);
+    
+    if (index == 1) {
+        mTextureBuffer1 = ptr;
+    } else {
+        mTextureBuffer0 = ptr;
+    }
+}
+
+- (void)setIndicesBuffer:(short*)buffer size:(int)size{
     int size_t = sizeof(short)*size;
     mIndicesBuffer = malloc(size_t);
     assert(mIndicesBuffer);
@@ -61,12 +90,6 @@ static int sPositionDataSize = 3;
 
 - (short*) getIndices{
     return mIndicesBuffer;
-}
-
-- (void)setTextureBuffer:(float*)buffer size:(int)size{
-    int size_t = sizeof(float)*size;
-    mTextureBuffer = malloc(size_t);
-    memcpy(mTextureBuffer, buffer, size_t);
 }
 
 - (void)setNumIndices:(int)value{
@@ -83,29 +106,13 @@ static int sPositionDataSize = 3;
     //[GLUtil loadObject3DMock:self];
 }
 
-- (void)markChanged{
-    [self markVerticesChanged];
-    [self markTexCoordinateChanged];
-}
-
-- (void)markVerticesChanged{
-    mVerticesChanged = YES;
-}
-
-- (void)markTexCoordinateChanged{
-    mTexCoordinateChanged = YES;
-}
-
 - (void)uploadVerticesBufferIfNeed:(MD360Program*) program index:(int)index{
     float* pointer = [self getVertexBuffer:index];
     if (pointer == NULL){
         glDisableVertexAttribArray(program.mPositionHandle);
     } else {
-        if(mVerticesChanged){
-            glEnableVertexAttribArray(program.mPositionHandle);
-            glVertexAttribPointer(program.mPositionHandle, sPositionDataSize, GL_FLOAT, 0, 0, pointer);
-            mVerticesChanged = NO;
-        }
+        glEnableVertexAttribArray(program.mPositionHandle);
+        glVertexAttribPointer(program.mPositionHandle, sPositionDataSize, GL_FLOAT, 0, 0, pointer);
     }
     
     
@@ -116,12 +123,8 @@ static int sPositionDataSize = 3;
     if (pointer == NULL){
         glDisableVertexAttribArray(program.mTextureCoordinateHandle);
     } else {
-        if(mTexCoordinateChanged){
-            
-            glEnableVertexAttribArray(program.mTextureCoordinateHandle);
-            glVertexAttribPointer(program.mTextureCoordinateHandle, 2, GL_FLOAT, 0, 0, pointer);
-            mTexCoordinateChanged = NO;
-        }
+        glEnableVertexAttribArray(program.mTextureCoordinateHandle);
+        glVertexAttribPointer(program.mTextureCoordinateHandle, 2, GL_FLOAT, 0, 0, pointer);
     }
     
 }
@@ -140,17 +143,4 @@ static int sPositionDataSize = 3;
     [GLUtil glCheck:@"glDrawArrays"];
 }
 
--(NSString *)description{
-
-    NSMutableString* vertexSB = [[NSMutableString alloc]init];
-    for (int i = 0; i < self.mNumIndices * 3; i++) {
-        [vertexSB appendFormat:@"%f ",mVertexBuffer[i]];
-    }
-    NSMutableString* textureSB = [[NSMutableString alloc]init];
-    for (int i = 0; i < self.mNumIndices * 2; i++) {
-        [textureSB appendFormat:@"%f ",mTextureBuffer[i]];
-    }
-    NSString* result = [NSString stringWithFormat:@"loadObject3D complete:\n %@\n\n %@\n\n %d\n\n",vertexSB,textureSB,self.mNumIndices];
-    return result;
-}
 @end

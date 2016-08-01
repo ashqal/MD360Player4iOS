@@ -12,6 +12,5 @@
 @implementation MDObject3DHelper
 + (void) loadObj:(MDAbsObject3D*)obj{
     [obj executeLoad];
-    [obj markChanged];
 }
 @end

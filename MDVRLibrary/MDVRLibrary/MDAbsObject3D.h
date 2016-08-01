@@ -20,8 +20,8 @@
 
 @property (nonatomic,readonly) int mNumIndices;
 
-- (void)setVertexBuffer:(float*)buffer size:(int)size;
-- (void)setTextureBuffer:(float*)buffer size:(int)size;
+- (void)setVertexIndex:(int)index buffer:(float*)buffer size:(int)size;
+- (void)setTextureIndex:(int)index buffer:(float*)buffer size:(int)size;
 - (void)setIndicesBuffer:(short*)buffer size:(int)size;
 - (float*)getVertexBuffer:(int)index;
 - (float*)getTextureBuffer:(int)index;
@@ -31,9 +31,7 @@
 - (void)executeLoad;
 - (void)uploadVerticesBufferIfNeed:(MD360Program*) program index:(int)index;
 - (void)uploadTexCoordinateBufferIfNeed:(MD360Program*) program index:(int)index;
-- (void)markChanged;
-- (void)markVerticesChanged;
-- (void)markTexCoordinateChanged;
+
 
 - (short*) getIndices;
 

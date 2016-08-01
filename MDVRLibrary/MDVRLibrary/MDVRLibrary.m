@@ -17,6 +17,7 @@
 #import "MDAbsObject3D.h"
 #import "MDProjectionStrategy.h"
 #import "MDVRHeader.h"
+#import "MDAbsPlugin.h"
 
 @interface MDVRLibrary()<IAdvanceGestureListener>
 @property (nonatomic,strong) MD360Texture* texture;
@@ -24,6 +25,7 @@
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
 @property (nonatomic,strong) MDDisplayStrategyManager* displayStrategyManager;
 @property (nonatomic,strong) MDProjectionStrategyManager* projectionStrategyManager;
+@property (nonatomic,strong) MDPluginManager* pluginManager;
 @property (nonatomic,strong) MD360Renderer* renderer;
 @property (nonatomic,strong) MDTouchHelper* touchHelper;
 @property (nonatomic,strong) MDSizeContext* sizeContext;
@@ -64,15 +66,15 @@
     [self.displayStrategyManager prepare];
 }
 
+
 - (void) setupDisplay:(UIViewController*)viewController view:(UIView*)parentView{
     MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
     
     // renderer
     MD360RendererBuilder* builder = [MD360Renderer builder];
-    [builder setTexture:self.texture];
-    [builder setProgram:self.program];
     [builder setDisplayStrategyManager:self.displayStrategyManager];
     [builder setProjectionStrategyManager:self.projectionStrategyManager];
+    [builder setPluginManager:self.pluginManager];
     self.renderer = [builder build];
     glkViewController.rendererDelegate = self.renderer;
     
@@ -229,6 +231,7 @@
     library.texture = self.texture;
     library.texture.sizeContext = library.sizeContext;
     
+    // program
     library.program = self.program;
     
     // parent view
@@ -242,6 +245,14 @@
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
     library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];
     [library setupStrategyManager];
+    
+    // setup plugin manager
+    MDPanoramaPluginBuilder* pluginBuilder = [MDPanoramaPlugin builder];
+    [pluginBuilder setProgram:self.program];
+    [pluginBuilder setTexture:self.texture];
+    [pluginBuilder setProjectionStrategyManager:library.projectionStrategyManager];
+    library.pluginManager = [[MDPluginManager alloc]init];
+    [library.pluginManager add:[pluginBuilder build]];
     
     // touch
     library.touchHelper.pinchEnabled = self.pinchEnabled;
