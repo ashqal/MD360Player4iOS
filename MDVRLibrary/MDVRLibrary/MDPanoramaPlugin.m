@@ -42,7 +42,10 @@
     if ([self.mProjectionStrategyManager respondsToSelector:@selector(getDirectors)]) {
         directors = [self.mProjectionStrategyManager getDirectors];
     }
-    if (directors == nil) return;
+    
+    if (directors == nil){
+        return;
+    }
     
     if (index >= [directors count]) {
         return;
@@ -54,16 +57,8 @@
         object3D = [self.mProjectionStrategyManager getObject3D];
     }
     if (object3D == nil) return;
-    
-    
-    
-    // update texture
-    BOOL updated = [self.mTexture updateTexture:context];
-    if (!updated) return;
 
-    
     MD360Director* direcotr = [directors objectAtIndex:index];
-    glViewport(width * index, 0, width, height);
     
     // Update Projection
     [direcotr updateProjection:width height:height];
@@ -72,6 +67,9 @@
     [self.mProgram use];
     [GLUtil glCheck:@"mProgram use"];
     
+    // update texture
+    [self.mTexture updateTexture:context];
+
     // upload
     [object3D uploadVerticesBufferIfNeed:self.mProgram index:index];
     [object3D uploadTexCoordinateBufferIfNeed:self.mProgram index:index];

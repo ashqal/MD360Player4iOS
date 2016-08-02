@@ -41,6 +41,13 @@ static int sPositionDataSize = 3;
     mIndicesBuffer = NULL;
 }
 
+- (void) freeBuffer:(float*)buffer{
+    if (buffer != NULL) {
+        free(buffer);
+        buffer = NULL;
+    }
+}
+
 - (float*)getVertexBuffer:(int)index{
     if(index == 1 && mVertexBuffer1 != NULL){
         return mVertexBuffer1;
@@ -62,8 +69,10 @@ static int sPositionDataSize = 3;
     memcpy(ptr, buffer, size_t);
     
     if (index == 1) {
+        [self freeBuffer:mVertexBuffer1];
         mVertexBuffer1 = ptr;
     } else {
+        [self freeBuffer:mVertexBuffer0];
         mVertexBuffer0 = ptr;
     }
 }
@@ -75,8 +84,10 @@ static int sPositionDataSize = 3;
     memcpy(ptr, buffer, size_t);
     
     if (index == 1) {
+        [self freeBuffer:mTextureBuffer1];
         mTextureBuffer1 = ptr;
     } else {
+        [self freeBuffer:mTextureBuffer0];
         mTextureBuffer0 = ptr;
     }
 }
@@ -108,9 +119,7 @@ static int sPositionDataSize = 3;
 
 - (void)uploadVerticesBufferIfNeed:(MD360Program*) program index:(int)index{
     float* pointer = [self getVertexBuffer:index];
-    if (pointer == NULL){
-        glDisableVertexAttribArray(program.mPositionHandle);
-    } else {
+    if (pointer != NULL){
         glEnableVertexAttribArray(program.mPositionHandle);
         glVertexAttribPointer(program.mPositionHandle, sPositionDataSize, GL_FLOAT, 0, 0, pointer);
     }
@@ -120,9 +129,7 @@ static int sPositionDataSize = 3;
 
 - (void)uploadTexCoordinateBufferIfNeed:(MD360Program*) program index:(int)index{
     float* pointer = [self getTextureBuffer:index];
-    if (pointer == NULL){
-        glDisableVertexAttribArray(program.mTextureCoordinateHandle);
-    } else {
+    if (pointer != NULL){
         glEnableVertexAttribArray(program.mTextureCoordinateHandle);
         glVertexAttribPointer(program.mTextureCoordinateHandle, 2, GL_FLOAT, 0, 0, pointer);
     }
