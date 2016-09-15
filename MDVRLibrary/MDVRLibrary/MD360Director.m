@@ -95,10 +95,9 @@ static float sNear = 0.7f;
     mModelMatrix = GLKMatrix4Identity;
     
     mCurrentRotation = GLKMatrix4Identity;
-
-    mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, MD_DEGREES_TO_RADIANS(-mDeltaY + mAngleY), 1.0f, 0.0f, 0.0f);
+    mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, GLKMathDegreesToRadians(-mDeltaY + mAngleY), 1.0f, 0.0f, 0.0f);
     
-    mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, MD_DEGREES_TO_RADIANS(-mDeltaX + mAngleX), 0.0f, 1.0f, 0.0f);
+    mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, GLKMathDegreesToRadians(-mDeltaX + mAngleX), 0.0f, 1.0f, 0.0f);
     
     mCurrentRotation = GLKMatrix4Multiply(mSensorMatrix, mCurrentRotation);
     

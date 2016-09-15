@@ -17,9 +17,6 @@
 #define MD360_DEBUG true
 #endif
 
-#define MD_RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
-#define MD_DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
-
 /** see {@link #remapCoordinateSystem} */
 static const int AXIS_X = 1;
 /** see {@link #remapCoordinateSystem} */
