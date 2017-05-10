@@ -62,12 +62,9 @@
 
 - (void) rendererOnDrawFrame:(EAGLContext*)context width:(int)width height:(int)height{
     // clear
-    
-    
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [GLUtil glCheck:@"glClear"];
-    
         
     // draw
     float scale = [GLUtil getScrrenScale];
@@ -78,12 +75,12 @@
     int itemWidthPx = widthPx * 1.0 / size;
     for (int i = 0; i < size; i++ ) {
     
-        glViewport(widthPx * i, 0, widthPx, heightPx);
+        glViewport(itemWidthPx * i, 0, itemWidthPx, heightPx);
         glEnable(GL_SCISSOR_TEST);
-        glScissor(widthPx * i, 0, widthPx, heightPx);
+        glScissor(itemWidthPx * i, 0, itemWidthPx, heightPx);
         NSArray* plugins = [self.mPluginManager getPlugins];
         for (MDAbsPlugin* plugin in plugins) {
-            [plugin renderer:context index:i width:widthPx height:heightPx];
+            [plugin renderer:context index:i width:itemWidthPx height:heightPx];
         }
         
         glDisable(GL_SCISSOR_TEST);
