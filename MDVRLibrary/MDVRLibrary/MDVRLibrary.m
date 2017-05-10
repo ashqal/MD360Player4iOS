@@ -78,9 +78,7 @@
     self.renderer = [builder build];
     glkViewController.rendererDelegate = self.renderer;
     
-    float width = [[UIScreen mainScreen] bounds].size.width;
-    float height = [[UIScreen mainScreen] bounds].size.height;
-    [glkViewController.view setFrame:CGRectMake(0, 0, width, height)];
+    [glkViewController.view setFrame:parentView.frame];
     
     [parentView insertSubview:glkViewController.view atIndex:0];
     if (viewController != nil) {
