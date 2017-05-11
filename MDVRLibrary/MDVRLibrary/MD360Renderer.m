@@ -73,12 +73,17 @@
     
     int size = [self.mDisplayStrategyManager getVisibleSize];
     int itemWidthPx = widthPx * 1.0 / size;
-    for (int i = 0; i < size; i++ ) {
     
+    NSArray* plugins = [self.mPluginManager getPlugins];
+    for (MDAbsPlugin* plugin in plugins) {
+        [plugin beforeRenderer:context totalW:widthPx totalH:heightPx];
+    }
+    
+    for (int i = 0; i < size; i++ ) {
         glViewport(itemWidthPx * i, 0, itemWidthPx, heightPx);
         glEnable(GL_SCISSOR_TEST);
         glScissor(itemWidthPx * i, 0, itemWidthPx, heightPx);
-        NSArray* plugins = [self.mPluginManager getPlugins];
+        
         for (MDAbsPlugin* plugin in plugins) {
             [plugin renderer:context index:i width:itemWidthPx height:heightPx];
         }

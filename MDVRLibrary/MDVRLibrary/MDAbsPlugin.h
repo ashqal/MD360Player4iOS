@@ -19,6 +19,8 @@
 
 - (void) resizeWidth:(int)width height:(int)height;
 
+- (void) beforeRenderer:(EAGLContext*)context totalW:(float) totalW totalH:(float)totalH;
+
 - (void) renderer:(EAGLContext*)context index:(int)index width:(int)width height:(int)height;
 
 @end
@@ -45,4 +47,3 @@
 @interface MDPanoramaPlugin : MDAbsPlugin
 + (MDPanoramaPluginBuilder*) builder;
 @end
-
