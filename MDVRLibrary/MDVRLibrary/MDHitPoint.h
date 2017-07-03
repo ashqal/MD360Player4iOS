@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVKit/AVKit.h>
 
 @interface MDHitPoint : NSObject
+@property (nonatomic) float distance;
+@property (nonatomic) float u;
+@property (nonatomic) float v;
+- (void) asNotHit;
+- (BOOL) isNotHit;
 
 @end

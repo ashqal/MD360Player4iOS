@@ -8,7 +8,8 @@
 
 #import "MDAbsObject3D.h"
 
-static const int sPlaneNumPoint = 6;
+static const int sNumRow = 1;
+static const int sNumColumn = 1;
 
 @interface MDPlane(){
     float mPrevRatio;
@@ -28,6 +29,11 @@ static const int sPlaneNumPoint = 6;
         self.mCalculator = calculator;
     }
     return self;
+}
+
+- (instancetype)initWithSize:(MDSizeContext*) size {
+    MDPlaneScaleCalculator* calculator = [[MDPlaneScaleCalculator alloc] initWithScale:MDModeProjectionPlaneFull sizeContext:size];
+    return [self initWithCalculator:calculator];
 }
 
 -(NSString*) obtainObjPath{
@@ -67,95 +73,105 @@ static const int sPlaneNumPoint = 6;
 }
 
 - (void) generatePlane:(MDAbsObject3D*) object3D{
-    int numPoint = sPlaneNumPoint;
+    int numPoint = [self getNumPoint];
     
     float* texcoords = [self generateTexcoords];
     float* vertexs = [self generateVertex];
+    short* indices = malloc(sizeof(short) * 6 * numPoint);
+    
+    int rows = [self getNumRow];
+    int columns = [self getNumColumn];
+    short r,s;
+    
+    int counter = 0;
+    int sectorsPlusOne = columns + 1;
+    for(r = 0; r < rows; r++){
+        for(s = 0; s < columns; s++) {
+            short k0 = (short) ((r+1) * sectorsPlusOne + (s+1));  // (d)
+            short k1 = (short) (r * sectorsPlusOne + s);       //(a);
+            short k2 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
+            short k3 = (short) ((r+1) * sectorsPlusOne + (s+1));  // (d)
+            short k4 = (short) (r * sectorsPlusOne + s);       //(a);
+            short k5 = (short) ((r+1) * sectorsPlusOne + (s));    //(b)
+            
+            indices[counter++] = k0;
+            indices[counter++] = k1;
+            indices[counter++] = k2;
+            indices[counter++] = k3;
+            indices[counter++] = k4;
+            indices[counter++] = k5;
+        }
+    }
     
     [object3D setTextureIndex:0 buffer:texcoords size: 2 * numPoint]; //object3D.setTexCoordinateBuffer(texBuffer);
     [object3D setVertexIndex:0 buffer:vertexs size: 3 * numPoint]; //object3D.setVerticesBuffer(vertexBuffer);
-    [object3D setNumIndices:numPoint];
-    
+    [object3D setIndicesBuffer:indices size: 6 * numPoint];
+    [object3D setNumIndices:6 * numPoint];
     
     free(texcoords);
     free(vertexs);
+    free(indices);
 }
 
 - (float*) generateVertex{
-    int numPoint = sPlaneNumPoint;
-    int z = -2;
+    int numPoint = [self getNumPoint];
+    int z = -1;
     
     [self.mCalculator calculate];
     mPrevRatio = [self.mCalculator getTextureRatio];
     float width = [self.mCalculator getTextureWidth];
     float height = [self.mCalculator getTextureHeight];
     
-    float* vertexs = malloc ( sizeof(float) * 3 * numPoint );
-    int i = 0;
-    vertexs[i*3] = width;
-    vertexs[i*3 + 1] = -height;
-    vertexs[i*3 + 2] = z;
-    i++;
+    float* vertexs = malloc (sizeof(float) * 3 * numPoint);
+    int rows = [self getNumRow];
+    int columns = [self getNumColumn];
+    float R = 1.0f / rows;
+    float S = 1.0f / columns;
+    short r,s;
     
-    vertexs[i*3] = -width;
-    vertexs[i*3 + 1] = height;
-    vertexs[i*3 + 2] = z;
-    i++;
-    
-    vertexs[i*3] = -width;
-    vertexs[i*3 + 1] = -height;
-    vertexs[i*3 + 2] = z;
-    i++;
-    
-    vertexs[i*3] = width;
-    vertexs[i*3 + 1] = -height;
-    vertexs[i*3 + 2] = z;
-    i++;
-    
-    vertexs[i*3] = width;
-    vertexs[i*3 + 1] = height;
-    vertexs[i*3 + 2] = z;
-    i++;
-    
-    vertexs[i*3] = -width;
-    vertexs[i*3 + 1] = height;
-    vertexs[i*3 + 2] = z;
-    i++;
+    int v = 0;
+    for(r = 0; r < rows + 1; r++) {
+        for (s = 0; s < columns + 1; s++) {
+            vertexs[v++] = (s * S - 0.5f) * width * 2.0f;
+            vertexs[v++] = - (r * R - 0.5f) * height * 2.0f;
+            vertexs[v++] = z;
+        }
+    }
     
     return vertexs;
-    
 }
 
 -(float*) generateTexcoords{
-    int numPoint = sPlaneNumPoint;
-    float* texcoords = malloc ( sizeof(float) * 2 * numPoint );
+    int numPoint = [self getNumPoint];
+    float* texcoords = malloc (sizeof(float) * 2 * numPoint);
     
-    int i = 0;
-    texcoords[i*2] = 1;
-    texcoords[i*2 + 1] = 1;
-    i++;
+    int rows = [self getNumRow];
+    int columns = [self getNumColumn];
+    float R = 1.0f / rows;
+    float S = 1.0f / columns;
+    short r,s;
     
-    texcoords[i*2] = 0;
-    texcoords[i*2 + 1] = 0;
-    i++;
-    
-    texcoords[i*2] = 0;
-    texcoords[i*2 + 1] = 1;
-    i++;
-    
-    texcoords[i*2] = 1;
-    texcoords[i*2 + 1] = 1;
-    i++;
-    
-    texcoords[i*2] = 1;
-    texcoords[i*2 + 1] = 0;
-    i++;
-    
-    texcoords[i*2] = 0;
-    texcoords[i*2 + 1] = 0;
-    i++;
+    int t = 0;
+    for(r = 0; r < rows + 1; r++) {
+        for (s = 0; s < columns + 1; s++) {
+            texcoords[t++] = s*S;
+            texcoords[t++] = r*R;
+        }
+    }
     
     return texcoords;
+}
+
+- (int) getNumPoint {
+    return ([self getNumRow] + 1) * ([self getNumColumn] + 1);
+}
+
+- (int) getNumRow {
+    return sNumRow;
+}
+
+- (int) getNumColumn {
+    return sNumColumn;
 }
 
 @end

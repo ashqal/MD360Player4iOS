@@ -54,6 +54,7 @@
 
 @interface MDPlane : MDAbsObject3D
 - (instancetype)initWithCalculator:(MDPlaneScaleCalculator*) calculator;
+- (instancetype)initWithSize:(MDSizeContext*) size;
 @end
 
 

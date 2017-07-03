@@ -12,4 +12,5 @@
 
 @interface MDDisplayStrategyManager : MDModeManager
 - (int) getVisibleSize;
+- (BOOL) isAntiDistortionEnabled;
 @end

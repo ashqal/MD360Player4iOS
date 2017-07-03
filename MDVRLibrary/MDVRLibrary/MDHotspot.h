@@ -15,7 +15,6 @@
 @protocol IMDHotspot <NSObject>
 
 @required
-
 - (MDHitPoint*) hit:(MDRay*) ray;
 - (void) onEyeHitIn:(MDHitEvent*) hitEvent;
 - (void) onEyeHitOut:(long) timestamp;
@@ -25,6 +24,7 @@
 - (void) rotateToCamera;
 @end
 
+#pragma mark MDHotspot
 @interface MDHotspot : MDAbsPlugin<IMDHotspot>
 
 @end

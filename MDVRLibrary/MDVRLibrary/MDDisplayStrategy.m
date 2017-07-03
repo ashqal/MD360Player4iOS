@@ -68,6 +68,10 @@
     return [strategy getVisibleSize];
 }
 
+- (BOOL) isAntiDistortionEnabled {
+    return YES;
+}
+
 - (NSArray*) createModes{
     return [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:MDModeDisplayNormal], [NSNumber numberWithInt:MDModeDisplayGlass], nil];
 }

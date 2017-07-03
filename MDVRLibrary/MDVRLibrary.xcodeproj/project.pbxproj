@@ -34,6 +34,9 @@
 		5EA133EA1D4E3B850090B8AB /* MDAbsPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA133E91D4E3B850090B8AB /* MDAbsPlugin.m */; };
 		5EA133ED1D4E3CB60090B8AB /* MDPluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA133EC1D4E3CB60090B8AB /* MDPluginManager.m */; };
 		5EA133EF1D4E3E8F0090B8AB /* MDPanoramaPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EA133EE1D4E3E8F0090B8AB /* MDPanoramaPlugin.m */; };
+		5EB70A591F08CE28008A8601 /* MDAbsLinePipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB70A581F08CE28008A8601 /* MDAbsLinePipe.m */; };
+		5EB70A5B1F08D312008A8601 /* MDBarrelDistortionLinePipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB70A5A1F08D312008A8601 /* MDBarrelDistortionLinePipe.m */; };
+		5EB70A5E1F08D36D008A8601 /* MDDrawingCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EB70A5D1F08D36D008A8601 /* MDDrawingCache.m */; };
 		5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */; };
 		5EECBB991EC40B040015D35B /* MDVector3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EECBB981EC40B040015D35B /* MDVector3D.m */; };
 		5EECBB9C1EC40C310015D35B /* MDPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EECBB9B1EC40C310015D35B /* MDPosition.m */; };
@@ -108,6 +111,11 @@
 		5EA133E91D4E3B850090B8AB /* MDAbsPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDAbsPlugin.m; sourceTree = "<group>"; };
 		5EA133EC1D4E3CB60090B8AB /* MDPluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDPluginManager.m; sourceTree = "<group>"; };
 		5EA133EE1D4E3E8F0090B8AB /* MDPanoramaPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDPanoramaPlugin.m; sourceTree = "<group>"; };
+		5EB70A571F08CE28008A8601 /* MDAbsLinePipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDAbsLinePipe.h; sourceTree = "<group>"; };
+		5EB70A581F08CE28008A8601 /* MDAbsLinePipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDAbsLinePipe.m; sourceTree = "<group>"; };
+		5EB70A5A1F08D312008A8601 /* MDBarrelDistortionLinePipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDBarrelDistortionLinePipe.m; sourceTree = "<group>"; };
+		5EB70A5C1F08D36D008A8601 /* MDDrawingCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDrawingCache.h; sourceTree = "<group>"; };
+		5EB70A5D1F08D36D008A8601 /* MDDrawingCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDrawingCache.m; sourceTree = "<group>"; };
 		5ECD55C21D229B5900C01046 /* MDProjectionStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDProjectionStrategy.h; sourceTree = "<group>"; };
 		5ECD55C31D229B5900C01046 /* MDProjectionStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDProjectionStrategy.m; sourceTree = "<group>"; };
 		5EECBB971EC40B040015D35B /* MDVector3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDVector3D.h; sourceTree = "<group>"; };
@@ -254,6 +262,11 @@
 				5EA133EE1D4E3E8F0090B8AB /* MDPanoramaPlugin.m */,
 				5EECBBA91EC4B5E10015D35B /* MDHotspot.h */,
 				5EECBBAA1EC4B5E10015D35B /* MDHotspot.m */,
+				5EB70A571F08CE28008A8601 /* MDAbsLinePipe.h */,
+				5EB70A581F08CE28008A8601 /* MDAbsLinePipe.m */,
+				5EB70A5A1F08D312008A8601 /* MDBarrelDistortionLinePipe.m */,
+				5EB70A5C1F08D36D008A8601 /* MDDrawingCache.h */,
+				5EB70A5D1F08D36D008A8601 /* MDDrawingCache.m */,
 			);
 			name = plugins;
 			sourceTree = "<group>";
@@ -369,8 +382,10 @@
 				5E1EE7361CBEA5ED004E0B79 /* MDGLKViewController.m in Sources */,
 				5EF561C21D44FFF60023A3DF /* MDPlane.m in Sources */,
 				5E1EE7391CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m in Sources */,
+				5EB70A591F08CE28008A8601 /* MDAbsLinePipe.m in Sources */,
 				5E6A43C21D37666500E6BA74 /* MDYUV420PVideoTexture.m in Sources */,
 				5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */,
+				5EB70A5E1F08D36D008A8601 /* MDDrawingCache.m in Sources */,
 				5EF64E171D39421800F11A08 /* MDIJKAdapter.m in Sources */,
 				5E1EE6DD1CBEA56B004E0B79 /* MDVRLibrary.m in Sources */,
 				5E1EE7341CBEA5ED004E0B79 /* MDAbsObject3D.m in Sources */,
@@ -381,6 +396,7 @@
 				5E59F63A1D242AFC002DADC9 /* MDStereoSphere3D.m in Sources */,
 				5EA133EF1D4E3E8F0090B8AB /* MDPanoramaPlugin.m in Sources */,
 				5E59F6381D242A6B002DADC9 /* MDSphere3D.m in Sources */,
+				5EB70A5B1F08D312008A8601 /* MDBarrelDistortionLinePipe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

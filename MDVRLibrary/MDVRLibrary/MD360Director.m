@@ -206,7 +206,7 @@ static float sNear = 0.7f;
 
 @end
 
-#pragma mark 
+#pragma mark MD360DefaultDirectorFactory
 @implementation MD360DefaultDirectorFactory
 - (MD360Director*) createDirector:(int) index{
     MD360Director* director = [[MD360Director alloc]init];
@@ -221,4 +221,44 @@ static float sNear = 0.7f;
     [director setup];
     return director;
 }
+@end
+
+#pragma mark MD360OrthogonalDirectorFactory
+@interface OrthogonalDirector:MD360Director
+@end
+
+@implementation OrthogonalDirector
+- (void) updateTouch:(float)distX distY:(int)distY{
+    // nop
+}
+
+- (void) updateSensorMatrix:(GLKMatrix4)sensor{
+    // nop
+}
+
+- (void) updateProjectionNearScale:(float)scale{
+    // nop
+}
+
+- (void) updateProjection{
+    float left = - 1.0f;
+    float right = 1.0f;
+    float bottom = - 1.0f;
+    float top = 1.0f;
+    float far = 500;
+    
+    GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(left, right, bottom, top, [self getNear], far);
+    [self setProjection:projectionMatrix];
+    
+}
+@end
+
+@implementation MD360OrthogonalDirectorFactory
+
+- (MD360Director*) createDirector:(int) index{
+    MD360Director* director = [[OrthogonalDirector alloc]init];
+    [director setup];
+    return director;
+}
+
 @end
