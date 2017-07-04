@@ -27,19 +27,12 @@
     return [[MD360RendererBuilder alloc]init];
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
 - (void)dealloc{
     
 }
 
-- (void) setup{
+- (void) setup {
+    //
     self.mMainLinePipe = [[MDBarrelDistortionLinePipe alloc] initWith:self.mDisplayStrategyManager];
 }
 
@@ -134,6 +127,7 @@
     renderer.mPluginManager = self.pluginManager;
     renderer.mProjectionStrategyManager = self.projectionStrategyManager;
     renderer.mDisplayStrategyManager = self.displayStrategyManager;
+    [renderer setup];
     return renderer;
 }
 

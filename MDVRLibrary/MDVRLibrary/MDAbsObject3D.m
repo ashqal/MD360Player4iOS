@@ -146,7 +146,6 @@ static int sPositionDataSize = 3;
         glDrawArrays(GL_TRIANGLES, 0, self.mNumIndices);
     }
     // Draw
-    
     [GLUtil glCheck:@"glDrawArrays"];
 }
 

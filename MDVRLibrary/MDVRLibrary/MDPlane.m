@@ -74,25 +74,29 @@ static const int sNumColumn = 1;
 
 - (void) generatePlane:(MDAbsObject3D*) object3D{
     int numPoint = [self getNumPoint];
-    
     float* texcoords = [self generateTexcoords];
     float* vertexs = [self generateVertex];
-    short* indices = malloc(sizeof(short) * 6 * numPoint);
     
     int rows = [self getNumRow];
     int columns = [self getNumColumn];
+    float numIndices = rows * columns * 6;
+    short* indices = malloc(sizeof(short) * numIndices);
+    
     short r,s;
     
     int counter = 0;
     int sectorsPlusOne = columns + 1;
     for(r = 0; r < rows; r++){
         for(s = 0; s < columns; s++) {
-            short k0 = (short) ((r+1) * sectorsPlusOne + (s+1));  // (d)
-            short k1 = (short) (r * sectorsPlusOne + s);       //(a);
-            short k2 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
-            short k3 = (short) ((r+1) * sectorsPlusOne + (s+1));  // (d)
-            short k4 = (short) (r * sectorsPlusOne + s);       //(a);
-            short k5 = (short) ((r+1) * sectorsPlusOne + (s));    //(b)
+            // d a c d a b
+            
+            short k0 = (short) (r * sectorsPlusOne + s);       //(a);
+            short k1 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
+            short k2 = (short) ((r+1) * sectorsPlusOne + (s));    //(b)
+            short k3 = (short) (r * sectorsPlusOne + s);       //(a);
+            
+            short k4 = (short) ((r+1) * sectorsPlusOne + (s+1));  // (d)
+            short k5 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
             
             indices[counter++] = k0;
             indices[counter++] = k1;
@@ -105,8 +109,8 @@ static const int sNumColumn = 1;
     
     [object3D setTextureIndex:0 buffer:texcoords size: 2 * numPoint]; //object3D.setTexCoordinateBuffer(texBuffer);
     [object3D setVertexIndex:0 buffer:vertexs size: 3 * numPoint]; //object3D.setVerticesBuffer(vertexBuffer);
-    [object3D setIndicesBuffer:indices size: 6 * numPoint];
-    [object3D setNumIndices:6 * numPoint];
+    [object3D setIndicesBuffer:indices size: numIndices];
+    [object3D setNumIndices: numIndices];
     
     free(texcoords);
     free(vertexs);
@@ -133,7 +137,7 @@ static const int sNumColumn = 1;
     for(r = 0; r < rows + 1; r++) {
         for (s = 0; s < columns + 1; s++) {
             vertexs[v++] = (s * S - 0.5f) * width * 2.0f;
-            vertexs[v++] = - (r * R - 0.5f) * height * 2.0f;
+            vertexs[v++] = (r * R - 0.5f) * height * 2.0f;
             vertexs[v++] = z;
         }
     }

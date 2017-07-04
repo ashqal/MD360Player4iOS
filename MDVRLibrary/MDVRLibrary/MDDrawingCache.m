@@ -9,13 +9,15 @@
 #import "MDDrawingCache.h"
 #import "GLUtil.h"
 
-@interface MDDrawingCache()
+@interface MDDrawingCache(){
+    GLuint mTextureIdOutput;
+    GLuint mFrameBufferId;
+    GLuint mRenderBufferId;
+    GLint mOriginalFrameBufferId;
+}
 @property (nonatomic) int width;
 @property (nonatomic) int height;
-@property (nonatomic) GLuint* mTextureIdOutput;
-@property (nonatomic) GLuint* mFrameBufferId;
-@property (nonatomic) GLuint* mRenderBufferId;
-@property (nonatomic) GLint mOriginalFrameBufferId;
+
 
 @end
 
@@ -23,19 +25,16 @@
 
 - (void)dealloc
 {
-    if (self.mTextureIdOutput != 0) {
-        glDeleteTextures(1, self.mTextureIdOutput);
-        free(self.mTextureIdOutput);
+    if (mTextureIdOutput != 0) {
+        glDeleteTextures(1, &mTextureIdOutput);
     }
     
-    if (self.mRenderBufferId != 0) {
-        glDeleteRenderbuffers(1, self.mRenderBufferId);
-        free(self.mRenderBufferId);
+    if (mRenderBufferId != 0) {
+        glDeleteRenderbuffers(1, &mRenderBufferId);
     }
     
-    if (self.mFrameBufferId != 0) {
-        glDeleteFramebuffers(1, self.mFrameBufferId);
-        free(self.mFrameBufferId);
+    if (mFrameBufferId != 0) {
+        glDeleteFramebuffers(1, &mFrameBufferId);
     }
     
 }
@@ -44,21 +43,18 @@
 {
     [self setupTotalWidth:w totalHeight:h];
     
-    GLint orignialFrameBufferId[1];
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING, orignialFrameBufferId);
-    self.mOriginalFrameBufferId = orignialFrameBufferId[0];
-    
-    glBindFramebuffer(GL_FRAMEBUFFER, self.mFrameBufferId[0]);
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &mOriginalFrameBufferId);
+    glBindFramebuffer(GL_FRAMEBUFFER, mFrameBufferId);
 }
 
 -(void) unbind
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, self.mOriginalFrameBufferId);
+    glBindFramebuffer(GL_FRAMEBUFFER, mOriginalFrameBufferId);
 }
 
 -(GLuint) getTextureOutput
 {
-    return self.mTextureIdOutput[0];
+    return mTextureIdOutput;
 }
 
 -(void) setupTotalWidth:(int)w totalHeight:(int)h
@@ -72,36 +68,35 @@
 
 -(void) createFrameBufferWidth:(int)w height:(int)h
 {
-    if (self.mTextureIdOutput != 0) {
-        glDeleteTextures(1, self.mTextureIdOutput);
+    if (mTextureIdOutput != 0) {
+        glDeleteTextures(1, &mTextureIdOutput);
     }
     
-    if (self.mRenderBufferId != 0) {
-        glDeleteRenderbuffers(1, self.mRenderBufferId);
+    if (mRenderBufferId != 0) {
+        glDeleteRenderbuffers(1, &mRenderBufferId);
     }
     
-    if (self.mFrameBufferId != 0) {
-        glDeleteFramebuffers(1, self.mFrameBufferId);
+    if (mFrameBufferId != 0) {
+        glDeleteFramebuffers(1, &mFrameBufferId);
     }
     
-    GLint orignialFrameBufferId[1];
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING, orignialFrameBufferId);
-    self.mOriginalFrameBufferId = orignialFrameBufferId[0];
+    
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &mOriginalFrameBufferId);
     
     //
-    glGenFramebuffers(1, self.mFrameBufferId);
-    glBindFramebuffer(GL_FRAMEBUFFER, self.mFrameBufferId[0]);
+    glGenFramebuffers(1, &mFrameBufferId);
+    glBindFramebuffer(GL_FRAMEBUFFER, mFrameBufferId);
     [GLUtil glCheck:@"Multi Fish Eye frame buffer"];
     
     // renderer buffer
-    glGenRenderbuffers(1, self.mRenderBufferId);
-    glBindRenderbuffer(GL_RENDERBUFFER, self.mRenderBufferId[0]);
+    glGenRenderbuffers(1, &mRenderBufferId);
+    glBindRenderbuffer(GL_RENDERBUFFER, mRenderBufferId);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, w, h);
     [GLUtil glCheck:@"Multi Fish Eye renderer buffer"];
     
-    glGenTextures(1, self.mTextureIdOutput);
+    glGenTextures(1, &mTextureIdOutput);
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, self.mTextureIdOutput[0]);
+    glBindTexture(GL_TEXTURE_2D, mTextureIdOutput);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -110,8 +105,8 @@
     [GLUtil glCheck:@"Multi Fish Eye texture"];
     
     // attach
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, self.mTextureIdOutput[0], 0);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, self.mRenderBufferId[0]);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mTextureIdOutput, 0);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mRenderBufferId);
     [GLUtil glCheck:@"Multi Fish Eye attach"];
     
     // check
@@ -120,7 +115,7 @@
         NSLog(@"Framebuffer is not complete: %d", status);
     }
     
-    glBindFramebuffer(GL_FRAMEBUFFER, self.mOriginalFrameBufferId);
+    glBindFramebuffer(GL_FRAMEBUFFER, mOriginalFrameBufferId);
     [GLUtil glCheck:@"Multi Fish Eye restore"];
 }
 @end
