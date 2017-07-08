@@ -17,6 +17,7 @@
 #import "BarrelDistortionConfig.h"
 #import "VRUtil.h"
 
+#pragma mark MDBarrelDistortionMesh
 @interface MDBarrelDistortionMesh : MDAbsObject3D{
     float* mSingleTexCoorBuffer;
 }
@@ -30,7 +31,7 @@
 }
 @property (nonatomic,strong) MD360Program* mProgram;
 @property (nonatomic,strong) MD360Texture* mTexture;
-@property (nonatomic,strong) MDAbsObject3D* object3D;
+@property (nonatomic,strong) MDBarrelDistortionMesh* object3D;
 @property (nonatomic,strong) MD360Director* mDirector;
 @property (nonatomic,strong) MDDrawingCache* mDrawingCache;
 @property (nonatomic,strong) MDDisplayStrategyManager* mDisplayManager;
@@ -48,8 +49,7 @@
         self.mDrawingCache = [[MDDrawingCache alloc] init];
         self.mDirector = [[[MD360OrthogonalDirectorFactory alloc] init] createDirector:0];
         
-        self.mConfig = [[BarrelDistortionConfig alloc] init];
-        self.object3D = [[MDBarrelDistortionMesh alloc] initWithConfig:self.mConfig];
+        self.object3D = [[MDBarrelDistortionMesh alloc] initWithConfig:self.mDisplayManager.barrelDistortionConfig];
     }
     return self;
 }
@@ -72,6 +72,7 @@
     [self.mDirector updateProjection:w height:h];
     
     // obj3d setMode size
+    self.object3D.mode = size;
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [GLUtil glCheck:@"MDBarrelDistortionLinePipe glClear"];
@@ -107,6 +108,7 @@
 }
 
 @end
+
 
 @implementation MDBarrelDistortionMesh
 

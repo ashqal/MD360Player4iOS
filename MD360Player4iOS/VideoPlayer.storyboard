@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Video Player View Controller-->
@@ -15,18 +19,18 @@
                         <viewControllerLayoutGuide type="bottom" id="1uk-4g-PUu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dpa-wJ-1DC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaw-9T-25d">
-                                <rect key="frame" x="493" y="0.0" width="107" height="48"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="560" y="0.0" width="107" height="48"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="E3c-3o-Sl1"/>
                                     <constraint firstAttribute="width" constant="107" id="bKt-Mf-MVf"/>
                                 </constraints>
                                 <state key="normal" title="CLOSE">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="onCloseBtnClicked:" destination="him-Mf-4X0" eventType="touchUpInside" id="e0b-E6-NXH"/>
@@ -34,40 +38,52 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="062-pd-nf8">
                                 <rect key="frame" x="0.0" y="0.0" width="107" height="48"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="MzB-a6-gkm"/>
                                     <constraint firstAttribute="width" constant="107" id="aTo-lU-yVU"/>
                                 </constraints>
                                 <state key="normal" title="TOUCH">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQK-qX-kVx">
                                 <rect key="frame" x="115" y="0.0" width="107" height="48"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="107" id="BsM-0S-p85"/>
                                     <constraint firstAttribute="height" constant="48" id="XvF-Pz-tFq"/>
                                 </constraints>
                                 <state key="normal" title="NORMAL">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcr-tL-PM2">
                                 <rect key="frame" x="230" y="0.0" width="107" height="48"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="SPm-JB-q3c"/>
                                     <constraint firstAttribute="width" constant="107" id="cHU-IC-GUA"/>
                                 </constraints>
                                 <state key="normal" title="SPHERE">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7I8-fF-b9S">
+                                <rect key="frame" x="0.0" y="56" width="107" height="48"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="107" id="2r1-9X-Ea2"/>
+                                    <constraint firstAttribute="height" constant="48" id="OEO-35-Nu8"/>
+                                </constraints>
+                                <state key="normal" title="ANTI">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="7I8-fF-b9S" firstAttribute="top" secondItem="062-pd-nf8" secondAttribute="bottom" constant="8" id="1Nj-am-iAG"/>
                             <constraint firstItem="062-pd-nf8" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" id="1Nt-gn-ljC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Vaw-9T-25d" secondAttribute="trailing" constant="20" id="7jb-NX-gyk"/>
                             <constraint firstItem="xcr-tL-PM2" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" id="9JE-eM-fad"/>
@@ -93,6 +109,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="mAntiBtn" destination="7I8-fF-b9S" id="SH5-Zy-1dV"/>
                         <outlet property="mDisplayBtn" destination="TQK-qX-kVx" id="jbs-aF-N07"/>
                         <outlet property="mInteractiveBtn" destination="062-pd-nf8" id="XbT-kE-DdL"/>
                         <outlet property="mProjectionBtn" destination="xcr-tL-PM2" id="Cm9-u7-9CV"/>

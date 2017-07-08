@@ -138,6 +138,15 @@
     return self.projectionStrategyManager.mMode;
 }
 
+#pragma mark barrel distorion
+- (BOOL) isAntiDistortionEnabled {
+    return [self.displayStrategyManager isAntiDistortionEnabled];
+}
+
+- (void) setAntiDistortionEnabled:(BOOL)antiDistortionEnabled {
+    [self.displayStrategyManager setAntiDistortionEnabled:antiDistortionEnabled];
+}
+
 @end
 
 #pragma mark MDVRConfiguration
@@ -152,6 +161,7 @@
 @property (nonatomic,readonly) MDModeProjection projectionMode;
 @property (nonatomic,readonly) bool pinchEnabled;
 @property (nonatomic,readonly) id<MD360DirectorFactory> directorFactory;
+@property (nonatomic,readonly) BarrelDistortionConfig* barrelDistortionConfig;
 
 @end
 
@@ -217,6 +227,9 @@
     _directorFactory = directorFactory;
 }
 
+- (void) barrelDistortionConfig:(BarrelDistortionConfig*) config {
+    _barrelDistortionConfig = config;
+}
 
 - (MDVRLibrary*) build{
     if (self.directorFactory == nil) {
@@ -239,9 +252,20 @@
     MDProjectionStrategyConfiguration* projectionConfig = [[MDProjectionStrategyConfiguration alloc]init];
     projectionConfig.directorFactory = self.directorFactory;
     projectionConfig.sizeContext = library.sizeContext;
+    
+    // projectionStrategyManager
     library.projectionStrategyManager = [[MDProjectionStrategyManager alloc]initWithDefault:self.projectionMode config:projectionConfig];
+    
+    // interactiveStrategyManager
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
+    
+    // displayStrategyManager
     library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];
+    BarrelDistortionConfig* barrelDistortionConfig = self.barrelDistortionConfig != nil ? self.barrelDistortionConfig : [[BarrelDistortionConfig alloc] init];
+    library.displayStrategyManager.barrelDistortionConfig = barrelDistortionConfig;
+    [library.displayStrategyManager setAntiDistortionEnabled: barrelDistortionConfig.defaultEnabled];
+    
+    // setupStrategyManager
     [library setupStrategyManager];
     
     // setup plugin manager

@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "MDModeStrategy.h"
 #import <UIKit/UIKit.h>
+#import "BarrelDistortionConfig.h"
 
 @interface MDDisplayStrategyManager : MDModeManager
+@property (nonatomic, strong) BarrelDistortionConfig* barrelDistortionConfig;
 - (int) getVisibleSize;
 - (BOOL) isAntiDistortionEnabled;
+- (void) setAntiDistortionEnabled:(BOOL)antiDistortionEnabled;
 @end

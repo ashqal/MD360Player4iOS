@@ -13,6 +13,7 @@
 #import "MDVideoDataAdapter.h"
 #import "MDExt.h"
 #import "MDVRHeader.h"
+#import "BarrelDistortionConfig.h"
 
 typedef NS_ENUM(NSInteger, MDModeInteractive) {
     MDModeInteractiveTouch,
@@ -53,6 +54,7 @@ typedef NS_ENUM(NSInteger, MDModeProjection) {
 - (void) setContainer:(UIViewController*)vc;
 - (void) setContainer:(UIViewController*)vc view:(UIView*)view;
 - (void) setDirectorFactory:(id<MD360DirectorFactory>) directorFactory;
+- (void) barrelDistortionConfig:(BarrelDistortionConfig*) config;
 - (MDVRLibrary*) build;
 @end
 
@@ -71,4 +73,7 @@ typedef NS_ENUM(NSInteger, MDModeProjection) {
 - (void) switchProjectionMode;
 - (void) switchProjectionMode:(MDModeProjection)projectionMode;
 - (MDModeProjection) getProjectionMode;
+
+- (BOOL) isAntiDistortionEnabled;
+- (void) setAntiDistortionEnabled:(BOOL)antiDistortionEnabled;
 @end

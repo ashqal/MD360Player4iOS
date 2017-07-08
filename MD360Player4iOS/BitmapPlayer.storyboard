@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Bitmap Player View Controller-->
@@ -15,40 +19,40 @@
                         <viewControllerLayoutGuide type="bottom" id="1uk-4g-PUu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dpa-wJ-1DC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="062-pd-nf8">
                                 <rect key="frame" x="0.0" y="0.0" width="107" height="48"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="MzB-a6-gkm"/>
                                     <constraint firstAttribute="width" constant="107" id="aTo-lU-yVU"/>
                                 </constraints>
                                 <state key="normal" title="TOUCH">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQK-qX-kVx">
                                 <rect key="frame" x="115" y="0.0" width="107" height="48"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="107" id="BsM-0S-p85"/>
                                     <constraint firstAttribute="height" constant="48" id="XvF-Pz-tFq"/>
                                 </constraints>
                                 <state key="normal" title="NORMAL">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaw-9T-25d">
-                                <rect key="frame" x="493" y="0.0" width="107" height="48"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="560" y="0.0" width="107" height="48"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="E3c-3o-Sl1"/>
                                     <constraint firstAttribute="width" constant="107" id="bKt-Mf-MVf"/>
                                 </constraints>
                                 <state key="normal" title="CLOSE">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="onCloseBtnClicked:" destination="him-Mf-4X0" eventType="touchUpInside" id="e0b-E6-NXH"/>
@@ -56,17 +60,28 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Y6-Xn-nCS">
                                 <rect key="frame" x="230" y="0.0" width="107" height="48"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="107" id="TQK-3d-pbc"/>
                                     <constraint firstAttribute="height" constant="48" id="rAK-Sd-j0N"/>
                                 </constraints>
                                 <state key="normal" title="SPHERE">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cEN-g4-b4B">
+                                <rect key="frame" x="0.0" y="56" width="107" height="48"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="vKV-gX-zQm"/>
+                                    <constraint firstAttribute="width" constant="107" id="vcl-U2-aIS"/>
+                                </constraints>
+                                <state key="normal" title="ANTI">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7Y6-Xn-nCS" firstAttribute="leading" secondItem="TQK-qX-kVx" secondAttribute="trailing" constant="8" id="71A-rZ-cXa"/>
                             <constraint firstItem="TQK-qX-kVx" firstAttribute="leading" secondItem="062-pd-nf8" secondAttribute="trailing" constant="8" id="F4T-aC-yVw"/>
@@ -77,6 +92,7 @@
                             <constraint firstItem="062-pd-nf8" firstAttribute="leading" secondItem="dpa-wJ-1DC" secondAttribute="leadingMargin" constant="-20" id="jws-pq-826"/>
                             <constraint firstItem="TQK-qX-kVx" firstAttribute="leading" secondItem="062-pd-nf8" secondAttribute="trailing" constant="8" id="lIU-HV-7ab"/>
                             <constraint firstItem="062-pd-nf8" firstAttribute="top" secondItem="dpa-wJ-1DC" secondAttribute="topMargin" id="lKc-zU-jvI"/>
+                            <constraint firstItem="cEN-g4-b4B" firstAttribute="top" secondItem="062-pd-nf8" secondAttribute="bottom" constant="8" id="rTj-K7-F1E"/>
                             <constraint firstItem="062-pd-nf8" firstAttribute="leading" secondItem="dpa-wJ-1DC" secondAttribute="leadingMargin" constant="20" id="rrI-ml-LAr"/>
                         </constraints>
                         <variation key="default">
@@ -87,6 +103,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="mAntiBtn" destination="cEN-g4-b4B" id="g31-X9-nHt"/>
                         <outlet property="mDisplayBtn" destination="TQK-qX-kVx" id="jbs-aF-N07"/>
                         <outlet property="mInteractiveBtn" destination="062-pd-nf8" id="XbT-kE-DdL"/>
                         <outlet property="mProjectionBtn" destination="7Y6-Xn-nCS" id="IxI-Gy-7Kz"/>
