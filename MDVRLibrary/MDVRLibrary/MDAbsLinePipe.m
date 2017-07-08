@@ -17,7 +17,7 @@
 -(void) fireSetup:(EAGLContext*) context {
     if (!mIsInit) {
         [self setup:context];
-        mIsInit = NO;
+        mIsInit = YES;
     }
 }
 

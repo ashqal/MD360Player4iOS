@@ -8,8 +8,8 @@
 
 #import "MDAbsObject3D.h"
 
-static const int sNumRow = 1;
-static const int sNumColumn = 1;
+static const int sNumRow = 10;
+static const int sNumColumn = 10;
 
 @interface MDPlane(){
     float mPrevRatio;
@@ -94,7 +94,6 @@ static const int sNumColumn = 1;
             short k1 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
             short k2 = (short) ((r+1) * sectorsPlusOne + (s));    //(b)
             short k3 = (short) (r * sectorsPlusOne + s);       //(a);
-            
             short k4 = (short) ((r+1) * sectorsPlusOne + (s+1));  // (d)
             short k5 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
             
@@ -136,8 +135,8 @@ static const int sNumColumn = 1;
     int v = 0;
     for(r = 0; r < rows + 1; r++) {
         for (s = 0; s < columns + 1; s++) {
-            vertexs[v++] = (s * S - 0.5f) * width * 2.0f;
-            vertexs[v++] = (r * R - 0.5f) * height * 2.0f;
+            vertexs[v++] = (s * S) * width * 2.0f - 1.0f;
+            vertexs[v++] = (r * R) * height * 2.0f - 1.0f;
             vertexs[v++] = z;
         }
     }
@@ -159,7 +158,7 @@ static const int sNumColumn = 1;
     for(r = 0; r < rows + 1; r++) {
         for (s = 0; s < columns + 1; s++) {
             texcoords[t++] = s*S;
-            texcoords[t++] = r*R;
+            texcoords[t++] = 1 - r*R;
         }
     }
     

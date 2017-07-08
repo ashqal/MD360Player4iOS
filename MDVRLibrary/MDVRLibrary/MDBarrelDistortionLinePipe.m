@@ -14,12 +14,15 @@
 #import "MDAbsObject3D.h"
 #import "MDDrawingCache.h"
 #import "MDObject3DHelper.h"
+#import "BarrelDistortionConfig.h"
+#import "VRUtil.h"
 
 @interface MDBarrelDistortionMesh : MDAbsObject3D{
     float* mSingleTexCoorBuffer;
 }
 @property (nonatomic) int mode;
-
+@property (nonatomic, weak) BarrelDistortionConfig* mConfig;
+-(instancetype) initWithConfig:(BarrelDistortionConfig*) config;
 @end
 
 #pragma mark MDBarrelDistortionLinePipe
@@ -31,6 +34,7 @@
 @property (nonatomic,strong) MD360Director* mDirector;
 @property (nonatomic,strong) MDDrawingCache* mDrawingCache;
 @property (nonatomic,strong) MDDisplayStrategyManager* mDisplayManager;
+@property (nonatomic,strong) BarrelDistortionConfig* mConfig;
 @property (nonatomic) BOOL mEnabled;
 @end
 
@@ -40,14 +44,12 @@
     self = [super init];
     if (self) {
         self.mDisplayManager = displayManager;
-        self.mProgram = [[MDRGBAProgram alloc] init];
+        self.mProgram = [[MDRGBAFboProgram alloc] init];
         self.mDrawingCache = [[MDDrawingCache alloc] init];
         self.mDirector = [[[MD360OrthogonalDirectorFactory alloc] init] createDirector:0];
         
-        MDSizeContext* size = [[MDSizeContext alloc] init];
-        [size updateViewportWidth:100 height:100];
-        [size updateTextureWidth:100 height:100];
-        self.object3D = [[MDPlane alloc] initWithSize:size];
+        self.mConfig = [[BarrelDistortionConfig alloc] init];
+        self.object3D = [[MDBarrelDistortionMesh alloc] initWithConfig:self.mConfig];
     }
     return self;
 }
@@ -107,14 +109,21 @@
 @end
 
 @implementation MDBarrelDistortionMesh
-- (float*)getTextureBuffer:(int)index {
-    if(self.mode == 1) {
-        return mSingleTexCoorBuffer;
-    } else if (self.mode == 2) {
-        return [super getTextureBuffer:index];
-    } else {
-        return nil;
+
+- (instancetype)initWithConfig:(BarrelDistortionConfig *)config
+{
+    self = [super init];
+    if (self) {
+        self.mConfig = config;
     }
+    return self;
+}
+
+- (float*)getTextureBuffer:(int)index {
+    if (self.mode == 2) {
+        return [super getTextureBuffer:index];
+    }
+    return mSingleTexCoorBuffer;
 }
 
 - (void)executeLoad{
@@ -122,11 +131,13 @@
 }
 
 - (void) generateMesh:(MDAbsObject3D*) object3D{
-    int rows = 10;
-    int columns = 10;
+    int rows = 16;
+    int columns = 16;
     int numPoint = (rows + 1) * (columns + 1);
+    int numIndices = rows * columns;
+    
     short r, s;
-    float z = -8;
+    float z = -1;
     float R = 1.0f/(float) rows;
     float S = 1.0f/(float) columns;
     
@@ -135,7 +146,8 @@
     float* texcoords = malloc(sizeof(float) * numPoint * 2);
     float* texcoords1 = malloc(sizeof(float) * numPoint * 2);
     float* texcoords2 = malloc(sizeof(float) * numPoint * 2);
-    short* indices = malloc(sizeof(short) * numPoint * 6);
+    
+    short* indices = malloc(sizeof(short) * numIndices * 6);
     
     int t = 0;
     int v = 0;
@@ -145,19 +157,21 @@
             int tv = t++;
             
             texcoords[tu] = s*S;
-            texcoords[tv] = r*R;
+            texcoords[tv] = 1 - r*R;
             
             texcoords1[tu] = s*S*0.5f;
-            texcoords1[tv] = r*R;
+            texcoords1[tv] = 1 - r*R;
             
             texcoords2[tu] = s*S*0.5f + 0.5f;
-            texcoords2[tv] = r*R;
+            texcoords2[tv] = 1 - r*R;
             
-            vertexs[v++] = (s * S * 2 - 1);
-            vertexs[v++] = (r * R * 2 - 1);
+            vertexs[v++] = (s * S * 2.0f - 1.0f);
+            vertexs[v++] = (r * R * 2.0f - 1.0f);
             vertexs[v++] = z;
         }
     }
+    
+    [self applyBarrelDistortionNumPoint:numPoint vertexs:vertexs];
     
     int counter = 0;
     int sectorsPlusOne = columns + 1;
@@ -180,8 +194,8 @@
     }
     
     mSingleTexCoorBuffer = texcoords;
-    [object3D setNumIndices:numPoint * 6];
-    [object3D setIndicesBuffer:indices size:numPoint * 6];
+    [object3D setNumIndices:numIndices * 6];
+    [object3D setIndicesBuffer:indices size:numIndices * 6];
     [object3D setVertexIndex:0 buffer:vertexs size:numPoint * 3];
     [object3D setTextureIndex:0 buffer:texcoords1 size:numPoint * 2];
     [object3D setTextureIndex:1 buffer:texcoords2 size:numPoint * 2];
@@ -192,5 +206,23 @@
     free(indices);
 }
 
+-(void) applyBarrelDistortionNumPoint:(int) numPoint vertexs:(float*) vertexs {
+    float tmp[2];
+    
+    for (int i = 0; i < numPoint; i++){
+        int xIndex = i * 3;
+        int yIndex = i * 3 + 1;
+        float xValue = vertexs[xIndex];
+        float yValue = vertexs[yIndex];
+        tmp[0] = xValue;
+        tmp[1] = yValue;
+        
+        [VRUtil barrelDistortionA:self.mConfig.paramA b:self.mConfig.paramB c:self.mConfig.paramC src:tmp];
+            
+        vertexs[xIndex] = tmp[0] * self.mConfig.scale;
+        vertexs[yIndex] = tmp[1] * self.mConfig.scale;
+
+    }
+}
 
 @end

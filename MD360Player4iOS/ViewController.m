@@ -69,7 +69,7 @@
     [self launchAsVideo:[NSURL fileURLWithPath:path]];
 }
 - (IBAction)onImageButton:(id)sender {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"dome_pic" ofType:@"jpg"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"bitmap360" ofType:@"png"];
     [self launchAsImage:[NSURL fileURLWithPath:path]];
     //[self launchAsImage:[NSURL URLWithString:@"http://image5.tuku.cn/wallpaper/Landscape%20Wallpapers/8750_2560x1600.jpg"]];
 }

@@ -45,6 +45,8 @@
 		5EECBBA51EC40C8B0015D35B /* MDHitPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EECBBA41EC40C8B0015D35B /* MDHitPoint.m */; };
 		5EECBBA81EC40D2E0015D35B /* BarrelDistortionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EECBBA71EC40D2E0015D35B /* BarrelDistortionConfig.m */; };
 		5EECBBAB1EC4B5E10015D35B /* MDHotspot.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EECBBAA1EC4B5E10015D35B /* MDHotspot.m */; };
+		5EEF08071F10C27400CDACE6 /* MDRGBAFboProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEF08061F10C27400CDACE6 /* MDRGBAFboProgram.m */; };
+		5EEF080A1F10D0B900CDACE6 /* VRUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEF08091F10D0B900CDACE6 /* VRUtil.m */; };
 		5EF561C01D44FDCB0023A3DF /* MDPlaneScaleCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF561BF1D44FDCB0023A3DF /* MDPlaneScaleCalculator.m */; };
 		5EF561C21D44FFF60023A3DF /* MDPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF561C11D44FFF60023A3DF /* MDPlane.m */; };
 		5EF64E151D393D6F00F11A08 /* MDVideoFrameAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF64E141D393D6F00F11A08 /* MDVideoFrameAdapter.m */; };
@@ -132,6 +134,9 @@
 		5EECBBA71EC40D2E0015D35B /* BarrelDistortionConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarrelDistortionConfig.m; sourceTree = "<group>"; };
 		5EECBBA91EC4B5E10015D35B /* MDHotspot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDHotspot.h; sourceTree = "<group>"; };
 		5EECBBAA1EC4B5E10015D35B /* MDHotspot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDHotspot.m; sourceTree = "<group>"; };
+		5EEF08061F10C27400CDACE6 /* MDRGBAFboProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDRGBAFboProgram.m; sourceTree = "<group>"; };
+		5EEF08081F10D0B900CDACE6 /* VRUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VRUtil.h; sourceTree = "<group>"; };
+		5EEF08091F10D0B900CDACE6 /* VRUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VRUtil.m; sourceTree = "<group>"; };
 		5EF561BE1D44FDCB0023A3DF /* MDPlaneScaleCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDPlaneScaleCalculator.h; sourceTree = "<group>"; };
 		5EF561BF1D44FDCB0023A3DF /* MDPlaneScaleCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDPlaneScaleCalculator.m; sourceTree = "<group>"; };
 		5EF561C11D44FFF60023A3DF /* MDPlane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDPlane.m; sourceTree = "<group>"; };
@@ -194,6 +199,8 @@
 				5E1EE7281CBEA5ED004E0B79 /* MDVideoDataAdapter.h */,
 				5E2BBA6F1CE8BA5F00530898 /* MDTouchHelper.h */,
 				5E2BBA701CE8BA5F00530898 /* MDTouchHelper.m */,
+				5EEF08081F10D0B900CDACE6 /* VRUtil.h */,
+				5EEF08091F10D0B900CDACE6 /* VRUtil.m */,
 			);
 			path = MDVRLibrary;
 			sourceTree = "<group>";
@@ -237,6 +244,7 @@
 				5E1EE7181CBEA5ED004E0B79 /* MD360Program.m */,
 				5E6A43B71D369F1700E6BA74 /* MDRGBAProgram.m */,
 				5E6A43BA1D36A8C900E6BA74 /* MDYUV420PProgram.m */,
+				5EEF08061F10C27400CDACE6 /* MDRGBAFboProgram.m */,
 			);
 			name = program;
 			sourceTree = "<group>";
@@ -362,6 +370,7 @@
 				5E1EE7351CBEA5ED004E0B79 /* MDDisplayStrategy.m in Sources */,
 				5EA133EA1D4E3B850090B8AB /* MDAbsPlugin.m in Sources */,
 				5EECBBA51EC40C8B0015D35B /* MDHitPoint.m in Sources */,
+				5EEF080A1F10D0B900CDACE6 /* VRUtil.m in Sources */,
 				5EECBBA21EC40C730015D35B /* MDHitEvent.m in Sources */,
 				5E6A43B81D369F1700E6BA74 /* MDRGBAProgram.m in Sources */,
 				5E1EE7331CBEA5ED004E0B79 /* MD360Texture.m in Sources */,
@@ -384,6 +393,7 @@
 				5E1EE7391CBEA5ED004E0B79 /* MDVideoDataAdatperAVPlayerImpl.m in Sources */,
 				5EB70A591F08CE28008A8601 /* MDAbsLinePipe.m in Sources */,
 				5E6A43C21D37666500E6BA74 /* MDYUV420PVideoTexture.m in Sources */,
+				5EEF08071F10C27400CDACE6 /* MDRGBAFboProgram.m in Sources */,
 				5E6151C11D2768DD008DAD4E /* MDObject3DHelper.m in Sources */,
 				5EB70A5E1F08D36D008A8601 /* MDDrawingCache.m in Sources */,
 				5EF64E171D39421800F11A08 /* MDIJKAdapter.m in Sources */,

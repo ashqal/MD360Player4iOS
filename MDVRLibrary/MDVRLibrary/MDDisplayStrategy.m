@@ -69,7 +69,7 @@
 }
 
 - (BOOL) isAntiDistortionEnabled {
-    return NO;
+    return YES;
 }
 
 - (NSArray*) createModes{
