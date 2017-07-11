@@ -30,7 +30,6 @@
 @interface MDBarrelDistortionLinePipe(){
 }
 @property (nonatomic,strong) MD360Program* mProgram;
-@property (nonatomic,strong) MD360Texture* mTexture;
 @property (nonatomic,strong) MDBarrelDistortionMesh* object3D;
 @property (nonatomic,strong) MD360Director* mDirector;
 @property (nonatomic,strong) MDDrawingCache* mDrawingCache;
@@ -49,12 +48,18 @@
         self.mDrawingCache = [[MDDrawingCache alloc] init];
         self.mDirector = [[[MD360OrthogonalDirectorFactory alloc] init] createDirector:0];
         
+        MDSizeContext* size = [[MDSizeContext alloc] init];
+        [size updateTextureWidth:100 height:100];
+        [size updateViewportWidth:100 height:100];
+        
+        // self.object3D = [[MDPlane alloc] initWithSize:size];
         self.object3D = [[MDBarrelDistortionMesh alloc] initWithConfig:self.mDisplayManager.barrelDistortionConfig];
     }
     return self;
 }
 
 -(void) setup:(EAGLContext*) context {
+    
     [self.mProgram build];
     // todo load obj3d
     [MDObject3DHelper loadObj:self.object3D];
@@ -66,6 +71,7 @@
     if(!self.mEnabled) {
         return;
     }
+    // NSLog(@"takeOver");
     
     [self.mDrawingCache bindTotalWidth:w totalHeight:h];
     
@@ -73,6 +79,8 @@
     
     // obj3d setMode size
     self.object3D.mode = size;
+    
+    glActiveTexture(GL_TEXTURE1);
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [GLUtil glCheck:@"MDBarrelDistortionLinePipe glClear"];
@@ -82,6 +90,8 @@
     if(!self.mEnabled) {
         return;
     }
+    // NSLog(@"commit");
+    
     [self.mDrawingCache unbind];
     int width = w / size;
     for (int i = 0; i < size; i++){
@@ -104,7 +114,10 @@
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, [self.mDrawingCache getTextureOutput]);
+    glUniform1i(self.mProgram.mTextureUniformHandle[0], 0);
     [self.object3D onDraw];
+    
+    // NSLog(@"MDBarrelDistortionLinePipe draw");
 }
 
 @end

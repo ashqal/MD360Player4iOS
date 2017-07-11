@@ -90,12 +90,12 @@ static const int sNumColumn = 10;
         for(s = 0; s < columns; s++) {
             // d a c d a b
             
-            short k0 = (short) (r * sectorsPlusOne + s);       //(a);
-            short k1 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
-            short k2 = (short) ((r+1) * sectorsPlusOne + (s));    //(b)
-            short k3 = (short) (r * sectorsPlusOne + s);       //(a);
+            short k0 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
+            short k1 = (short) ((r+1) * sectorsPlusOne + (s));    //(b)
+            short k2 = (short) (r * sectorsPlusOne + s);       //(a);
+            short k3 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
             short k4 = (short) ((r+1) * sectorsPlusOne + (s+1));  // (d)
-            short k5 = (short) ((r) * sectorsPlusOne + (s+1));  // (c)
+            short k5 = (short) ((r+1) * sectorsPlusOne + (s));    //(b)
             
             indices[counter++] = k0;
             indices[counter++] = k1;

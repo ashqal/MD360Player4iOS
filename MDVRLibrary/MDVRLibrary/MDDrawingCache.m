@@ -45,11 +45,14 @@
     
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &mOriginalFrameBufferId);
     glBindFramebuffer(GL_FRAMEBUFFER, mFrameBufferId);
+    
+    // NSLog(@"bind:%d", mFrameBufferId);
 }
 
 -(void) unbind
 {
     glBindFramebuffer(GL_FRAMEBUFFER, mOriginalFrameBufferId);
+    // NSLog(@"bind:%d", mOriginalFrameBufferId);
 }
 
 -(GLuint) getTextureOutput
@@ -84,6 +87,7 @@
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &mOriginalFrameBufferId);
     
     //
+    
     glGenFramebuffers(1, &mFrameBufferId);
     glBindFramebuffer(GL_FRAMEBUFFER, mFrameBufferId);
     [GLUtil glCheck:@"Multi Fish Eye frame buffer"];
@@ -94,8 +98,8 @@
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, w, h);
     [GLUtil glCheck:@"Multi Fish Eye renderer buffer"];
     
-    glGenTextures(1, &mTextureIdOutput);
     glActiveTexture(GL_TEXTURE0);
+    glGenTextures(1, &mTextureIdOutput);
     glBindTexture(GL_TEXTURE_2D, mTextureIdOutput);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
