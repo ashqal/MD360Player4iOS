@@ -95,7 +95,6 @@ static float sNear = 0.7f;
     mModelMatrix = GLKMatrix4Identity;
     
     mCurrentRotation = GLKMatrix4Identity;
-    mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, GLKMathDegreesToRadians(-mDeltaY + mAngleY), 1.0f, 0.0f, 0.0f);
     
     mCurrentRotation = GLKMatrix4Rotate(mCurrentRotation, GLKMathDegreesToRadians(-mDeltaX + mAngleX), 0.0f, 1.0f, 0.0f);
     
@@ -103,6 +102,8 @@ static float sNear = 0.7f;
     
     // set the accumulated rotation to the result.
     mAccumulatedRotation = mCurrentRotation;
+    
+    mModelMatrix = GLKMatrix4Rotate(mModelMatrix, GLKMathDegreesToRadians(-mDeltaY + mAngleY), 1.0f, 0.0f, 0.0f);
     
     // Rotate the cube taking the overall rotation into account.
     mTemporaryMatrix = GLKMatrix4Multiply(mModelMatrix, mAccumulatedRotation);
