@@ -13,6 +13,10 @@ pod 'MD360Player4iOS', '~> 1.0.0'
 ```
 
 ## Release Node
+**1.2.0**
+* reactor the project.
+* barrel distortion supported.
+
 **1.1.3.beta**
 * [Working-with-the-IJKPlayer-iOS-version](https://github.com/ashqal/MD360Player4iOS/wiki/Working-with-the-IJKPlayer-iOS-version)
 * Plane projection support.
