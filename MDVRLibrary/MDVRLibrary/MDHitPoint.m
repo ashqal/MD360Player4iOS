@@ -9,5 +9,6 @@
 #import "MDHitPoint.h"
 
 @implementation MDHitPoint
-
+- (void) asNotHit {}
+- (BOOL) isNotHit { return YES; }
 @end

@@ -27,6 +27,9 @@ static MDPosition* sOriginalPosition;
     }
     return sOriginalPosition;
 }
+
+-(GLKMatrix4) getMatrix { return GLKMatrix4Identity; }
+-(void) setRotationMatrix:(GLKMatrix4) mat {}
 @end
 
 #pragma mark MDOriginalPosition
