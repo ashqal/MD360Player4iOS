@@ -12,11 +12,13 @@
 #import "GLUtil.h"
 #import "MD360Director.h"
 #import "MDAbsPlugin.h"
+#import "MDAbsLinePipe.h"
 
 @interface MD360Renderer()
 @property (nonatomic,weak) MDDisplayStrategyManager* mDisplayStrategyManager;
 @property (nonatomic,weak) MDProjectionStrategyManager* mProjectionStrategyManager;
 @property (nonatomic,weak) MDPluginManager* mPluginManager;
+@property (nonatomic,strong) MDAbsLinePipe* mMainLinePipe;
 @end
 
 @implementation MD360Renderer
@@ -25,20 +27,13 @@
     return [[MD360RendererBuilder alloc]init];
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
 - (void)dealloc{
     
 }
 
-- (void) setup{
-    // nop
+- (void) setup {
+    //
+    self.mMainLinePipe = [[MDBarrelDistortionLinePipe alloc] initWith:self.mDisplayStrategyManager];
 }
 
 - (void) rendererOnCreated:(EAGLContext*)context{
@@ -73,18 +68,29 @@
     
     int size = [self.mDisplayStrategyManager getVisibleSize];
     int itemWidthPx = widthPx * 1.0 / size;
-    for (int i = 0; i < size; i++ ) {
     
+    // take over
+    [self.mMainLinePipe fireSetup:context];
+    [self.mMainLinePipe takeOverTotalWidth:widthPx totalHeight:heightPx size:size];
+    
+    NSArray* plugins = [self.mPluginManager getPlugins];
+    for (MDAbsPlugin* plugin in plugins) {
+        [plugin beforeRenderer:context totalW:widthPx totalH:heightPx];
+    }
+    
+    for (int i = 0; i < size; i++ ) {
         glViewport(itemWidthPx * i, 0, itemWidthPx, heightPx);
         glEnable(GL_SCISSOR_TEST);
         glScissor(itemWidthPx * i, 0, itemWidthPx, heightPx);
-        NSArray* plugins = [self.mPluginManager getPlugins];
+        
         for (MDAbsPlugin* plugin in plugins) {
             [plugin renderer:context index:i width:itemWidthPx height:heightPx];
         }
         
         glDisable(GL_SCISSOR_TEST);
     }
+    
+    [self.mMainLinePipe commitTotalWidth:widthPx totalHeight:heightPx size:size];
 }
 
 - (void) rendererOnDestroy:(EAGLContext*) context{
@@ -121,6 +127,7 @@
     renderer.mPluginManager = self.pluginManager;
     renderer.mProjectionStrategyManager = self.projectionStrategyManager;
     renderer.mDisplayStrategyManager = self.displayStrategyManager;
+    [renderer setup];
     return renderer;
 }
 

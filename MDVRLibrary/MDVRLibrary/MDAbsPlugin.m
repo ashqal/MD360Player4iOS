@@ -9,7 +9,9 @@
 #import "MDAbsPlugin.h"
 
 @implementation MDAbsPlugin
--(void) destroy{
-
-}
+- (void) setup:(EAGLContext *)context {}
+- (void) destroy{}
+- (void) resizeWidth:(int)width height:(int)height {}
+- (void) beforeRenderer:(EAGLContext*)context totalW:(float) totalW totalH:(float)totalH {}
+- (void) renderer:(EAGLContext*)context index:(int)index width:(int)width height:(int)height {}
 @end

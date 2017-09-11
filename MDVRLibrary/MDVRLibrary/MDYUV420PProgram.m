@@ -57,14 +57,14 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt709()
     [super use];
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     for (int i = 0; i < 3; ++i) {
-        glActiveTexture(GL_TEXTURE0 + i);
+        glActiveTexture(GL_TEXTURE1 + i);
         glBindTexture(GL_TEXTURE_2D, self.mTextureUniformHandle[i]);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         
-        glUniform1i(self.mTextureUniformHandle[i], i);
+        glUniform1i(self.mTextureUniformHandle[i], i + 1);
     }
     glUniformMatrix3fv(self.mColorConversionHandle, 1, GL_FALSE, MD_IJK_GLES2_getColorMatrix_bt709());
 }

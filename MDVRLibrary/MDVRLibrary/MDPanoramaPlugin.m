@@ -36,6 +36,10 @@
     [self.mTexture resizeViewport:width height:height];
 }
 
+- (void) beforeRenderer:(EAGLContext*)context totalW:(float) totalW totalH:(float)totalH {
+    
+}
+
 - (void) renderer:(EAGLContext*)context index:(int)index width:(int)width height:(int)height{
     // get directors
     NSArray* directors = nil;

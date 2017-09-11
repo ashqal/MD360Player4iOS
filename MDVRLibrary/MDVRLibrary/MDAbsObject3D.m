@@ -141,12 +141,11 @@ static int sPositionDataSize = 3;
     if ([self getIndices] != 0) {
         GLsizei count = self.mNumIndices;
         const GLvoid* indices = [self getIndices];
-        glDrawElements(GL_TRIANGLE_STRIP, count, GL_UNSIGNED_SHORT, indices);
+        glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_SHORT, indices);
     } else {
         glDrawArrays(GL_TRIANGLES, 0, self.mNumIndices);
     }
     // Draw
-    
     [GLUtil glCheck:@"glDrawArrays"];
 }
 

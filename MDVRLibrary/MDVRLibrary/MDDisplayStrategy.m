@@ -12,7 +12,6 @@
 
 #pragma mark MDDisplayStrategy
 @interface MDDisplayStrategy: NSObject<IMDModeStrategy>
-
 @end
 
 @implementation MDDisplayStrategy
@@ -47,6 +46,10 @@
 
 
 #pragma mark MDDisplayStrategyManager
+@interface MDDisplayStrategyManager()
+@property (nonatomic) BOOL antiDistortionEnabled;
+@end
+
 @implementation MDDisplayStrategyManager
 
 - (id<IMDModeStrategy>) createStrategy:(int)mode{
@@ -66,6 +69,14 @@
 - (int) getVisibleSize{
     MDDisplayStrategy* strategy = self.mStrategy;
     return [strategy getVisibleSize];
+}
+
+- (BOOL) isAntiDistortionEnabled {
+    return _antiDistortionEnabled;
+}
+
+- (void) setAntiDistortionEnabled:(BOOL)antiDistortionEnabled {
+    _antiDistortionEnabled = antiDistortionEnabled;
 }
 
 - (NSArray*) createModes{
