@@ -80,8 +80,6 @@
     // obj3d setMode size
     self.object3D.mode = size;
     
-    glActiveTexture(GL_TEXTURE1);
-    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [GLUtil glCheck:@"MDBarrelDistortionLinePipe glClear"];
 }
