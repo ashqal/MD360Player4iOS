@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "MDVRHeader.h"
 
+
+
+@protocol MDYUV420PProgramHardCodecProtocol<NSObject>
+
+- (void)setYTexture:(GLuint)YTexture UVTexture:(GLuint)UVTexture colorConversionMatrix:(GLfloat*)colorConversionMatrix;
+- (void)switchHardCodec:(BOOL)hardCodec;
+@end
 @interface MD360Program : NSObject<IMDDestroyable>{
     GLuint vertexShaderHandle,fragmentShaderHandle;
     

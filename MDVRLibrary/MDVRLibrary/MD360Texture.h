@@ -34,6 +34,12 @@
 @end
 
 @interface MDYUV420PVideoTexture : MD360Texture
+{
+    CVOpenGLESTextureRef        mLumaTexture;
+    CVOpenGLESTextureRef        mChromaTexture;
+    CVOpenGLESTextureCacheRef   mVideoTextureCache;
+    CFTypeRef                   mColorAttachments;
+}
 + (MD360Texture*) createWithProvider:(id<IMDYUV420PProvider>) provider;
 @end
 
