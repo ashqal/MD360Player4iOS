@@ -46,7 +46,12 @@
 // undefine
 #define SDL_FCC_UNDF    SDL_FOURCC('U', 'N', 'D', 'F')    /**< undefined */
 
+const GLfloat *MD_IJK_GLES2_getColorMatrix_bt709();
+const GLfloat *MD_IJK_GLES2_getColorMatrix_bt601();
 @interface MDYUV420PVideoTexture()<YUV420PTextureCallback>
+{
+    float *mColorConversionMatrix;
+}
 @property (nonatomic,strong) id<IMDYUV420PProvider> mProvider;
 @property (nonatomic) GLuint* textures;
 @property (nonatomic) BOOL mRendererBegin;
@@ -56,6 +61,16 @@
 
 @implementation MDYUV420PVideoTexture
 //
+
+- (void)dealloc
+{
+    [self destroy];
+    if (mColorAttachments != nil) {
+        CFRelease(mColorAttachments);
+        mColorAttachments = nil;
+    }
+}
+
 - (instancetype)initWithProvider: (id<IMDYUV420PProvider>)provider {
     self = [super init];
     if (self) {
@@ -78,6 +93,122 @@
     }
 }
 
+
+- (void)clearTexture
+{
+    if (mLumaTexture) {
+        CFRelease(mLumaTexture);
+        mLumaTexture = NULL;
+    }
+    
+    if (mChromaTexture) {
+        CFRelease(mChromaTexture);
+        mChromaTexture = NULL;
+    }
+    CVOpenGLESTextureCacheFlush(mVideoTextureCache, 0);
+}
+
+- (void)bindTextureHardCodec:(CVPixelBufferRef)pixelBuffer
+{
+    if (pixelBuffer == NULL) {
+        return;
+    }
+    if (mVideoTextureCache == NULL) {
+        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, [EAGLContext currentContext], NULL, &mVideoTextureCache);
+        if (err != noErr) {
+            //NSLog(@"Error at CVOpenGLESTextureCacheCreate %d", err);
+            return;
+        }
+    }
+    [self clearTexture];
+    CFTypeRef color_attachments = CVBufferGetAttachment(pixelBuffer, kCVImageBufferYCbCrMatrixKey, NULL);
+    //GLfloat *conversionMatrix = NULL;
+    if (color_attachments != mColorAttachments) {
+        if (mColorAttachments == nil) {
+            //glUniformMatrix3fv(mShaderProgram.getUm3ColorConvertion(), 1, GL_FALSE, IJK_GLES2_getColorMatrix_bt709());
+            glUniformMatrix3fv(self.program.mColorConversionHandle, 1, GL_FALSE,(const GLfloat*)MD_IJK_GLES2_getColorMatrix_bt709() );
+            mColorConversionMatrix = (GLfloat*)MD_IJK_GLES2_getColorMatrix_bt709();
+        } else if (mColorAttachments != nil && CFStringCompare((CFStringRef)color_attachments,(CFStringRef)mColorAttachments, 0) == kCFCompareEqualTo) {
+            // remain prvious color attachment
+        } else if (CFStringCompare((CFStringRef)color_attachments, kCVImageBufferYCbCrMatrix_ITU_R_709_2, 0) == kCFCompareEqualTo) {
+            glUniformMatrix3fv(self.program.mColorConversionHandle, 1, GL_FALSE,(const GLfloat*)MD_IJK_GLES2_getColorMatrix_bt709() );
+            mColorConversionMatrix = (GLfloat*)MD_IJK_GLES2_getColorMatrix_bt709();
+        } else if (CFStringCompare((CFStringRef)color_attachments, kCVImageBufferYCbCrMatrix_ITU_R_601_4, 0) == kCFCompareEqualTo) {
+            glUniformMatrix3fv(self.program.mColorConversionHandle, 1, GL_FALSE,(const GLfloat*)MD_IJK_GLES2_getColorMatrix_bt601() );
+            mColorConversionMatrix = (GLfloat*)MD_IJK_GLES2_getColorMatrix_bt601();
+        } else {
+            glUniformMatrix3fv(self.program.mColorConversionHandle, 1, GL_FALSE,(const GLfloat*)MD_IJK_GLES2_getColorMatrix_bt709() );
+            mColorConversionMatrix = (GLfloat*)MD_IJK_GLES2_getColorMatrix_bt709();
+        }
+        
+        if (mColorAttachments != nil) {
+            CFRelease(mColorAttachments);
+            mColorAttachments = nil;
+        }
+        if (color_attachments != nil) {
+            mColorAttachments = CFRetain(color_attachments);
+        }
+    }
+    GLsizei  width  = (GLsizei)CVPixelBufferGetWidth(pixelBuffer);
+    GLsizei  height = (GLsizei)CVPixelBufferGetHeight(pixelBuffer);
+    CVReturn err;
+    glActiveTexture(GL_TEXTURE0);
+    err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                       mVideoTextureCache,
+                                                       pixelBuffer,
+                                                       NULL,
+                                                       GL_TEXTURE_2D,
+                                                       GL_RED_EXT,
+                                                       width,
+                                                       height,
+                                                       GL_RED_EXT,
+                                                       GL_UNSIGNED_BYTE,
+                                                       0,
+                                                       &mLumaTexture);
+    if (err) {
+        NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+    }
+    GLuint lumaTextureName = CVOpenGLESTextureGetName(mLumaTexture);
+    glBindTexture(CVOpenGLESTextureGetTarget(mLumaTexture),  lumaTextureName);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    
+    // UV-plane.
+    glActiveTexture(GL_TEXTURE1);
+    err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                       mVideoTextureCache,
+                                                       pixelBuffer,
+                                                       NULL,
+                                                       GL_TEXTURE_2D,
+                                                       GL_RG_EXT,
+                                                       width/2,
+                                                       height/2,
+                                                       GL_RG_EXT,
+                                                       GL_UNSIGNED_BYTE,
+                                                       1,
+                                                       &mChromaTexture);
+    GLuint chromaTextureName = CVOpenGLESTextureGetName(mChromaTexture);
+    glBindTexture(CVOpenGLESTextureGetTarget(mChromaTexture), chromaTextureName);
+    
+    if (err) {
+        NSLog(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", err);
+    }
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    if ([self.program conformsToProtocol:@protocol(MDYUV420PProgramHardCodecProtocol)]) {
+        id<MDYUV420PProgramHardCodecProtocol>  hardCodecP = (id<MDYUV420PProgramHardCodecProtocol>)self.program;
+        [hardCodecP switchHardCodec:YES];
+        [hardCodecP setYTexture:lumaTextureName UVTexture:chromaTextureName colorConversionMatrix:mColorConversionMatrix];
+    }
+    
+    
+}
+
 - (void) texture:(MDVideoFrame*)frame{
     dispatch_sync(dispatch_get_main_queue(), ^{
         int     planes[3]    = { 0, 1, 2 };
@@ -86,41 +217,56 @@
         const GLubyte *pixels[3]   = { frame->pixels[0],  frame->pixels[1],  frame->pixels[2] };
         
         switch (frame->format) {
-            case SDL_FCC_I420:
-                break;
-            case SDL_FCC_YV12:
+                
+            case SDL_FCC_YV12:{
                 planes[1] = 2;
                 planes[2] = 1;
-                break;
+            }
+            case SDL_FCC_I420:{
+                if ([self.program conformsToProtocol:@protocol(MDYUV420PProgramHardCodecProtocol)]) {
+                    id<MDYUV420PProgramHardCodecProtocol>  hardCodecP = (id<MDYUV420PProgramHardCodecProtocol>)self.program;
+                    [hardCodecP switchHardCodec:NO];
+                }
+                if ([self beginCommit]) {
+                    for (int i = 0; i < 3; ++i) {
+                        int plane = planes[i];
+                        glBindTexture(GL_TEXTURE_2D, self.program.mTextureUniformHandle[i]);
+                        glTexImage2D(GL_TEXTURE_2D,
+                                     0,
+                                     GL_LUMINANCE,
+                                     widths[plane],
+                                     heights[plane],
+                                     0,
+                                     GL_LUMINANCE,
+                                     GL_UNSIGNED_BYTE,
+                                     pixels[plane]);
+                    }
+                    [self postCommit];
+                    
+                    self.mRendererBegin = YES;
+                    [self.sizeContext updateTextureWidth:frame->w height:frame->h];
+                }
+            }break;
+            case SDL_FCC__VTB:{
+                if ([self beginCommit]) {
+                    [self bindTextureHardCodec:frame->buffer];
+                    [self postCommit];
+                    self.mRendererBegin = YES;
+                    [self.sizeContext updateTextureWidth:frame->w height:frame->h];
+                }
+            }break;
             default:
                 NSLog(@"[yuv420p] unexpected format %x\n", frame->format);
                 return;
         }
         
-        if ([self beginCommit]) {
-            for (int i = 0; i < 3; ++i) {
-                int plane = planes[i];
-                glBindTexture(GL_TEXTURE_2D, self.program.mTextureUniformHandle[i]);
-                glTexImage2D(GL_TEXTURE_2D,
-                             0,
-                             GL_LUMINANCE,
-                             widths[plane],
-                             heights[plane],
-                             0,
-                             GL_LUMINANCE,
-                             GL_UNSIGNED_BYTE,
-                             pixels[plane]);
-            }
-            [self postCommit];
-            
-            self.mRendererBegin = YES;
-            [self.sizeContext updateTextureWidth:frame->w height:frame->h];
-        }
+        
     });
 }
 
 - (void)destroy{
     [super destroy];
+    [self clearTexture];
     self.mProvider = nil;
 }
 
