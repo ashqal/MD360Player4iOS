@@ -40,3 +40,7 @@
 @interface MDYUV420PProgram : MD360Program
 
 @end
+
+@interface MDRGBAFboProgram : MD360Program
+
+@end

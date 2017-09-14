@@ -41,8 +41,13 @@
 - (MD360Director*) createDirector:(int) index;
 @end
 
-#pragma mark MD360DirectorFactory
+#pragma mark MD360DefaultDirectorFactory
 @interface MD360DefaultDirectorFactory : NSObject<MD360DirectorFactory>
+
+@end
+
+#pragma mark MD360OrthogonalDirectorFactory
+@interface MD360OrthogonalDirectorFactory : NSObject<MD360DirectorFactory>
 
 @end
 

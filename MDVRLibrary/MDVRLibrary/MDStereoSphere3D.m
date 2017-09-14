@@ -8,9 +8,7 @@
 
 #import "MDAbsObject3D.h"
 
-@interface MDStereoSphere3D(){
-    float* mTextureBuffer2;
-}
+@interface MDStereoSphere3D()
 @end
 
 @implementation MDStereoSphere3D
@@ -19,42 +17,14 @@
     return nil;
 }
 
-- (void) destroy {
-    [super destroy];
-    if (mTextureBuffer2 != NULL)  free(mTextureBuffer2);
-    mTextureBuffer2 = NULL;    
-}
-
-- (float*)getTextureBuffer:(int)index{
-    if (index == 1) {
-        return mTextureBuffer2;
-    } else {
-        return [super getTextureBuffer:index];
-    }
-}
-
-- (void)uploadTexCoordinateBufferIfNeed:(MD360Program*) program index:(int)index{
-    [self markTexCoordinateChanged];
-    [super uploadTexCoordinateBufferIfNeed:program index:index];
-}
-
-
 - (void)executeLoad{
-    generateStereoSphere(18,128,self);
-    
-    [self markChanged];
-}
-
-- (void)setTextureBuffer2:(float*)buffer size:(int)size{
-    int size_t = sizeof(float)*size;
-    mTextureBuffer2 = malloc(size_t);
-    memcpy(mTextureBuffer2, buffer, size_t);
+    [MDStereoSphere3D generateStereoSphere:18 numSlices:128 object3D:self];
 }
 
 #define ES_PI  (3.14159265f)
 
 #pragma mark generate sphere
-int generateStereoSphere (float radius, int numSlices, MDStereoSphere3D* object3D) {
++ (int)generateStereoSphere:(float)radius numSlices:(int)numSlices object3D:(MDAbsObject3D*) object3D {
     int i;
     int j;
     int numParallels = numSlices / 2;
@@ -109,9 +79,9 @@ int generateStereoSphere (float radius, int numSlices, MDStereoSphere3D* object3
     }
     
     [object3D setIndicesBuffer:indices size:numIndices];
-    [object3D setTextureBuffer:texCoords size:2 * numVertices];
-    [object3D setTextureBuffer2:texCoords2 size:2 * numVertices];
-    [object3D setVertexBuffer:vertices size: 3 * numVertices];
+    [object3D setTextureIndex:0 buffer:texCoords size:2 * numVertices];
+    [object3D setTextureIndex:1 buffer:texCoords2 size:2 * numVertices];
+    [object3D setVertexIndex:0 buffer:vertices size: 3 * numVertices];
     [object3D setNumIndices:numIndices];
     
     

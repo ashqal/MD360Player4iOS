@@ -171,7 +171,7 @@
 @implementation MDOrthogonalDirectorFactory
 
 - (MD360Director*) createDirector:(int) index{
-    MDOrthogonalDirector* director = [[MDOrthogonalDirector alloc]init];
+    MDOrthogonalDirector* director = [[MDOrthogonalDirector alloc] init];
     director.calculator = self.calculator;
     [director setup];
     return director;

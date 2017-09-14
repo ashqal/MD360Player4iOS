@@ -72,8 +72,8 @@ typedef struct
         }
     }
     
-    [output setVertexBuffer:vertexBuffer size:numVertex];
-    [output setTextureBuffer:textureBuffer size:numTexture];
+    [output setVertexIndex:0 buffer:vertexBuffer size:numVertex];
+    [output setTextureIndex:0 buffer:textureBuffer size:numTexture];
     [output setNumIndices:numIndex];
     
     free(vertexBuffer);
@@ -227,8 +227,8 @@ typedef struct
         textureBuffer[j * 1 + 1] = textureCoordinates[j].t;
     }
     
-    [output setVertexBuffer:vertexBuffer size:numVertex];
-    [output setTextureBuffer:textureBuffer size:numTexture];
+    [output setVertexIndex:0 buffer:vertexBuffer size:numVertex];
+    [output setTextureIndex:0 buffer:textureBuffer size:numTexture];
     [output setNumIndices:numIndices];
     
     free(vertexBuffer);

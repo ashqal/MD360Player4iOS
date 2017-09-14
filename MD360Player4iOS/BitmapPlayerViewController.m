@@ -47,7 +47,7 @@
     SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
     [downloader downloadImageWithURL:self.mURL options:0
                             progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                NSLog(@"progress:%ld/%ld",receivedSize,expectedSize);
+                                NSLog(@"progress:%ld/%ld",(long)receivedSize,(long)expectedSize);
                                 // progression tracking code
                             }
                            completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {

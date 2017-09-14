@@ -55,8 +55,7 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt601()
     
 }
 
-- (void)build_
-{
+- (void) build_ {
     [super build];
     
     NSString* vertexShader = [self getVertexShader];
@@ -83,8 +82,7 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt601()
     self.mTextureCoordinateHandle = glGetAttribLocation(self.mProgramHandle, "a_TexCoordinate");
 }
 
-- (void)buildHardCodec
-{
+- (void)buildHardCodec {
     [super build];
     
     NSString* vertexShader = [self getVertexShader];
@@ -112,10 +110,11 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt601()
 
 - (void) use {
     [super use];
+
     if (mHardCodec) {
         glUniformMatrix3fv(self.mColorConversionHandle, 1, GL_FALSE, mColorConversionMatrix);
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);//像素对齐
-        GLuint texture[2] = {mYTexture,mUVTexture};
+        GLuint texture[2] = {mYTexture, mUVTexture};
         for (int i = 0; i < 2; ++i) {
             glActiveTexture(GL_TEXTURE0 + i);
             glBindTexture(GL_TEXTURE_2D, texture[i]);
@@ -126,10 +125,7 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt601()
             
             glUniform1i(self.mTextureUniformHandle[i], i);
         }
-        
-    }
-    else
-    {
+    } else {
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);//像素对齐
         for (int i = 0; i < 3; ++i) {
             glActiveTexture(GL_TEXTURE0 + i);
@@ -143,10 +139,6 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt601()
         }
         glUniformMatrix3fv(self.mColorConversionHandle, 1, GL_FALSE, MD_IJK_GLES2_getColorMatrix_bt709());
     }
-    
-    
-    
-    //glUseProgram(0);
 }
 
 - (NSString*) getVertexShader {
@@ -164,7 +156,7 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt601()
     return [GLUtil readRawText:path];
 }
 
-- (int) getTextureUniformSize{
+- (int) getTextureUniformSize {
     if (mHardCodec) {
         return 2;
     }
@@ -173,25 +165,21 @@ const GLfloat *MD_IJK_GLES2_getColorMatrix_bt601()
 
 #pragma mark MDYUV420PProgramHardCodecProtocol
 
-- (void)switchHardCodec:(BOOL)hardCodec
-{
+- (void)switchHardCodec:(BOOL)hardCodec {
     if (self.mProgramHandle == 0 ) { //首次创建 program
         mHardCodec = hardCodec;
         if (mHardCodec) {
             [self buildHardCodec];
-        }
-        else{
+        } else {
             [self build_];
         }
-    }
-    else{
+    } else {
         if (mHardCodec != hardCodec) {
             mHardCodec = hardCodec;
             [self destroy];
             if (mHardCodec) {
                 [self buildHardCodec];
-            }
-            else{
+            } else {
                 [self build_];
             }
         }

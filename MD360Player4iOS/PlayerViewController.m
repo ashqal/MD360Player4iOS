@@ -71,9 +71,11 @@ typedef void(^PickerDoneBlock)(int key);
 @property (weak, nonatomic) IBOutlet UIButton *mInteractiveBtn;
 @property (weak, nonatomic) IBOutlet UIButton *mDisplayBtn;
 @property (weak, nonatomic) IBOutlet UIButton *mProjectionBtn;
+@property (weak, nonatomic) IBOutlet UIButton *mAntiBtn;
 @property (nonatomic, strong) PickerHelper* mInteractivePicker;
 @property (nonatomic, strong) PickerHelper* mDisplayPicker;
 @property (nonatomic, strong) PickerHelper* mProjectionPicker;
+@property (nonatomic, strong) PickerHelper* mAntiPicker;
 
 @end
 @implementation PlayerViewController
@@ -117,6 +119,11 @@ typedef void(^PickerDoneBlock)(int key);
                                    @"PLANE_FULL",[NSNumber numberWithInt:MDModeProjectionPlaneFull],
                                 nil];
     
+    NSDictionary* antiDic = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                   @"ENABLE",[NSNumber numberWithInt:1],
+                                   @"DISABLE",[NSNumber numberWithInt:0],
+                                   nil];
+    
     __block MDVRLibrary *blockVRLib = self.vrLibrary;
     
     self.mInteractivePicker = [[PickerHelper alloc] init];
@@ -135,6 +142,12 @@ typedef void(^PickerDoneBlock)(int key);
     [self.mProjectionPicker setData:projectionDic button:self.mProjectionBtn defaultKey:[self.vrLibrary getProjectionMode]];
     [self.mProjectionPicker setDoneBlock:^(int key){
         [blockVRLib switchProjectionMode:key];
+    }];
+    
+    self.mAntiPicker = [[PickerHelper alloc] init];
+    [self.mAntiPicker setData:antiDic button:self.mAntiBtn defaultKey:[self.vrLibrary isAntiDistortionEnabled] ? 1 : 0];
+    [self.mAntiPicker setDoneBlock:^(int key){
+        [blockVRLib setAntiDistortionEnabled: key == 1];
     }];
 }
 

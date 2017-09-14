@@ -16,14 +16,13 @@
 }
 
 - (void)executeLoad{
-    generateSphere(18,128,self);
-    [self markChanged];
+    [MDSphere3D generateSphere:18 numSlices:128 object3D:self];
 }
 
 #define ES_PI  (3.14159265f)
 
 #pragma mark generate sphere
-int generateSphere (float radius, int numSlices, MDAbsObject3D* object3D) {
++(int) generateSphere:(float) radius numSlices:(int)numSlices object3D:(MDAbsObject3D*) object3D {
     int i;
     int j;
     int numParallels = numSlices / 2;
@@ -72,8 +71,8 @@ int generateSphere (float radius, int numSlices, MDAbsObject3D* object3D) {
     }
     
     [object3D setIndicesBuffer:indices size:numIndices]; //object3D.setIndicesBuffer(indexBuffer);
-    [object3D setTextureBuffer:texCoords size: 2 * numVertices]; //object3D.setTexCoordinateBuffer(texBuffer);
-    [object3D setVertexBuffer:vertices size: 3 * numVertices]; //object3D.setVerticesBuffer(vertexBuffer);
+    [object3D setTextureIndex:0 buffer:texCoords size: 2 * numVertices]; //object3D.setTexCoordinateBuffer(texBuffer);
+    [object3D setVertexIndex:0 buffer:vertices size: 3 * numVertices]; //object3D.setVerticesBuffer(vertexBuffer);
     [object3D setNumIndices:numIndices];
     
     

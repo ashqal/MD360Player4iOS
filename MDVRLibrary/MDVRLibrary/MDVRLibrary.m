@@ -17,6 +17,7 @@
 #import "MDAbsObject3D.h"
 #import "MDProjectionStrategy.h"
 #import "MDVRHeader.h"
+#import "MDAbsPlugin.h"
 
 @interface MDVRLibrary()<IAdvanceGestureListener>
 @property (nonatomic,strong) MD360Texture* texture;
@@ -24,6 +25,7 @@
 @property (nonatomic,strong) MDInteractiveStrategyManager* interactiveStrategyManager;
 @property (nonatomic,strong) MDDisplayStrategyManager* displayStrategyManager;
 @property (nonatomic,strong) MDProjectionStrategyManager* projectionStrategyManager;
+@property (nonatomic,strong) MDPluginManager* pluginManager;
 @property (nonatomic,strong) MD360Renderer* renderer;
 @property (nonatomic,strong) MDTouchHelper* touchHelper;
 @property (nonatomic,strong) MDSizeContext* sizeContext;
@@ -64,15 +66,15 @@
     [self.displayStrategyManager prepare];
 }
 
+
 - (void) setupDisplay:(UIViewController*)viewController view:(UIView*)parentView{
     MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
     
     // renderer
     MD360RendererBuilder* builder = [MD360Renderer builder];
-    [builder setTexture:self.texture];
-    [builder setProgram:self.program];
     [builder setDisplayStrategyManager:self.displayStrategyManager];
     [builder setProjectionStrategyManager:self.projectionStrategyManager];
+    [builder setPluginManager:self.pluginManager];
     self.renderer = [builder build];
     glkViewController.rendererDelegate = self.renderer;
     
@@ -136,6 +138,15 @@
     return self.projectionStrategyManager.mMode;
 }
 
+#pragma mark barrel distorion
+- (BOOL) isAntiDistortionEnabled {
+    return [self.displayStrategyManager isAntiDistortionEnabled];
+}
+
+- (void) setAntiDistortionEnabled:(BOOL)antiDistortionEnabled {
+    [self.displayStrategyManager setAntiDistortionEnabled:antiDistortionEnabled];
+}
+
 @end
 
 #pragma mark MDVRConfiguration
@@ -150,6 +161,7 @@
 @property (nonatomic,readonly) MDModeProjection projectionMode;
 @property (nonatomic,readonly) bool pinchEnabled;
 @property (nonatomic,readonly) id<MD360DirectorFactory> directorFactory;
+@property (nonatomic,readonly) BarrelDistortionConfig* barrelDistortionConfig;
 
 @end
 
@@ -215,6 +227,9 @@
     _directorFactory = directorFactory;
 }
 
+- (void) barrelDistortionConfig:(BarrelDistortionConfig*) config {
+    _barrelDistortionConfig = config;
+}
 
 - (MDVRLibrary*) build{
     if (self.directorFactory == nil) {
@@ -227,6 +242,7 @@
     library.texture = self.texture;
     library.texture.sizeContext = library.sizeContext;
     
+    // program
     library.program = self.program;
     
     // parent view
@@ -236,10 +252,29 @@
     MDProjectionStrategyConfiguration* projectionConfig = [[MDProjectionStrategyConfiguration alloc]init];
     projectionConfig.directorFactory = self.directorFactory;
     projectionConfig.sizeContext = library.sizeContext;
+    
+    // projectionStrategyManager
     library.projectionStrategyManager = [[MDProjectionStrategyManager alloc]initWithDefault:self.projectionMode config:projectionConfig];
+    
+    // interactiveStrategyManager
     library.interactiveStrategyManager = [[MDInteractiveStrategyManager alloc]initWithDefault:self.interactiveMode];
+    
+    // displayStrategyManager
     library.displayStrategyManager = [[MDDisplayStrategyManager alloc]initWithDefault:self.displayMode];
+    BarrelDistortionConfig* barrelDistortionConfig = self.barrelDistortionConfig != nil ? self.barrelDistortionConfig : [[BarrelDistortionConfig alloc] init];
+    library.displayStrategyManager.barrelDistortionConfig = barrelDistortionConfig;
+    [library.displayStrategyManager setAntiDistortionEnabled: barrelDistortionConfig.defaultEnabled];
+    
+    // setupStrategyManager
     [library setupStrategyManager];
+    
+    // setup plugin manager
+    MDPanoramaPluginBuilder* pluginBuilder = [MDPanoramaPlugin builder];
+    [pluginBuilder setProgram:self.program];
+    [pluginBuilder setTexture:self.texture];
+    [pluginBuilder setProjectionStrategyManager:library.projectionStrategyManager];
+    library.pluginManager = [[MDPluginManager alloc]init];
+    [library.pluginManager add:[pluginBuilder build]];
     
     // touch
     library.touchHelper.pinchEnabled = self.pinchEnabled;

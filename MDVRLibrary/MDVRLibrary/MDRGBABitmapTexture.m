@@ -40,12 +40,16 @@
 
 - (GLuint) createTextureId {
     GLuint textureId;
-    glActiveTexture(GL_TEXTURE0);
     glGenTextures(1, &textureId);
     return textureId;
 }
 
 - (BOOL) updateTexture:(EAGLContext*)context{
+    if (self.textureId != 0) {
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, self.textureId);
+        glUniform1i(self.program.mTextureUniformHandle[0], 1);
+    }
     return YES;
 }
 
@@ -60,7 +64,7 @@
         [self beginCommit];
         
         // Bind to the texture in OpenGL
-        glActiveTexture(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, self.textureId);
         
         
@@ -75,7 +79,7 @@
         // Load the bitmap into the bound texture.
         [GLUtil texImage2D:image];
         
-        glUniform1i(self.program.mTextureUniformHandle[0], 0);
+        glUniform1i(self.program.mTextureUniformHandle[0], 1);
         
         GLuint width = (GLuint)CGImageGetWidth(image.CGImage);
         GLuint height = (GLuint)CGImageGetHeight(image.CGImage);

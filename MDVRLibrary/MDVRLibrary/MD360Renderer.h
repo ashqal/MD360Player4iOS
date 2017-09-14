@@ -8,18 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "MDGLRendererDelegate.h"
-#import "MD360Director.h"
-#import "MD360Texture.h"
 #import "MDVRHeader.h"
 #import "MDDisplayStrategy.h"
 #import "MDProjectionStrategy.h"
+#import "MDAbsPlugin.h"
 
 @class MD360Renderer;
 @interface MD360RendererBuilder : NSObject
-- (void) setTexture:(MD360Texture*) texture;
-- (void) setProgram:(MD360Program*) program;
 - (void) setDisplayStrategyManager:(MDDisplayStrategyManager*) displayStrategyManager;
 - (void) setProjectionStrategyManager:(MDProjectionStrategyManager*) projectionStrategyManager;
+- (void) setPluginManager:(MDPluginManager*) pluginManager;
 - (MD360Renderer*) build;
 @end
 
