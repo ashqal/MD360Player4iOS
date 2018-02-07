@@ -14,6 +14,7 @@
 #import "MDExt.h"
 #import "MDVRHeader.h"
 #import "BarrelDistortionConfig.h"
+#import "TextureProcessConfig.h"
 
 typedef NS_ENUM(NSInteger, MDModeInteractive) {
     MDModeInteractiveTouch,
@@ -55,6 +56,8 @@ typedef NS_ENUM(NSInteger, MDModeProjection) {
 - (void) setContainer:(UIViewController*)vc view:(UIView*)view;
 - (void) setDirectorFactory:(id<MD360DirectorFactory>) directorFactory;
 - (void) barrelDistortionConfig:(BarrelDistortionConfig*) config;
+- (void) setBarrelDistortionConfig:(BarrelDistortionConfig*) config;
+- (void) setTextureProcessConfig:(TextureProcessConfig*) config;
 - (MDVRLibrary*) build;
 @end
 

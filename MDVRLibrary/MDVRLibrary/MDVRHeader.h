@@ -17,6 +17,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MDExt.h"
+#import "IMDTextureProcessor.h"
 
 @protocol TextureCallback <NSObject>
 @required

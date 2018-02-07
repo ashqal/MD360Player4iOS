@@ -23,8 +23,10 @@
 
 -(void) takeOverTotalWidth:(int)w totalHeight:(int)h size:(int)size {}
 
--(void) commitTotalWidth:(int)w totalHeight:(int)h size:(int)size {}
+-(void) commitTotalWidth:(int)w totalHeight:(int)h size:(int)size texture:(GLint)texture {}
 
 -(void) setup: (EAGLContext*)context {}
+
+-(GLint) getTextureId { return 0; }
 
 @end

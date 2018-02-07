@@ -8,31 +8,38 @@
 
 #import "MDGLKViewController.h"
 #import "GLUtil.h"
+#import <GLKit/GLKit.h>
 
 @interface MDGLKViewController(){
     Boolean pendingToVisible;
     CGRect pendingFrame;
 }
 @property (nonatomic, strong) EAGLContext* context;
+@property (nonatomic, weak) EAGLSharegroup* group;
 @end
 
 @implementation MDGLKViewController
 
-- (void)dealloc{
-    
+- (instancetype)initWithSharedgroup:(EAGLSharegroup*) group
+{
+    self = [super init];
+    if (self) {
+        self.group = group;
+    }
+    return self;
+}
+
+- (void)dealloc {
     [self destroy:self.context];
     if ([EAGLContext currentContext] == self.context) {
         [EAGLContext setCurrentContext:nil];
     }
-    
-    
-    // self.context = nil;
 }
 
 - (void)viewDidLoad{
-    self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    self.preferredFramesPerSecond = 30.0f;
+    // self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:[[[GPUImageContext sharedImageProcessingContext] context] sharegroup]];
     
+    self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2 sharegroup:self.group];
     
     assert(self.context != nil);
     if ([EAGLContext setCurrentContext:self.context]) {

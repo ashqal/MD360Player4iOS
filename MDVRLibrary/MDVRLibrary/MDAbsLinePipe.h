@@ -13,7 +13,8 @@
 -(void) fireSetup:(EAGLContext*) context;
 -(void) setup:(EAGLContext*) context;
 -(void) takeOverTotalWidth:(int)w totalHeight:(int)h size:(int)size;
--(void) commitTotalWidth:(int)w totalHeight:(int)h size:(int)size;
+-(void) commitTotalWidth:(int)w totalHeight:(int)h size:(int)size texture:(GLint)texture;
+-(GLint) getTextureId;
 @end
 
 @interface MDBarrelDistortionLinePipe : MDAbsLinePipe

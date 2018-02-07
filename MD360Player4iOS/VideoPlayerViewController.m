@@ -8,26 +8,9 @@
 
 #import "VideoPlayerViewController.h"
 #import "MDVRLibrary.h"
-
-@interface CustomDirectorFactory : NSObject<MD360DirectorFactory>
-@end
-
-@implementation CustomDirectorFactory
-
-- (MD360Director*) createDirector:(int) index{
-    MD360Director* director = [[MD360Director alloc]init];
-    switch (index) {
-        case 1:
-            [director setEyeX:-2.0f];
-            [director setLookX:-2.0f];
-            break;
-        default:
-            break;
-    }
-    return director;
-}
-
-@end
+#import "GPUImage.h"
+#import "CustomDirectorFactory.h"
+#import "GPUImageTextureProcessor.h"
 
 @interface VideoPlayerViewController ()<VIMVideoPlayerDelegate>
 @property (nonatomic, strong) VIMVideoPlayer *player;
@@ -66,9 +49,17 @@
     [config displayMode:MDModeDisplayNormal];
     [config interactiveMode:MDModeInteractiveTouch];
     [config pinchEnabled:true];
-    [config setDirectorFactory:[[CustomDirectorFactory alloc]init]];
+    [config setDirectorFactory:[[CustomDirectorFactory alloc] init]];
+    [config setBarrelDistortionConfig:[[BarrelDistortionConfig alloc] init]];
+    
+    // gpuimage processor
+    TextureProcessConfig* textureProcessConfig = [[TextureProcessConfig alloc] init];
+    textureProcessConfig.sharegroup = [[[GPUImageContext sharedImageProcessingContext] context] sharegroup];
+    textureProcessConfig.processor = [[GPUImageTextureProcessor alloc] init];
+    [config setTextureProcessConfig:textureProcessConfig];
     
     self.vrLibrary = [config build];
+    [self.vrLibrary setAntiDistortionEnabled:YES];
     /////////////////////////////////////////////////////// MDVRLibrary
     
     [self.player play];
@@ -82,3 +73,4 @@
 }
 
 @end
+

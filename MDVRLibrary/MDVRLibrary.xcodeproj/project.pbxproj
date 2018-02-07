@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E146D35202B2E01000CF7C1 /* TextureProcessConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E146D34202B2E01000CF7C1 /* TextureProcessConfig.m */; };
 		5E1EE6DB1CBEA56B004E0B79 /* MDVRLibrary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */; };
 		5E1EE6DD1CBEA56B004E0B79 /* MDVRLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE6DC1CBEA56B004E0B79 /* MDVRLibrary.m */; };
 		5E1EE72F1CBEA5ED004E0B79 /* GLUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1EE7141CBEA5ED004E0B79 /* GLUtil.m */; };
@@ -68,6 +69,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5E146D33202B2E01000CF7C1 /* TextureProcessConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureProcessConfig.h; sourceTree = "<group>"; };
+		5E146D34202B2E01000CF7C1 /* TextureProcessConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextureProcessConfig.m; sourceTree = "<group>"; };
+		5E146DE3202B3540000CF7C1 /* IMDTextureProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMDTextureProcessor.h; sourceTree = "<group>"; };
 		5E18034B1D16FEEC00E579FD /* MDVRHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDVRHeader.h; sourceTree = "<group>"; };
 		5E1EE6D71CBEA56B004E0B79 /* libMDVRLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMDVRLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1EE6DA1CBEA56B004E0B79 /* MDVRLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDVRLibrary.h; sourceTree = "<group>"; };
@@ -257,6 +261,7 @@
 				5E6A43BF1D3765E700E6BA74 /* MDRGBABitmapTexture.m */,
 				5E6A43BD1D37657C00E6BA74 /* MDRGBAVideoTexture.m */,
 				5E6A43C11D37666500E6BA74 /* MDYUV420PVideoTexture.m */,
+				5E146DE3202B3540000CF7C1 /* IMDTextureProcessor.h */,
 			);
 			name = texture;
 			sourceTree = "<group>";
@@ -294,6 +299,8 @@
 				5EECBBA41EC40C8B0015D35B /* MDHitPoint.m */,
 				5EECBBA61EC40D2E0015D35B /* BarrelDistortionConfig.h */,
 				5EECBBA71EC40D2E0015D35B /* BarrelDistortionConfig.m */,
+				5E146D33202B2E01000CF7C1 /* TextureProcessConfig.h */,
+				5E146D34202B2E01000CF7C1 /* TextureProcessConfig.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -403,6 +410,7 @@
 				5E1EE7311CBEA5ED004E0B79 /* MD360Program.m in Sources */,
 				5ECD55C41D229B5900C01046 /* MDProjectionStrategy.m in Sources */,
 				5E2BBA711CE8BA5F00530898 /* MDTouchHelper.m in Sources */,
+				5E146D35202B2E01000CF7C1 /* TextureProcessConfig.m in Sources */,
 				5E59F63A1D242AFC002DADC9 /* MDStereoSphere3D.m in Sources */,
 				5EA133EF1D4E3E8F0090B8AB /* MDPanoramaPlugin.m in Sources */,
 				5E59F6381D242A6B002DADC9 /* MDSphere3D.m in Sources */,
@@ -496,6 +504,10 @@
 		5E1EE6E11CBEA56B004E0B79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MDVRLibrary/third",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -506,6 +518,10 @@
 		5E1EE6E21CBEA56B004E0B79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MDVRLibrary/third",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

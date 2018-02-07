@@ -18,7 +18,7 @@
 #import "VRUtil.h"
 
 #pragma mark MDBarrelDistortionMesh
-@interface MDBarrelDistortionMesh : MDAbsObject3D{
+@interface MDBarrelDistortionMesh : MDAbsObject3D {
     float* mSingleTexCoorBuffer;
 }
 @property (nonatomic) int mode;
@@ -30,7 +30,8 @@
 @interface MDBarrelDistortionLinePipe(){
 }
 @property (nonatomic,strong) MD360Program* mProgram;
-@property (nonatomic,strong) MDBarrelDistortionMesh* object3D;
+@property (nonatomic,strong) MDBarrelDistortionMesh* object3DAnti;
+@property (nonatomic,strong) MDPlane* object3DPlane;
 @property (nonatomic,strong) MD360Director* mDirector;
 @property (nonatomic,strong) MDDrawingCache* mDrawingCache;
 @property (nonatomic,strong) MDDisplayStrategyManager* mDisplayManager;
@@ -53,7 +54,8 @@
         [size updateViewportWidth:100 height:100];
         
         // self.object3D = [[MDPlane alloc] initWithSize:size];
-        self.object3D = [[MDBarrelDistortionMesh alloc] initWithConfig:self.mDisplayManager.barrelDistortionConfig];
+        self.object3DAnti = [[MDBarrelDistortionMesh alloc] initWithConfig:self.mDisplayManager.barrelDistortionConfig];
+        self.object3DPlane = [[MDPlane alloc] initWithSize:size];
     }
     return self;
 }
@@ -62,15 +64,12 @@
     
     [self.mProgram build];
     // todo load obj3d
-    [MDObject3DHelper loadObj:self.object3D];
+    [MDObject3DHelper loadObj:self.object3DAnti];
+    [MDObject3DHelper loadObj:self.object3DPlane];
 }
 
 -(void) takeOverTotalWidth:(int)w totalHeight:(int)h size:(int)size {
     // NSLog(@"MDBarrelDistortionLinePipe takeOverTotalWidth %d %d %d, enabled:%d", w, h, size, YES);
-    self.mEnabled = [self.mDisplayManager isAntiDistortionEnabled];
-    if(!self.mEnabled) {
-        return;
-    }
     // NSLog(@"takeOver");
     
     [self.mDrawingCache bindTotalWidth:w totalHeight:h];
@@ -78,44 +77,61 @@
     [self.mDirector updateProjection:w height:h];
     
     // obj3d setMode size
-    self.object3D.mode = size;
+    self.object3DAnti.mode = size;
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     [GLUtil glCheck:@"MDBarrelDistortionLinePipe glClear"];
 }
 
--(void) commitTotalWidth:(int)w totalHeight:(int)h size:(int)size {
-    if(!self.mEnabled) {
-        return;
-    }
+-(void) commitTotalWidth:(int)w totalHeight:(int)h size:(int)size texture:(GLint)texture {
     // NSLog(@"commit");
+    self.mEnabled = [self.mDisplayManager isAntiDistortionEnabled];
     
     [self.mDrawingCache unbind];
+    if (!self.mEnabled) {
+        size = 1;
+    }
+    
     int width = w / size;
     for (int i = 0; i < size; i++){
         glViewport(width * i, 0, width, h);
         glEnable(GL_SCISSOR_TEST);
         glScissor(width * i, 0, width, h);
-        [self draw:i];
+        [self draw:i texture:texture];
         glDisable(GL_SCISSOR_TEST);
     }
 }
 
--(void) draw:(int) index {
+-(void) draw:(int) index texture:(GLint)texture {
     [self.mProgram use];
     [GLUtil glCheck:@"MDBarrelDistortionLinePipe mProgram use"];
     
-    [self.object3D uploadVerticesBufferIfNeed:self.mProgram index:index];
-    [self.object3D uploadTexCoordinateBufferIfNeed:self.mProgram index:index];
+    if (self.mEnabled) {
+        [self.object3DAnti uploadVerticesBufferIfNeed:self.mProgram index:index];
+        [self.object3DAnti uploadTexCoordinateBufferIfNeed:self.mProgram index:index];
+    } else {
+        [self.object3DPlane uploadVerticesBufferIfNeed:self.mProgram index:index];
+        [self.object3DPlane uploadTexCoordinateBufferIfNeed:self.mProgram index:index];
+    }
     
     [self.mDirector shot:self.mProgram];
     
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, [self.mDrawingCache getTextureOutput]);
+    glBindTexture(GL_TEXTURE_2D, texture);
     glUniform1i(self.mProgram.mTextureUniformHandle[0], 0);
-    [self.object3D onDraw];
+    
+    if (self.mEnabled) {
+        [self.object3DAnti onDraw];
+    } else {
+        [self.object3DPlane onDraw];
+    }
+    
     
     // NSLog(@"MDBarrelDistortionLinePipe draw");
+}
+
+-(GLint) getTextureId {
+    return [self.mDrawingCache getTextureOutput];
 }
 
 @end

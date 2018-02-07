@@ -12,12 +12,14 @@
 #import "MDDisplayStrategy.h"
 #import "MDProjectionStrategy.h"
 #import "MDAbsPlugin.h"
+#import "IMDTextureProcessor.h"
 
 @class MD360Renderer;
 @interface MD360RendererBuilder : NSObject
 - (void) setDisplayStrategyManager:(MDDisplayStrategyManager*) displayStrategyManager;
 - (void) setProjectionStrategyManager:(MDProjectionStrategyManager*) projectionStrategyManager;
 - (void) setPluginManager:(MDPluginManager*) pluginManager;
+- (void) setTextureProcessor:(id<IMDTextureProcessor>) textureProcessor;
 - (MD360Renderer*) build;
 @end
 

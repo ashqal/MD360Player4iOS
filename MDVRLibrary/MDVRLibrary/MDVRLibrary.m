@@ -18,6 +18,7 @@
 #import "MDProjectionStrategy.h"
 #import "MDVRHeader.h"
 #import "MDAbsPlugin.h"
+#import <GLKit/GLKit.h>
 
 @interface MDVRLibrary()<IAdvanceGestureListener>
 @property (nonatomic,strong) MD360Texture* texture;
@@ -67,14 +68,16 @@
 }
 
 
-- (void) setupDisplay:(UIViewController*)viewController view:(UIView*)parentView{
-    MDGLKViewController* glkViewController = [[MDGLKViewController alloc] init];
+- (void) setupDisplay:(UIViewController*)viewController view:(UIView*)parentView config:(TextureProcessConfig*) config {
+    
+    MDGLKViewController* glkViewController = [[MDGLKViewController alloc] initWithSharedgroup:config.sharegroup];
     
     // renderer
     MD360RendererBuilder* builder = [MD360Renderer builder];
     [builder setDisplayStrategyManager:self.displayStrategyManager];
     [builder setProjectionStrategyManager:self.projectionStrategyManager];
     [builder setPluginManager:self.pluginManager];
+    [builder setTextureProcessor:config.processor];
     self.renderer = [builder build];
     glkViewController.rendererDelegate = self.renderer;
     
@@ -162,6 +165,7 @@
 @property (nonatomic,readonly) bool pinchEnabled;
 @property (nonatomic,readonly) id<MD360DirectorFactory> directorFactory;
 @property (nonatomic,readonly) BarrelDistortionConfig* barrelDistortionConfig;
+@property (nonatomic,readonly) TextureProcessConfig* textureProcessConfig;
 
 @end
 
@@ -228,7 +232,15 @@
 }
 
 - (void) barrelDistortionConfig:(BarrelDistortionConfig*) config {
+    [self setBarrelDistortionConfig:config];
+}
+
+- (void) setBarrelDistortionConfig:(BarrelDistortionConfig*) config {
     _barrelDistortionConfig = config;
+}
+
+- (void) setTextureProcessConfig:(TextureProcessConfig*) config {
+    _textureProcessConfig = config;
 }
 
 - (MDVRLibrary*) build{
@@ -280,7 +292,8 @@
     library.touchHelper.pinchEnabled = self.pinchEnabled;
     
     // display
-    [library setupDisplay:self.viewController view:self.view];
+    TextureProcessConfig* textureProcessConfig = self.textureProcessConfig != nil ? self.textureProcessConfig : [[TextureProcessConfig alloc] init];
+    [library setupDisplay:self.viewController view:self.view config:textureProcessConfig];
     
     // last step
     [library setup];

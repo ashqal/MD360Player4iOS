@@ -17,4 +17,6 @@
 @property (nonatomic,weak) id<MDGLRendererDelegate> rendererDelegate;
 @property (nonatomic,strong) NSString* name;
 // @property (nonatomic,weak) id<MDTouchDelegate> touchDelegate;
+
+- (instancetype)initWithSharedgroup:(EAGLSharegroup*) group;
 @end
