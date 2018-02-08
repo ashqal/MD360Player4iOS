@@ -24,11 +24,11 @@ typedef NS_ENUM(NSInteger, MDTextureProcessStep) {
 @property (nonatomic) BOOL inited;
 @property (nonatomic) MDTextureProcessStep step;
 @property (nonatomic) GLint textureResult;
+@property (nonatomic, strong) void (^block)() ;
 @end
 
 @implementation ProcessorData
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.step = MDTextureProcessStepNop;
@@ -36,9 +36,21 @@ typedef NS_ENUM(NSInteger, MDTextureProcessStep) {
     return self;
 }
 
--(void) processDone:(GLint) textureResult {
+- (void)dealloc {
+    self.block = nil;
+}
+
+-(void) processDone:(GLint)textureResult block:(void (^)())block {
     self.textureResult = textureResult;
     self.step = MDTextureProcessStepProcessed;
+    self.block = block;
+}
+
+-(void) done {
+    self.step = MDTextureProcessStepNop;
+    if (self.block) {
+        self.block();
+    }
 }
 @end
 
@@ -58,9 +70,7 @@ typedef NS_ENUM(NSInteger, MDTextureProcessStep) {
     return [[MD360RendererBuilder alloc]init];
 }
 
-- (void)dealloc{
-    
-}
+- (void)dealloc {}
 
 - (void) setup {
     //
@@ -145,7 +155,7 @@ typedef NS_ENUM(NSInteger, MDTextureProcessStep) {
         [GLUtil glCheck:@"glClear"];
         
         [self.mMainLinePipe commitTotalWidth:widthPx totalHeight:heightPx size:size texture:self.mProcessorData.textureResult];
-        self.mProcessorData.step = MDTextureProcessStepNop;
+        [self.mProcessorData done];
     }
     
 }

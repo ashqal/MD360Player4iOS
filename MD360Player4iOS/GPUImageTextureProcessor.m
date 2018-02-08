@@ -9,7 +9,7 @@
 #import "GPUImageTextureProcessor.h"
 @implementation GPUImageTextureProcessor
 
-- (void)dealloc {
+- (void) dealloc {
     self.gpuOutput.delegate = nil;
 }
 
@@ -33,14 +33,13 @@
 #pragma mark GPUImageTextureOutputDelegate delegate method
 - (void)newFrameReadyFromTextureOutput:(GPUImageTextureOutput *)callbackTextureOutput {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         NSLog(@"GPUImageTextureOutput:%d", callbackTextureOutput.texture);
         if (self.callback != nil) {
-            [self.callback processDone:callbackTextureOutput.texture];
+            [self.callback processDone:callbackTextureOutput.texture block:^{
+                [callbackTextureOutput doneWithTexture];
+            }];
             self.callback = nil;
         }
-        // todo: should call in the next main tick
-        [callbackTextureOutput doneWithTexture];
     });
 }
 @end

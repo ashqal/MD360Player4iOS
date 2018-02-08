@@ -79,8 +79,8 @@
     // obj3d setMode size
     self.object3DAnti.mode = size;
     
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    [GLUtil glCheck:@"MDBarrelDistortionLinePipe glClear"];
+    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // [GLUtil glCheck:@"MDBarrelDistortionLinePipe glClear"];
 }
 
 -(void) commitTotalWidth:(int)w totalHeight:(int)h size:(int)size texture:(GLint)texture {

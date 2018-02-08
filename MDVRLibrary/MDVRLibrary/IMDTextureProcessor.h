@@ -9,8 +9,10 @@
 #ifndef IMDTextureProcessor_h
 #define IMDTextureProcessor_h
 
+// @property(nonatomic, copy) void(^newFrameAvailableBlock)(void);
+
 @protocol IMDTextureProcessCallback <NSObject>
--(void) processDone:(GLint) textureResult;
+-(void) processDone:(GLint) textureResult block:(void (^)()) block;
 @end
 
 @protocol IMDTextureProcessor <NSObject>
