@@ -11,6 +11,8 @@
 @interface MDVideoDataAdatperAVPlayerImpl ()<AVPlayerItemOutputPullDelegate>
 @property (nonatomic, strong) AVPlayerItemVideoOutput* output;
 @property (nonatomic, strong) AVPlayerItem* playerItem;
+@property (nonatomic) int failures;
+@property (nonatomic) CMTime lastFailure;
 
 @end
 
@@ -66,7 +68,7 @@ static void *VideoPlayer_PlayerItemStatusContext = &VideoPlayer_PlayerItemStatus
     [self.playerItem addOutput:self.output];
 }
 
-- (void)teardown{
+- (void)teardown {
     if (self.playerItem != nil && self.output != nil) {
         [self.playerItem removeOutput:self.output];
         self.output = nil;
@@ -74,17 +76,29 @@ static void *VideoPlayer_PlayerItemStatusContext = &VideoPlayer_PlayerItemStatus
 }
 
 - (CVPixelBufferRef)copyPixelBuffer{
+    if (_failures == 10) {
+        if (self.output != nil) {
+           [self teardown];
+           [self setup];
+            _failures = 0;
+        }
+    }
+    
     if (self.output == nil) {
         return nil;
     }
     
     CMTime currentTime = [self.playerItem currentTime];
     if([self.output hasNewPixelBufferForItemTime:currentTime]){
+        _failures = 0;
         return [self.output copyPixelBufferForItemTime:currentTime itemTimeForDisplay:nil];
     } else {
+        if (_lastFailure.value != currentTime.value) {
+            _failures += 1;
+            _lastFailure = currentTime;
+        }
         return nil;
     }
-    
 }
 
 - (void)dealloc{
