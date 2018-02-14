@@ -200,7 +200,7 @@ See [BitmapPlayerViewController.m](https://github.com/ashqal/MD360Player4iOS/blo
 * or QQ Group<br/>
 ![QQ Group](https://cloud.githubusercontent.com/assets/5126517/15381968/5a0e56a2-1db7-11e6-986e-462d96dd5e02.jpeg)
 
-##LICENSE
+## LICENSE
 ```
 Copyright 2016 Asha
 

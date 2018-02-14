@@ -24,7 +24,7 @@ Please welcome: **ActionSheetPicker-3.0**!
 
 `pod 'ActionSheetPicker-3.0', '~> 2.2.0'` (**iOS 5.1.1-9.x** compatible!)
 
-##ActionSheetPicker = UIPickerView + UIActionSheet ##
+## ActionSheetPicker = UIPickerView + UIActionSheet  ##
 
 ![Animation](Screenshots/example.gif)
 
@@ -101,7 +101,7 @@ NSArray *colors = [NSArray arrayWithObjects:@"Red", @"Green", @"Blue", @"Orange"
 
  
  
-##Installation##
+## Installation ##
 
 ### CocoaPods
 
